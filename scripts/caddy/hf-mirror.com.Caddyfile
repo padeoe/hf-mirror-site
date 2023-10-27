@@ -1,0 +1,113 @@
+# TLS证书设置。单独使用本文件需取消注释并正确设置。
+# 以下是基于cloudflare的证书设置：
+# (tls_hf_com) {
+# 	tls {
+# 		dns cloudflare ***
+# 	}
+# }
+*.hf-mirror.com {
+        import tls_hf_com
+        redir https://hf-mirror.com
+}
+hf-mirror.com {
+	import tls_hf_com
+	log {
+		output file /var/log/caddy/hf-mirror.com/access.log {
+			roll_size 100M
+			roll_keep 5
+			roll_keep_for 720h
+		}
+	}
+	encode {
+		zstd
+		gzip
+		match {
+			header Content-Type text/*
+			header Content-Type application/json*
+			header Content-Type application/javascript*
+			header Content-Type application/xhtml+xml*
+			header Content-Type application/atom+xml*
+			header Content-Type application/rss+xml*
+			header Content-Type image/svg+xml*
+			header Content-Type image/vnd.microsoft.icon
+		}
+	}
+
+	@static {
+		path / /favicon.ico
+	}
+	route @static {
+		root * /var/www/html/hf-mirror.com/
+		file_server
+	}
+	route /front/assets/huggingface_logo-noborder.svg {
+		uri strip_prefix /front/assets/
+		root * /var/www/html/hf-mirror.com/logo/
+		file_server
+	}
+	skip_log /api/event
+	skip_log /front/*
+	skip_log /js/*
+	skip_log /avatars/*
+	route /api/event {
+		respond "OK"
+		skip_log
+	}
+
+	route /statistics {
+		reverse_proxy localhost:5000
+	}
+	@stats {
+		path /stats /stats/*
+	}
+	route @stats {
+		file_server {
+			root /var/www/html/hf-mirror.com/
+			index index.html
+		}
+	}
+	@model_path {
+		path_regexp .*/resolve/main/.*
+	}
+
+	header @model_path Cache-Control no-cache
+	@invlid_referer {
+		path_regexp .*/resolve/main/.*
+        	not header !Referer
+	        not header_regexp Referer ^https?://(\.*\.)?hf-mirror\.com(/|$)
+	}
+
+	route @invlid_referer {
+		rewrite * /invalid_referer.html
+	}
+
+	route /invalid_referer.html {
+		file_server {
+			root /var/www/html/hf-mirror.com/
+			index invalid_referer.html
+		}
+	}
+
+	@illegal {
+		path_regexp /.*([xX][jJ][pP]|[Xx][Ii][Jj][Ii][Nn]|[Jj][Ii][Nn][Pp][Ii][Nn]).*
+	}
+	route @illegal {
+		respond "invalid request" 403
+	}
+	route /login {
+		uri replace /login /login_error.html
+                file_server {
+                        root /var/www/html/hf-mirror.com/
+                }
+	}
+	route /* {
+		reverse_proxy https://huggingface.co {
+			header_up Accept-Encoding identity
+			header_up Host {upstream_hostport}
+			header_up -Referer
+			# header_up Referer hf-mirror.com huggingface.co
+			header_down Location cdn-lfs.huggingface.co cdn-lfs.hf-mirror.com
+			header_down Location cdn-lfs-us-1.huggingface.co cdn-lfs-us-1.hf-mirror.com
+		}
+	}
+}

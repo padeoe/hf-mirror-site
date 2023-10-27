@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hf-mirror.com - Huggingface 镜像站</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #f5f5f5, #e0e0e0);
+        }
+
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .search-input:hover,
+        .search-input:focus {
+            border-color: #007bff;
+            background-color: #fff;
+        }
+
+        .search-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .instructions {
+            margin-top: 20px;
+            line-height: 1.6;
+            border-left: 4px solid #007BFF;
+            padding-left: 15px;
+            background-color: #f7faff;
+            border-radius: 8px;
+        }
+
+        .instructions ol {
+            list-style-position: outside;
+        }
+
+        .code-sample {
+            background-color: #2d2d2d;
+            border: 1px solid #ddd;
+            color: #e6e6e6;
+            page-break-inside: avoid;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 1.6em;
+            max-width: 100%;
+            padding: 0.5em;
+            display: flex;
+            justify-content: space-between;
+            word-wrap: break-word;
+            border-radius: 8px;
+            align-items: center;
+            position: relative;
+            /* Add this line */
+        }
+
+        .code-sample code {
+            flex-grow: 2;
+            background-color: inherit;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            padding-top: 0.25em;
+            padding-bottom: 0.25em;
+            overflow: auto;
+            /* Add this line */
+        }
+
+        .code-sample button {
+            background-color: #007bff;
+            /* Change the background color */
+            color: white;
+            padding: 5px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: absolute;
+            right: 0.5em;
+            bottom: 0.5em;
+            top: 0.5em;
+        }
+
+        .instructions ol li pre {
+            margin-left: -20px;
+        }
+
+        .code-sample button:hover {
+            background-color: #007bff;
+        }
+
+        .contact {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            padding: 5px;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Add this part to your existing styles */
+        @media screen and (max-width: 600px) {
+            .contact {
+                padding: 3px;
+                font-size: 12px;
+            }
+        }
+
+        .contact a {
+            color: #6c757d !important;
+            text-decoration: none;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            background-color: #eef;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🤗 Huggingface 镜像站</h1>
+    </div>
+    <div class="container">
+
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="搜索模型..." id="searchKeyword">
+            <button class="search-button" onclick="searchModel()">🔍</button>
+        </div>
+
+        <div class="instructions">
+            <p>本站域名 <code><a href="https://hf-mirror.com" target="_blank"><strong>hf-mirror.com</strong></a></code>，用于镜像 <a
+                    href="https://huggingface.co" target="_blank">huggingface.co</a> 域名。使用方法：</p>
+            <ol>
+                <li>方法一：<b>我们推荐使用 huggingface 官方提供的 <a
+                            href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><b><code>huggingface-cli</code>
+                            </b></a>命令行工具进行模型文件的下载。</b><br><br>
+                    (1) 安装依赖
+                    <pre
+                        class="code-sample"><code>pip install -U huggingface_hub hf_transfer</code><button onclick="copyCode(this)">Copy</button></pre>
+                    (2) 基本命令示例：<br>
+                    <pre class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
+                    <pre
+                        class="code-sample"><code>huggingface-cli download --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
+
+                    如需提高下载速度，推荐设置环境变量开启<b><a href="https://github.com/huggingface/hf_transfer"><code>hf_tranfer</code></a></b>，官方的下载加速库，缺点是没有进度条。<br>
+                    <pre
+                    class="code-sample"><code>export HF_HUB_ENABLE_HF_TRANSFER=1</code><button onclick="copyCode(this)">Copy</button></pre>
+                    (3) <b>下载需要登录的模型（Gated Model）<br>
+
+                    </b>请添加<code>--token hf_***</code>参数，其中<code>hf_***</code>是 <i>access token</i>，请在<a
+                        href="https://huggingface.co/settings/tokens">huggingface官网这里</a>获取。示例：
+                    <pre
+                        class="code-sample"><code>huggingface-cli download --token hf_*** --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
+                </li>
+                <li>方法二：使用url直接下载时，将 <code>huggingface.co</code> 直接替换为本站域名<code>hf-mirror.com</code>。使用浏览器或者 wget -c、curl -L、aria2c 等命令行方式即可。<br>
+                    下载需登录的模型需命令行添加 <code>--header hf_***</code> 参数，token 获取具体参见上文。
+                </li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="contact">
+        <p> GitHub:
+            <a href="https://github.com/padeoe" target="_blank">padeoe</a>
+        </p>
+    </div>
+    <script>
+        function searchModel() {
+            const keyword = document.getElementById('searchKeyword').value.trim();
+            if (keyword) {
+                const url = `https://hf-mirror.com/models?search=${encodeURIComponent(keyword)}`;
+                window.open(url, '_blank');
+            }
+        }
+
+        document.getElementById('searchKeyword').addEventListener('keypress', function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();  // 阻止默认的Enter键行为
+                searchModel();
+            }
+        });
+    </script>
+    <script>
+        function copyCode(btn) {
+            const code = btn.previousElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4098528738253489"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

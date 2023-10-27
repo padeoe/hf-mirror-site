@@ -1,0 +1,65 @@
+lfs.hf-mirror.com {
+	import tls_hf_com
+	log {
+		output file /var/log/caddy/lfs.hf-mirror.com/access.log {
+			roll_size 100M
+			roll_keep 5
+			roll_keep_for 720h
+		}
+	}
+
+    route / {
+        redir https://hf-mirror.com
+    }
+	@invlid_referer {
+		path_regexp .*/resolve/main/.*
+			not header !Referer
+			not header_regexp Referer ^https?://hf-mirror\.com(/|$)
+			not header_regexp Referer ^https?://lfs\.hf-mirror\.com(/|$)
+	}
+
+	route @invlid_referer {
+		rewrite * /invalid_access.html
+	}
+
+	route /invalid_access.html {
+		file_server {
+			root /var/www/html/hf-mirror.com/
+			index invalid_access.html
+		}
+	}
+	route /repos/* {
+		reverse_proxy {
+			to https://1.i.hf-mirror.com https://2.i.hf-mirror.com https://3.i.hf-mirror.com https://4.i.hf-mirror.com https://5.i.hf-mirror.com https://6.i.hf-mirror.com
+			lb_policy round_robin
+			header_up Host {upstream_hostport}
+		}
+	}
+    route /* {
+        redir https://hf-mirror.com
+    }
+}
+
+https://*.i.hf-mirror.com {
+        import tls_hf_com
+        redir https://lfs{labels.3}.hf-mirror.com{uri}
+}
+
+lfs-us1.hf-mirror.com {
+	import tls_hf_com
+        log {
+                output file /var/log/caddy/lfs.hf-mirror.com/access.log {
+                        roll_size 100M
+                        roll_keep 5
+                        roll_keep_for 720h
+                }
+        }
+	route /repos/* {
+		reverse_proxy https://cdn-lfs-us-1.huggingface.co {
+			header_up Host {upstream_hostport}
+		}
+	}
+	route /* {
+        	redir https://hf-mirror.com
+	}
+}
