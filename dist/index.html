@@ -132,7 +132,7 @@
         .contact {
             background-color: #f8f9fa;
             color: #6c757d;
-            padding: 5px;
+            padding: 3px;
             text-align: center;
             position: fixed;
             left: 0;
@@ -182,6 +182,72 @@
         li {
             margin-bottom: 10px;
         }
+
+        .contact {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-left,
+        .contact-right {
+            margin: 0 10px;
+            /* 根据需要调整间距 */
+        }
+
+        .separator {
+            margin: 0 10px;
+        }
+
+        .separator {
+            border-left: 2px solid #ccc;
+            height: 20px;
+            /* 根据需要调整高度 */
+        }
+
+        .donate {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .donate-icon {
+            color: red;
+            margin-right: 5px;
+        }
+
+        .qrcode {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .qrcode img {
+            max-width: 300px;
+            /* 限制图片的最大宽度 */
+            max-height: 300px;
+            /* 限制图片的最大高度 */
+        }
+
+
+        .donate:hover .qrcode {
+            display: block;
+        }
+/* 
+        @media screen and (max-width: 600px) {
+            .donate .qrcode {
+                display: none !important;
+            }
+        }
+
+        .show-qrcode {
+            display: block !important;
+        } */
     </style>
 </head>
 
@@ -197,23 +263,27 @@
         </div>
 
         <div class="instructions">
-            <p>本站域名 <code><a href="https://hf-mirror.com" target="_blank"><strong>hf-mirror.com</strong></a></code>，用于镜像 <a
-                    href="https://huggingface.co" target="_blank">huggingface.co</a> 域名。使用方法：</p>
+            <p>本站域名 <code><a href="https://hf-mirror.com" target="_blank"><strong>hf-mirror.com</strong></a></code>，用于镜像
+                <a href="https://huggingface.co" target="_blank">huggingface.co</a> 域名。<br><br>更多用法和详细介绍参见<a
+                    href="https://padeoe.com/huggingface-large-models-downloader">这篇文章</a>。简介：
+            </p>
             <ol>
-                <li>方法一：<b>我们推荐使用 huggingface 官方提供的 <a
+                <li>方法一：使用<b>huggingface 官方提供的 <a
                             href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><b><code>huggingface-cli</code>
-                            </b></a>命令行工具进行模型文件的下载。</b><br><br>
+                            </b></a>命令行工具。</b><br><br>
                     (1) 安装依赖
                     <pre
                         class="code-sample"><code>pip install -U huggingface_hub hf_transfer</code><button onclick="copyCode(this)">Copy</button></pre>
                     (2) 基本命令示例：<br>
-                    <pre class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
+                    <pre
+                        class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
                     <pre
                         class="code-sample"><code>huggingface-cli download --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
 
-                    如需提高下载速度，推荐设置环境变量开启<b><a href="https://github.com/huggingface/hf_transfer"><code>hf_tranfer</code></a></b>，官方的下载加速库，缺点是没有进度条。<br>
+                    如需提高下载速度，推荐设置环境变量开启<b><a
+                            href="https://github.com/huggingface/hf_transfer"><code>hf_tranfer</code></a></b>，官方的下载加速库，缺点是没有进度条、容错性低（网络不稳定则容易报错）。<br>
                     <pre
-                    class="code-sample"><code>export HF_HUB_ENABLE_HF_TRANSFER=1</code><button onclick="copyCode(this)">Copy</button></pre>
+                        class="code-sample"><code>export HF_HUB_ENABLE_HF_TRANSFER=1</code><button onclick="copyCode(this)">Copy</button></pre>
                     (3) <b>下载需要登录的模型（Gated Model）<br>
 
                     </b>请添加<code>--token hf_***</code>参数，其中<code>hf_***</code>是 <i>access token</i>，请在<a
@@ -221,7 +291,8 @@
                     <pre
                         class="code-sample"><code>huggingface-cli download --token hf_*** --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
                 </li>
-                <li>方法二：使用url直接下载时，将 <code>huggingface.co</code> 直接替换为本站域名<code>hf-mirror.com</code>。使用浏览器或者 wget -c、curl -L、aria2c 等命令行方式即可。<br>
+                <li>方法二：使用url直接下载时，将 <code>huggingface.co</code> 直接替换为本站域名<code>hf-mirror.com</code>。使用浏览器或者 wget
+                    -c、curl -L、aria2c 等命令行方式即可。<br>
                     下载需登录的模型需命令行添加 <code>--header hf_***</code> 参数，token 获取具体参见上文。
                 </li>
             </ol>
@@ -229,15 +300,34 @@
 
     </div>
     <div class="contact">
-        <p> GitHub:
-            <a href="https://github.com/padeoe" target="_blank">padeoe</a>
-        </p>
+        <div class="contact-left">
+            <div class="donate">
+                <span class="donate-icon">❤️</span>
+                <a>捐赠支持</a>
+                <div class="qrcode">
+                    <img src="https://padeoe.com/wp-content/uploads/2023/09/图片_20231031172215.jpg" alt="捐赠二维码">
+                </div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="contact-right">
+            <p>GitHub：<a href="https://github.com/padeoe" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-github" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 5px;">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                    padeoe
+                </a></p>
+
+        </div>
     </div>
     <script>
         function searchModel() {
             const keyword = document.getElementById('searchKeyword').value.trim();
             if (keyword) {
-                const url = `https://hf-mirror.com/models?search=${encodeURIComponent(keyword)}`;
+                const domain = window.location.hostname;
+                const url = `https://${domain}/models?search=${encodeURIComponent(keyword)}`;
                 window.open(url, '_blank');
             }
         }
@@ -260,7 +350,26 @@
             });
         }
     </script>
+    <script>
+        // ... [other scripts]
 
+        document.addEventListener("DOMContentLoaded", function() {
+            const donateArea = document.querySelector('.donate');
+            const qrcode = document.querySelector('.qrcode');
+
+            // Detect if the user is on a mobile device
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                // On mobile, show QR code on click
+                donateArea.addEventListener('click', function() {
+                    qrcode.classList.toggle('show-qrcode');
+                });
+            } else {
+                // On PC, show QR code on hover is handled by CSS
+            }
+        });
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4098528738253489"
         crossorigin="anonymous"></script>
 
