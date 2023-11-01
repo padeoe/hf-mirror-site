@@ -18,6 +18,10 @@ hf-mirror.com {
                         roll_keep_for 720h
                 }
         }
+        skip_log /api/event
+        skip_log /front/*
+        skip_log /js/*
+        skip_log /avatars/*
         encode {
                 zstd
                 gzip
@@ -34,83 +38,54 @@ hf-mirror.com {
         }
 
         @static {
-                path / /favicon.ico
+                path / /favicon.ico /logo.svg /invalid_referer.html /login_error.html path /stats /stats/*
         }
-        route @static {
+        handle @static {
                 root * /var/www/html/hf-mirror.com/
                 file_server
         }
-        route /front/assets/huggingface_logo-noborder.svg {
-                uri strip_prefix /front/assets/
-                root * /var/www/html/hf-mirror.com/logo/
-                file_server
-        }
-        skip_log /api/event
-        skip_log /front/*
-        skip_log /js/*
-        skip_log /avatars/*
-        route /api/event {
+        rewrite /front/assets/huggingface_logo-noborder.svg /logo.svg
+
+        handle /api/event {
                 respond "OK"
                 skip_log
         }
 
-        route /statistics {
+        handle /statistics {
                 reverse_proxy localhost:5000
-        }
-        @stats {
-                path /stats /stats/*
-        }
-        route @stats {
-                file_server {
-                        root /var/www/html/hf-mirror.com/
-                        index index.html
-                }
         }
         @model_path {
                 path_regexp .*/resolve/main/.*
         }
-
         header @model_path Cache-Control no-cache
-        @invlid_referer {
+
+        @invalid_referer {
                 path_regexp .*/resolve/main/.*
                 not header !Referer
                 not header_regexp Referer ^https?://(\.*\.)?hf-mirror\.com(/|$)
         }
-
-        route @invlid_referer {
-                rewrite * /invalid_referer.html
-        }
-
-        route /invalid_referer.html {
-                file_server {
-                        root /var/www/html/hf-mirror.com/
-                        index invalid_referer.html
-                }
-        }
+        rewrite @invalid_referer /invalid_referer.html
 
         @illegal {
                 path_regexp /.*([xX][jJ][pP]|[Xx][Ii][Jj][Ii][Nn]|[Jj][Ii][Nn][Pp][Ii][Nn]).*
         }
-        route @illegal {
+        handle @illegal {
                 respond "invalid request" 403
         }
-        route /login {
-                uri replace /login /login_error.html
-                file_server {
-                        root /var/www/html/hf-mirror.com/
-                }
+
+        @auth {
+                path /login /join
         }
-        route /* {
-                reverse_proxy https://huggingface.co https://index1.hf-mirror.com {
-                        # header_up Accept-Encoding identity
+        rewrite @auth /login_error.html
+
+        handle /* {
+                reverse_proxy https://huggingface.co {
+                        header_up Accept-Encoding identity
                         header_up Host {upstream_hostport}
                         header_up -Referer
-                        header_up X-Real-IP {remote_host}
-                        header_up X-Forwarded-For {remote_host}
                         # header_up Referer hf-mirror.com huggingface.co
                         header_down Location cdn-lfs.huggingface.co cdn-lfs.hf-mirror.com
                         header_down Location cdn-lfs-us-1.huggingface.co cdn-lfs-us-1.hf-mirror.com
-                        lb_policy round_robin
                 }
         }
 }
