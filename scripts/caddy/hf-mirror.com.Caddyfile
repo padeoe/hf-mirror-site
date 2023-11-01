@@ -78,10 +78,24 @@ hf-mirror.com {
 		path /login /join
 	}
 	rewrite @auth /login_error.html
-
-	handle /* {
+	
+	@project_page {
+		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$')
+	}
+	handle @project_page {
+		replace stream {
+			https://huggingface.co https://hf-mirror.com
+		}
 		reverse_proxy https://huggingface.co {
 			header_up Accept-Encoding identity
+			header_up Host {upstream_hostport}
+			header_up -Referer
+			header_down Location cdn-lfs.huggingface.co cdn-lfs.hf-mirror.com
+			header_down Location cdn-lfs-us-1.huggingface.co cdn-lfs-us-1.hf-mirror.com
+		}
+	}
+	handle /* {
+		reverse_proxy https://huggingface.co {
 			header_up Host {upstream_hostport}
 			header_up -Referer
 			# header_up Referer hf-mirror.com huggingface.co
