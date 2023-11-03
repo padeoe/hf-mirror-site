@@ -142,7 +142,6 @@
             border-top: 1px solid #e0e0e0;
         }
 
-        /* Add this part to your existing styles */
         @media screen and (max-width: 600px) {
             .contact {
                 padding: 3px;
@@ -202,7 +201,6 @@
         .separator {
             border-left: 2px solid #ccc;
             height: 20px;
-            /* 根据需要调整高度 */
         }
 
         .donate {
@@ -229,25 +227,39 @@
 
         .qrcode img {
             max-width: 300px;
-            /* 限制图片的最大宽度 */
             max-height: 300px;
-            /* 限制图片的最大高度 */
         }
 
 
         .donate:hover .qrcode {
             display: block;
         }
-/* 
-        @media screen and (max-width: 600px) {
-            .donate .qrcode {
-                display: none !important;
-            }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 1000px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            z-index: 10;
         }
 
-        .show-qrcode {
-            display: block !important;
-        } */
+        .search-result-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .search-result-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .search-result-item.selected {
+            background-color: #e5e5e5;
+        }
     </style>
 </head>
 
@@ -257,15 +269,16 @@
     </div>
     <div class="container">
 
-        <div class="search-box">
-            <input type="text" class="search-input" placeholder="搜索模型..." id="searchKeyword">
+        <div class="search-box" style="position:relative;">
+            <input type="text" class="search-input" placeholder="搜索模型..." id="searchKeyword" autocomplete="off">
             <button class="search-button" onclick="searchModel()">🔍</button>
+            <div class="search-results" id="searchResults" style="display:none;"></div>
         </div>
 
         <div class="instructions">
             <p>本站域名 <code><a href="https://hf-mirror.com" target="_blank"><strong>hf-mirror.com</strong></a></code>，用于镜像
                 <a href="https://huggingface.co" target="_blank">huggingface.co</a> 域名。<br><br>更多用法和详细介绍参见<a
-                    href="https://padeoe.com/huggingface-large-models-downloader">这篇文章</a>。简介：
+                    href="https://zhuanlan.zhihu.com/p/663712983">这篇文章</a>。简介：
             </p>
             <ol>
                 <li>方法一：使用<b>huggingface 官方提供的 <a
@@ -289,7 +302,7 @@
                     </b>请添加<code>--token hf_***</code>参数，其中<code>hf_***</code>是 <i>access token</i>，请在<a
                         href="https://huggingface.co/settings/tokens">huggingface官网这里</a>获取。示例：
                     <pre
-                        class="code-sample"><code>huggingface-cli download --token hf_*** --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
+                        class="code-sample"><code>huggingface-cli download --token hf_*** --resume-download meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf</code><button onclick="copyCode(this)">Copy</button></pre>
                 </li>
                 <li>方法二：使用url直接下载时，将 <code>huggingface.co</code> 直接替换为本站域名<code>hf-mirror.com</code>。使用浏览器或者 wget
                     -c、curl -L、aria2c 等命令行方式即可。<br>
@@ -338,6 +351,70 @@
                 searchModel();
             }
         });
+        let debounceTimer;
+        const searchInput = document.getElementById('searchKeyword');
+        const searchResults = document.getElementById('searchResults');
+        let abortController; // variable to hold the abort controller
+
+        searchInput.addEventListener('input', function () {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(async function () {
+                const query = searchInput.value.trim();
+                if (query) {
+                    // cancel the previous request
+                    if (abortController) {
+                        abortController.abort();
+                    }
+
+                    // create a new abort controller
+                    abortController = new AbortController();
+
+                    try {
+                        const response = await fetch(`https://hf-mirror.com/api/quicksearch?q=${encodeURIComponent(query)}&type=all`, { signal: abortController.signal });
+                        const data = await response.json();
+                        let resultsHtml = '';
+                        ['models', 'datasets'].forEach(type => {
+                            if (data[type]) {
+                                resultsHtml += `<div><strong>${type}</strong></div>`;
+                                data[type].forEach(item => {
+                                    resultsHtml += `<div class="search-result-item" onclick="openLink('/${type === 'models' ? '' : type + '/'}${item.id}')">${item.id}</div>`;
+                                });
+                            }
+                        });
+                        searchResults.innerHTML = resultsHtml;
+                        searchResults.style.display = 'block';
+                    } catch (error) {
+                        if (error.name === 'AbortError') {
+                            // request was aborted, do nothing
+                        } else {
+                            // handle other errors
+                            console.error(error);
+                        }
+                    }
+                } else {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                }
+            }, 300);
+        });
+
+        searchInput.addEventListener('focus', function () {
+            if (searchInput.value.trim()) {
+                searchResults.style.display = 'block';
+            }
+        });
+
+        searchInput.addEventListener('blur', function () {
+            setTimeout(function () {
+                searchResults.style.display = 'none';
+            }, 100);
+        });
+
+        function openLink(url) {
+            const itemId = url.split('/').pop();
+            searchInput.value = itemId; // update the search input value
+            window.open(url, '_blank');
+        }
     </script>
     <script>
         function copyCode(btn) {
@@ -353,7 +430,7 @@
     <script>
         // ... [other scripts]
 
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const donateArea = document.querySelector('.donate');
             const qrcode = document.querySelector('.qrcode');
 
@@ -362,7 +439,7 @@
 
             if (isMobile) {
                 // On mobile, show QR code on click
-                donateArea.addEventListener('click', function() {
+                donateArea.addEventListener('click', function () {
                     qrcode.classList.toggle('show-qrcode');
                 });
             } else {
@@ -370,8 +447,43 @@
             }
         });
     </script>
+    <script>
+        let selectedIndex = -1; // variable to keep track of the selected item index
+
+        searchInput.addEventListener('keydown', function (event) {
+            const items = document.querySelectorAll('.search-result-item');
+            if (event.key === 'ArrowDown') {
+                // down arrow key
+                if (selectedIndex < items.length - 1) {
+                    selectedIndex++;
+                    items[selectedIndex].classList.add('selected');
+                    if (selectedIndex > 0) {
+                        items[selectedIndex - 1].classList.remove('selected');
+                    }
+                }
+            } else if (event.key === 'ArrowUp') {
+                // up arrow key
+                if (selectedIndex > 0) {
+                    selectedIndex--;
+                    items[selectedIndex].classList.add('selected');
+                    items[selectedIndex + 1].classList.remove('selected');
+                }
+            } else if (event.key === 'Enter') {
+                // enter key
+                if (selectedIndex > -1) {
+                    items[selectedIndex].click();
+                }
+            }
+        });
+
+        searchInput.addEventListener('input', function () {
+            // reset the selected index when the input value changes
+            selectedIndex = -1;
+            // ...
+        });</script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4098528738253489"
         crossorigin="anonymous"></script>
+
 
 </body>
 
