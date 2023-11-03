@@ -1,0 +1,254 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #f5f5f5, #e0e0e0);
+}
+
+.header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.search-input:hover,
+.search-input:focus {
+    border-color: #007bff;
+    background-color: #fff;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.instructions {
+    margin-top: 20px;
+    line-height: 1.6;
+    border-left: 4px solid #007BFF;
+    padding-left: 15px;
+    background-color: #f7faff;
+    border-radius: 8px;
+}
+
+.instructions ol {
+    list-style-position: outside;
+}
+
+.code-sample {
+    background-color: #2d2d2d;
+    border: 1px solid #ddd;
+    color: #e6e6e6;
+    page-break-inside: avoid;
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    padding: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    word-wrap: break-word;
+    border-radius: 8px;
+    align-items: center;
+    position: relative;
+    /* Add this line */
+}
+
+.code-sample code {
+    flex-grow: 2;
+    background-color: inherit;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    overflow: auto;
+    /* Add this line */
+}
+
+.code-sample button {
+    background-color: #007bff;
+    /* Change the background color */
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: absolute;
+    right: 0.5em;
+    bottom: 0.5em;
+    top: 0.5em;
+}
+
+.instructions ol li pre {
+    margin-left: -20px;
+}
+
+.code-sample button:hover {
+    background-color: #007bff;
+}
+
+.contact {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    padding: 3px;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    border-top: 1px solid #e0e0e0;
+}
+
+@media screen and (max-width: 600px) {
+    .contact {
+        padding: 3px;
+        font-size: 12px;
+    }
+}
+
+.contact a {
+    color: #6c757d !important;
+    text-decoration: none;
+}
+
+.contact a:hover {
+    text-decoration: underline;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    background-color: #eef;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+ol {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-left,
+.contact-right {
+    margin: 0 10px;
+    /* 根据需要调整间距 */
+}
+
+.separator {
+    margin: 0 10px;
+}
+
+.separator {
+    border-left: 2px solid #ccc;
+    height: 20px;
+}
+
+.donate {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.donate-icon {
+    color: red;
+    margin-right: 5px;
+}
+
+.qrcode {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.qrcode img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+
+.donate:hover .qrcode {
+    display: block;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 1000px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 10;
+}
+
+.search-result-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-item.selected {
+    background-color: #e5e5e5;
+}
