@@ -80,7 +80,7 @@ hf-mirror.com {
 	rewrite @auth /login_error.html
 	
 	@project_page {
-		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$')
+		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$') || path_regexp('.*/tree/main/?$') || path_regexp('.*/discussions/?$')
 	}
 	handle @project_page {
 		replace stream {
@@ -95,6 +95,7 @@ hf-mirror.com {
 		}
 	}
 	handle /* {
+		skip_log
 		reverse_proxy https://huggingface.co {
 			header_up Host {upstream_hostport}
 			header_up -Referer
