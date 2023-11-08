@@ -181,6 +181,7 @@ li {
 }
 
 .contact-left,
+.contact-center,
 .contact-right {
     margin: 0 10px;
     /* 根据需要调整间距 */
@@ -206,25 +207,29 @@ li {
     margin-right: 5px;
 }
 
-.qrcode {
+.contact-left, .contact-center, .contact-right {
+    position: relative; /* 添加这个属性 */
+}
+
+.qrcode, .groups_qrcode {
     display: none;
     position: absolute;
     bottom: 100%;
-    left: 0;
+    left: 50%; /* 可能需要调整这个值来使二维码框居中 */
+    transform: translateX(-50%); /* 这会使得二维码框居中 */
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.qrcode img {
+.qrcode img, .groups_qrcode img {
     max-width: 300px;
     max-height: 300px;
 }
 
-
-.donate:hover .qrcode {
-    display: block;
+.donate:hover .qrcode, .groups:hover .groups_qrcode {
+    display: block; /* 当鼠标悬停时显示二维码 */
 }
 
 .search-results {
