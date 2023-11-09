@@ -31,17 +31,12 @@
                             </b></a>命令行工具。</b><br><br>
                     (1) 安装依赖
                     <pre
-                        class="code-sample"><code>pip install -U huggingface_hub hf_transfer</code><button onclick="copyCode(this)">Copy</button></pre>
+                        class="code-sample"><code>pip install -U huggingface_hub</code><button onclick="copyCode(this)">Copy</button></pre>
                     (2) 基本命令示例：<br>
                     <pre
                         class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
                     <pre
                         class="code-sample"><code>huggingface-cli download --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
-
-                    如需提高下载速度，推荐设置环境变量开启<b><a
-                            href="https://github.com/huggingface/hf_transfer"><code>hf_tranfer</code></a></b>，官方的下载加速库，缺点是没有进度条、容错性低（网络不稳定则容易报错）。<br>
-                    <pre
-                        class="code-sample"><code>export HF_HUB_ENABLE_HF_TRANSFER=1</code><button onclick="copyCode(this)">Copy</button></pre>
                     (3) <b>下载需要登录的模型（Gated Model）<br>
 
                     </b>请添加<code>--token hf_***</code>参数，其中<code>hf_***</code>是 <i>access token</i>，请在<a
