@@ -78,7 +78,13 @@ hf-mirror.com {
 		path /login /join
 	}
 	rewrite @auth /login_error.html
-	
+
+	# Ban certain disgusting crawlers
+        @badbots header User-Agent *SemrushBot*
+        handle @badbots {
+                respond 403
+        }
+
 	@project_page {
 		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$') || path_regexp('.*/tree/main/?$') || path_regexp('.*/discussions/?$')
 	}
