@@ -48,6 +48,11 @@
                     -c、curl -L、aria2c 等命令行方式即可。<br>
                     下载需登录的模型需命令行添加 <code>--header hf_***</code> 参数，token 获取具体参见上文。
                 </li>
+                <li>方法三：(非侵入式，能解决大部分情况)huggingface 提供的包会获取系统变量，所以可以使用通过设置变量来解决。
+                    <pre
+                        class="code-sample"><code>HF_ENDPOINT=https://hf-mirror.com python your_script.py</code><button onclick="copyCode(this)">Copy</button></pre><br/>
+                    不过有些数据集有内置的下载脚本，那就需要手动改一下脚本内的地址来实现了
+                </li>
             </ol>
         </div>
 
