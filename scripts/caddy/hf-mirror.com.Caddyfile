@@ -18,6 +18,7 @@ hf-mirror.com {
 			roll_keep_for 720h
 		}
 	}
+	# 前端路径进行压缩、文件代理、缓存
 	@asset-paths {
 		expression path('/api/event', '/front/*', '/avatars/*') || path_regexp('\\.(js|css|png|jpe?g|gif|ico|woff|otf|ttf|eot|svg|txt|pdf|docx?|xlsx?)$')
 	}
@@ -46,20 +47,25 @@ hf-mirror.com {
 		file_server
 	}
 	rewrite /front/assets/huggingface_logo-noborder.svg /logo.svg
+	header @static Cache-Control "no-cache"
+	header /front/* Cache-Control "public, max-age=86400"
 
+	# 部分内部统计接口直接返回固定数据，减少服务器压力
 	handle /api/event {
 		respond "OK"
 		skip_log
 	}
-
-	handle /statistics {
-		reverse_proxy localhost:5000
+	handle /cdn-cgi/rum {
+		respond 204
+		skip_log
 	}
+	# 模型链接避免缓存
 	@model_path {
 		path_regexp .*/resolve/main/.*
 	}
 	header @model_path Cache-Control no-cache
 
+	# 禁止第三方站点外链模型下载链接，其他路径允许外链
 	@invalid_referer {
 		path_regexp .*/resolve/main/.*
 		not header !Referer
@@ -67,6 +73,7 @@ hf-mirror.com {
 	}
 	rewrite @invalid_referer /invalid_referer.html
 
+	# 屏蔽部分不合规路径
 	@illegal {
 		path_regexp /.*([xX][jJ][pP]|[Xx][Ii][Jj][Ii][Nn]|[Jj][Ii][Nn][Pp][Ii][Nn]).*
 	}
