@@ -18,6 +18,16 @@ hf-mirror.com {
 			roll_keep_for 720h
 		}
 	}
+
+	# 封禁一些不讲武德（不尊重robots.txt）的爬虫
+        @badbots {
+		expression header({'User-Agent': '*SemrushBot*', 'User-Agent': '*MJ12bot*'})
+	}
+
+        handle @badbots {
+                respond 403
+        }
+
 	# 前端路径进行压缩、文件代理、缓存
 	@asset-paths {
 		expression path('/api/event', '/front/*', '/avatars/*') || path_regexp('\\.(js|css|png|jpe?g|gif|ico|woff|otf|ttf|eot|svg|txt|pdf|docx?|xlsx?)$')
@@ -39,16 +49,21 @@ hf-mirror.com {
 	}
 	header /* Server hf-mirror
 
+	# 网站首页等静态文件
 	@static {
-		path / /favicon.ico /logo.svg /invalid_referer.html /login_error.html path /stats /stats/*
+		path / /favicon.ico /logo.svg /invalid_referer.html /login_error.html path /stats /stats/* /scripts.js /styles.css /robots.txt /ads.txt
 	}
 	handle @static {
 		root * /var/www/html/hf-mirror.com/
 		file_server
 	}
+
+	# 更换logo，用于区分原网站
 	rewrite /front/assets/huggingface_logo-noborder.svg /logo.svg
+	# 网站主页等页面不缓存
 	header @static Cache-Control "no-cache"
-	header /front/* Cache-Control "public, max-age=86400"
+	# 原网站静态文件缓存3天
+	header /front/* Cache-Control "public, max-age=259200"
 
 	# 部分内部统计接口直接返回固定数据，减少服务器压力
 	handle /api/event {
@@ -81,16 +96,11 @@ hf-mirror.com {
 		respond "invalid request" 403
 	}
 
+	# 镜像站禁止登录
 	@auth {
 		path /login /join
 	}
 	rewrite @auth /login_error.html
-
-	# Ban certain disgusting crawlers
-        @badbots header User-Agent *SemrushBot*
-        handle @badbots {
-                respond 403
-        }
 
 	@project_page {
 		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$') || path_regexp('.*/tree/main/?$') || path_regexp('.*/discussions/?$')
@@ -112,7 +122,6 @@ hf-mirror.com {
 		reverse_proxy https://huggingface.co {
 			header_up Host {upstream_hostport}
 			header_up -Referer
-			# header_up Referer hf-mirror.com huggingface.co
 			header_down Location cdn-lfs.huggingface.co cdn-lfs.hf-mirror.com
 			header_down Location cdn-lfs-us-1.huggingface.co cdn-lfs-us-1.hf-mirror.com
 		}
