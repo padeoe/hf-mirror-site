@@ -1,0 +1,4 @@
+{
+        order replace after encode
+}
+import *.Caddyfile
