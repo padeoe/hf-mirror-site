@@ -47,7 +47,7 @@ searchInput.addEventListener('input', function () {
             abortController = new AbortController();
             sessionStorage.setItem('searchKeyword', query);
             try {
-                const response = await fetch(`https://hf-mirror.com/api/quicksearch?q=${encodeURIComponent(query)}&type=all`, { signal: abortController.signal });
+                const response = await fetch(`https://hf-mirror.com/api/quicksearch?q=${encodeURIComponent(query)}&type=model&type=dataset`, { signal: abortController.signal });
                 const data = await response.json();
                 let resultsHtml = '';
                 ['models', 'datasets'].forEach(type => {
