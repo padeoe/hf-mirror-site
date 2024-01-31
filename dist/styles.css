@@ -1,7 +1,8 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    color: #333; /* 默认字体颜色 */
 }
 .header {
     color: #333;
@@ -13,15 +14,18 @@ body {
 }
 
 .header h1 {
-    font-size: 1.2em;
     margin-right: 20px; /* 在标题和搜索框之间添加一些间隔 */
     white-space: nowrap; /* 防止标题换行 */
+    font-size: 1.5em; /* 增大字体大小 */
+    color: #0056b3; /* 调整颜色 */
 }
 
 .search-box {
     flex-grow: 2; /* 搜索框延伸，占据更多空间 */
     max-width: 66%; /* 最大宽度限制为页面的三分之二 */
     display: flex; /* 使搜索框内部元素也使用 Flexbox 布局 */
+    margin: 20px auto; /* 水平和垂直居中 */
+    
 }
 
 .search-input {
@@ -37,11 +41,12 @@ body {
     /* max-width: 800px; */
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
     border-radius: 0;
     box-shadow: 0;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    padding: 40px 20px; /* 增加内边距 */
+    margin-top: 20px;
+    margin-bottom: 40px;
+    background-color: #fff;
 }
 
 .search-box {
@@ -78,10 +83,10 @@ body {
 .instructions {
     margin-top: 30px;
     margin-bottom: 30px;
-    padding: 20px;
-    background-color: #f8f9fa; /* 轻微背景色 */
+    padding: 30px;
+    background-color: #f9f9f9;
     border-radius: 10px; /* 圆角边框 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     line-height: 1.6; /* 调整行高 */
     color: #333; /* 调整字体颜色 */
     font-size: 16px; /* 调整字体大小 */
@@ -299,7 +304,7 @@ li {
     text-align: center;
     font-size: 2.2em; /* 增加字体大小 */
     font-weight: bold; /* 字体加粗 */
-    color: #0056b3;
+    color: #004d99; /* 调整颜色为深蓝色 */
     margin-top: 30px;
     margin-bottom: 30px; /* 增加底部间距 */
     position: relative; /* 添加相对定位 */
@@ -323,50 +328,112 @@ li {
 .matter h2::after, .rankings h2::after {
     right: -40px; /* 在标题右侧的位置，可根据需要调整 */
 }
-
+.rankings, .matter {
+    max-width: 1000px;
+    margin: 0 auto; /* 水平居中 */
+    padding: 20px;
+}
 
 /* 分类标题样式 */
 .rankings h3 {
-    font-size: 1.4em;
-    color: #007bff;
-    margin-bottom: 15px;
-    padding-left: 10px;
+    font-size: 1.8em; /* 增加标题字体大小 */
+    color: #0056b3; /* 选择更鲜明的颜色 */
+    text-align: center; /* 标题居中对齐 */
+    margin-top: 20px; /* 在标题上方增加一些间隔 */
+    margin-bottom: 10px; /* 在标题下方增加一些间隔 */
+    font-weight: bold; /* 字体加粗 */
 }
 
 /* 分类容器样式 */
 .categories {
-    display: flex;
+    display: block;
     justify-content: space-around; /* 更均匀的间距 */
     flex-wrap: wrap;
+    max-width: 1000px; /* 设置最大宽度，可根据需求调整 */
+    margin: 0 auto; /* 水平居中 */
 }
 
 /* 单个分类样式 */
 .category {
     flex-basis: 30%;
-    margin-bottom: 20px;
-    background-color: #f8f9fa; /* 轻微背景色 */
+    background-color: #fcfcfc; /* 轻微背景色 */
     border-radius: 10px; /* 圆角边框 */
     padding: 15px; /* 内边距 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ /* 添加轻微阴影 */
+    width: 100%; /* 使每个分类充满容器 */
+    margin-bottom: 20px; /* 在分类之间添加一些间隔 */
 }
 
-/* 列表样式 */
+.category ul {
+    list-style: none; /* 移除默认列表样式 */
+    padding: 0;
+}
+
 .category ul li {
-    margin-bottom: 10px;
-    padding: 8px;
-    border-radius: 5px; /* 圆角边框 */
-    transition: background-color 0.3s; /* 平滑背景色过渡 */
+    background-color: #f9f9f9; /* 轻微的背景色 */
+    border-bottom: 1px solid #e0e0e0; /* 添加分隔线 */
+    padding: 10px 15px; /* 调整内边距 */
+    transition: background-color 0.3s; /* 平滑背景色过渡效果 */
+    font-size: 1.1em; /* 增加字体大小 */
+    color: #333; /* 字体颜色 */
+    
+    display: flex; /* 应用 Flexbox 布局 */
+    justify-content: flex-start; /* 元素之间平均分配空间 */
+    align-items: center; /* 垂直居中对齐 */
 }
 
 .category ul li:hover {
-    background-color: #e9ecef; /* 悬停时改变背景色 */
+    background-color: #e6f2ff; /* 悬停时改变背景色 */
 }
 
-/* 媒体查询 */
+/* 响应式设计：小屏幕设备 */
 @media (max-width: 768px) {
+    .container, .header h1, .search-box {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .header h1 {
+        font-size: 1.2em;
+    }
     .category {
         flex-basis: 100%;
-        margin-right: 0;
+    }
+    .rankings h2 {
+        font-size: 2em; /* 小屏幕时减小标题字体大小 */
     }
 }
+
+.model-id {
+    font-size: 16px; /* 调整为你想要的大小 */
+    font-weight: bold; /* 加粗字体 */
+}
+
+.model-info {
+    font-size: 12px; /* 较小的字体大小 */
+    display: flex; /* 使用 Flexbox 布局 */
+    margin-left: auto; /* 自动外边距将推动它到右边 */
+    justify-content: flex-start; /* 子元素向左对齐 */
+    align-items: center; /* 垂直居中，如有需要 */
+}
+
+.model-info img {
+    width: 20px; /* 图片大小，根据需要调整 */
+    height: 20px; /* 图片大小，根据需要调整 */
+    margin-right: 5px; /* 添加一些右边距 */
+    margin-left: 10px; 
+}
+.header h1, .rankings h2, .matter h2 {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 700; /* 加粗字体用于标题 */
+    /* 其他样式保持不变 */
+}
+
+/* 对正文和小标题使用标准字体粗细 */
+.instructions, .category h3, .contact {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 400;
+    /* 其他样式保持不变 */
+}
+
 

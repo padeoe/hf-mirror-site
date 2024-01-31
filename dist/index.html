@@ -2,10 +2,13 @@
 <html lang="zh">
 
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hf-mirror.com - Huggingface 镜像站</title>
     <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
@@ -22,89 +25,85 @@
     <div class="container">
 
 
-<!-- 排行榜区域 -->
-<div class="rankings">
-    <h2>Trending this week</h2>
+        <!-- 排行榜区域 -->
+        <section class="rankings">
+            <h2>Trending this week ※ 一周趋势</h2>
 
-    <!-- 分类容器 -->
-    <div class="categories">
+            <!-- 分类容器 -->
+            <div class="categories">
 
-        <!-- Models分类 -->
-        <div class="category">
-            <h3>Models</h3>
-            <ul>
-                <li>Model 1</li>
-                <li>Model 2</li>
-                <li>Model 3</li>
-                <!-- 更多 Models 条目 -->
-            </ul>
+                <!-- Models分类 -->
+                <div class="category">
+                    <h3>Models</h3>
+                    <div class="models">
+                        <ul>
+                            <li>Model 1</li>
+                            <li>Model 2</li>
+                            <li>Model 3</li>
+                            <!-- 更多 Models 条目 -->
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- DataSets分类 -->
+                <div class="category">
+                    <h3>DataSets</h3>
+                    <div class="dataset">
+                        <ul>
+                            <li>DataSet 1</li>
+                            <li>DataSet 2</li>
+                            <li>DataSet 3</li>
+                            <!-- 更多 DataSets 条目 -->
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="matter">
+            <h2>Use this mirror site ※ 如何使用镜像站
+            </h2>
+
+            <div class="instructions">
+                <p>本站域名
+                    <code><a href="https://hf-mirror.com" target="_blank"><strong>hf-mirror.com</strong></a></code>，用于镜像
+                    <a href="https://huggingface.co" target="_blank">huggingface.co</a> 域名。<br><br>更多用法（多线程加速等）详见<a
+                        href="https://zhuanlan.zhihu.com/p/663712983">这篇文章</a>。简介：
+                </p>
+                <ol>
+                    <li>方法一：使用<b>huggingface 官方提供的 <a
+                                href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><b><code>huggingface-cli</code>
+                                </b></a>命令行工具。</b><br><br>
+                        (1) 安装依赖
+                        <pre
+                            class="code-sample"><code>pip install -U huggingface_hub</code><button onclick="copyCode(this)">Copy</button></pre>
+                        (2) 基本命令示例：<br>
+                        <pre
+                            class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
+                        <pre
+                            class="code-sample"><code>huggingface-cli download --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
+                        (3) <b>下载需要登录的模型（Gated Model）<br>
+
+                        </b>请添加<code>--token hf_***</code>参数，其中<code>hf_***</code>是 <i>access token</i>，请在<a
+                            href="https://huggingface.co/settings/tokens">huggingface官网这里</a>获取。示例：
+                        <pre
+                            class="code-sample"><code>huggingface-cli download --token hf_*** --resume-download meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf</code><button onclick="copyCode(this)">Copy</button></pre>
+                    </li>
+                    <li>方法二：使用url直接下载时，将 <code>huggingface.co</code> 直接替换为本站域名<code>hf-mirror.com</code>。使用浏览器或者 wget
+                        -c、curl -L、aria2c 等命令行方式即可。<br>
+                        下载需登录的模型需命令行添加 <code>--header hf_***</code> 参数，token 获取具体参见上文。
+                    </li>
+                    <li>方法三：(非侵入式，能解决大部分情况)huggingface 提供的包会获取系统变量，所以可以使用通过设置变量来解决。
+                        <pre
+                            class="code-sample"><code>HF_ENDPOINT=https://hf-mirror.com python your_script.py</code><button onclick="copyCode(this)">Copy</button></pre>
+                        <br />
+                        不过有些数据集有内置的下载脚本，那就需要手动改一下脚本内的地址来实现了
+                    </li>
+                </ol>
+            </div>
         </div>
-
-        <!-- Spaces分类 -->
-        <div class="category">
-            <h3>Spaces</h3>
-            <ul>
-                <li>Space 1</li>
-                <li>Space 2</li>
-                <li>Space 3</li>
-                <!-- 更多 Spaces 条目 -->
-            </ul>
-        </div>
-
-        <!-- DataSets分类 -->
-        <div class="category">
-            <h3>DataSets</h3>
-            <ul>
-                <li>DataSet 1</li>
-                <li>DataSet 2</li>
-                <li>DataSet 3</li>
-                <!-- 更多 DataSets 条目 -->
-            </ul>
-        </div>
-
-    </div>
-</div>
-
-<div class="matter">
-    <h2>Use this mirror site
-    </h2>
-
-        <div class="instructions">
-            <p>本站域名 <code><a href="https://hf-mirror.com" target="_blank"><strong>hf-mirror.com</strong></a></code>，用于镜像
-                <a href="https://huggingface.co" target="_blank">huggingface.co</a> 域名。<br><br>更多用法（多线程加速等）详见<a
-                    href="https://zhuanlan.zhihu.com/p/663712983">这篇文章</a>。简介：
-            </p>
-            <ol>
-                <li>方法一：使用<b>huggingface 官方提供的 <a
-                            href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><b><code>huggingface-cli</code>
-                            </b></a>命令行工具。</b><br><br>
-                    (1) 安装依赖
-                    <pre
-                        class="code-sample"><code>pip install -U huggingface_hub</code><button onclick="copyCode(this)">Copy</button></pre>
-                    (2) 基本命令示例：<br>
-                    <pre
-                        class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
-                    <pre
-                        class="code-sample"><code>huggingface-cli download --resume-download bigscience/bloom-560m --local-dir bloom-560m</code><button onclick="copyCode(this)">Copy</button></pre>
-                    (3) <b>下载需要登录的模型（Gated Model）<br>
-
-                    </b>请添加<code>--token hf_***</code>参数，其中<code>hf_***</code>是 <i>access token</i>，请在<a
-                        href="https://huggingface.co/settings/tokens">huggingface官网这里</a>获取。示例：
-                    <pre
-                        class="code-sample"><code>huggingface-cli download --token hf_*** --resume-download meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf</code><button onclick="copyCode(this)">Copy</button></pre>
-                </li>
-                <li>方法二：使用url直接下载时，将 <code>huggingface.co</code> 直接替换为本站域名<code>hf-mirror.com</code>。使用浏览器或者 wget
-                    -c、curl -L、aria2c 等命令行方式即可。<br>
-                    下载需登录的模型需命令行添加 <code>--header hf_***</code> 参数，token 获取具体参见上文。
-                </li>
-                <li>方法三：(非侵入式，能解决大部分情况)huggingface 提供的包会获取系统变量，所以可以使用通过设置变量来解决。
-                    <pre
-                        class="code-sample"><code>HF_ENDPOINT=https://hf-mirror.com python your_script.py</code><button onclick="copyCode(this)">Copy</button></pre><br/>
-                    不过有些数据集有内置的下载脚本，那就需要手动改一下脚本内的地址来实现了
-                </li>
-            </ol>
-        </div>
-</div>
     </div>
     <div class="contact">
         <div class="contact-left">
@@ -139,7 +138,8 @@
 
         </div>
     </div>
-    <script async src="scripts.js"></script>
+    <script src="scripts.js"></script>
+
 </body>
 
 </html>

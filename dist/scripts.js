@@ -166,12 +166,12 @@ searchInput.addEventListener('keydown', function (event) {
         // enter key
         if (selectedIndex > -1) {
             items[selectedIndex].click();
-        }        
+        }
     }
 });
 
 
-window.addEventListener('pageshow', function() {
+window.addEventListener('pageshow', function () {
     const storedKeyword = sessionStorage.getItem('searchKeyword');
     if (storedKeyword !== null) {
         // searchInput.focus();
@@ -182,4 +182,82 @@ window.addEventListener('pageshow', function() {
         //     searchResults.style.display = 'block';
         // }
     }
+});
+// 定义一个配置对象
+const config = {
+    models: {
+        url: "https://hf-mirror.com/models-json?p=1&sort=trending",
+        containerSelector: '.models ul',
+        itemTemplate: (item) => `
+            <span class="model-id">${item.id}</span>
+            <div class="model-info">
+                <img src="path_to_downloads_icon.png" alt="下载量"> 
+                <span class="model-downloads">${item.downloads}</span>
+                <img src="path_to_likes_icon.png" alt="收藏量"> 
+                <span class="model-likes">${item.likes}</span>
+            </div>
+        `
+    },
+    datasets: {
+        // url: "https://hf-mirror.com/datasets-json?p=1&sort=trending",
+        // containerSelector: '.dataset ul',
+        // itemTemplate: (item) => `
+        //     <span class="dataset-id">${item.id}</span>
+        //     <div class="dataset-info">
+        //         <img src="path_to_downloads_icon.png" alt="下载量"> 
+        //         <span class="model-downloads">${item.downloads}</span>
+        //         <img src="path_to_likes_icon.png" alt="收藏量"> 
+        //         <span class="model-likes">${item.likes}</span>
+        //     </div>
+        // `
+
+        //临时
+        url: "https://hf-mirror.com/models-json?p=1&sort=trending",
+        containerSelector: '.dataset ul',
+        itemTemplate: (item) => `
+            <span class="model-id">${item.id}</span>
+            <div class="model-info">
+                <img src="path_to_downloads_icon.png" alt="下载量"> 
+                <span class="model-downloads">${item.downloads}</span>
+                <img src="path_to_likes_icon.png" alt="收藏量"> 
+                <span class="model-likes">${item.likes}</span>
+            </div>
+        `
+    }
+};
+
+// 封装获取和渲染列表的函数
+function fetchAndRenderList({ url, containerSelector, itemTemplate }) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log("data is")
+            console.log(data)
+            const items = data["models"]; // 获取数组（models或datasets）
+            console.log("items is")
+            console.log(items)
+            if (!items || !Array.isArray(items)) {
+                throw new Error('Invalid data format');
+            }
+            const container = document.querySelector(containerSelector);
+            if (!container) {
+                throw new Error('List container element not found');
+            }
+            container.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = itemTemplate(item);
+                container.appendChild(li);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // 处理错误
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // 使用封装的函数
+    fetchAndRenderList(config.models);
+    fetchAndRenderList(config.datasets);
 });
