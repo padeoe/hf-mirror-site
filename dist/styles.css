@@ -505,7 +505,7 @@ li {
 
 .more {
     font-size: 15px;
-    color: #6c757d;
+    color: #6c757dc6;
     text-align: center;
     margin-left: 20px;
 
@@ -513,7 +513,7 @@ li {
 
 .more:hover,
 .more:focus {
-    text-shadow: 0 0 8px rgba(188, 202, 242, 0.5);
+    color: #6c757d;
     /* 悬停时添加文字阴影 */
     text-decoration: none;
     /* 确保悬停时不会出现下划线 */
