@@ -191,10 +191,8 @@ const config = {
         itemTemplate: (item) => `
             <span class="model-id">${item.id}</span>
             <div class="model-info">
-                <img src="path_to_downloads_icon.png" alt="下载量"> 
-                <span class="model-downloads">${item.downloads}</span>
-                <img src="path_to_likes_icon.png" alt="收藏量"> 
-                <span class="model-likes">${item.likes}</span>
+                <span class="model-downloads">⬇️${item.downloads}</span>
+                <span class="model-likes">❤️${item.likes}</span>
             </div>
         `
     },
@@ -217,25 +215,19 @@ const config = {
         itemTemplate: (item) => `
             <span class="model-id">${item.id}</span>
             <div class="model-info">
-                <img src="path_to_downloads_icon.png" alt="下载量"> 
-                <span class="model-downloads">${item.downloads}</span>
-                <img src="path_to_likes_icon.png" alt="收藏量"> 
-                <span class="model-likes">${item.likes}</span>
+                <span class="model-downloads">⬇️${item.downloads}</span>
+                <span class="model-likes">❤️${item.likes}</span>
             </div>
         `
     }
 };
 
-// 封装获取和渲染列表的函数
-function fetchAndRenderList({ url, containerSelector, itemTemplate }) {
+// 封装获取和渲染列表的函数，添加limit参数来限制项目数量
+function fetchAndRenderList({ url, containerSelector, itemTemplate }, limit = 10) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log("data is")
-            console.log(data)
-            const items = data["models"]; // 获取数组（models或datasets）
-            console.log("items is")
-            console.log(items)
+            const items = data["models"]; // 根据实际情况可能需要调整以适配数据结构
             if (!items || !Array.isArray(items)) {
                 throw new Error('Invalid data format');
             }
@@ -243,8 +235,8 @@ function fetchAndRenderList({ url, containerSelector, itemTemplate }) {
             if (!container) {
                 throw new Error('List container element not found');
             }
-            container.innerHTML = '';
-            items.forEach(item => {
+            container.innerHTML = ''; // 清空容器
+            items.slice(0, limit).forEach(item => { // 只渲染前limit项
                 const li = document.createElement('li');
                 li.innerHTML = itemTemplate(item);
                 container.appendChild(li);
@@ -252,12 +244,10 @@ function fetchAndRenderList({ url, containerSelector, itemTemplate }) {
         })
         .catch(error => {
             console.error('Error:', error);
-            // 处理错误
         });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 使用封装的函数
-    fetchAndRenderList(config.models);
-    fetchAndRenderList(config.datasets);
+    fetchAndRenderList(config.models, 10); // 为models调用函数
+    fetchAndRenderList(config.datasets, 10); // 为datasets调用函数
 });
