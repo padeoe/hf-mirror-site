@@ -7,6 +7,21 @@ body {
 }
 
 .header {
+    background-color: #f8f9fa;
+    text-align: center;
+    display: flex;
+    /* 确保子元素垂直居中对齐 */
+    justify-content: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.top {
     color: #333;
     background-color: transparent;
     display: flex;
@@ -14,11 +29,11 @@ body {
     /* 确保子元素垂直居中对齐 */
     justify-content: center;
     /* 子元素从头部开始排列 */
-    max-width: 1200px;
-    margin: 0 auto; /* 上下保持为0，左右自动调整以居中 */
+    width: 1200px;
+    margin-top: 5px;
 }
 
-.header h1 {
+.top h1 {
     margin-right: 20px;
     /* 在标题和搜索框之间添加一些间隔 */
     white-space: nowrap;
@@ -53,26 +68,31 @@ body {
     display: flex;
     margin-left: 20px;
     align-items: center;
-    position: relative; /* 确保可以相对于此定位 SVG */
+    position: relative;
+    /* 确保可以相对于此定位 SVG */
 }
 
 .search-input {
     flex: 1;
     padding: 10px;
-    padding-left: 40px; /* 为图标留出空间 */
+    padding-left: 40px;
+    /* 为图标留出空间 */
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 15px;
     transition: border-color 0.3s, background-color 0.3s;
-    position: relative; /* 输入框也设为相对定位，以防需要 */
+    position: relative;
+    /* 输入框也设为相对定位，以防需要 */
 }
 
-svg {
+.search-svg {
     position: absolute;
-    left: 10px; /* 根据需要调整 */
+    left: 10px;
+    /* 根据需要调整 */
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10; /* 确保图标在输入框上方 */
+    z-index: 10;
+    /* 确保图标在输入框上方 */
 }
 
 .search-input:hover,
@@ -243,12 +263,6 @@ li {
     align-items: center;
 }
 
-.contact-left,
-.contact-center,
-.contact-right {
-    margin: 0 10px;
-    /* 根据需要调整间距 */
-}
 
 .separator {
     margin: 0 10px;
@@ -272,10 +286,13 @@ li {
 
 .contact-left,
 .contact-center,
-.contact-right {
+.contact-right
+ {    display: flex;
+    align-items: center;
     position: relative;
     /* 添加这个属性 */
 }
+
 
 .qrcode,
 .groups_qrcode {
@@ -340,10 +357,11 @@ li {
 
 
 }
-.matter-header{
-  
+
+.matter-header {
+
     background-image: linear-gradient(rgba(235, 236, 237, 0.6), rgb(255, 255, 255), rgb(255, 255, 255));
-  
+
     padding-top: 50px;
     border-top-left-radius: 90%;
     border-top-right-radius: 90%;
@@ -355,7 +373,7 @@ li {
 
 .matter h2,
 .rankings h2 {
-    text-align:center;
+    text-align: center;
     font-size: 1.5em;
     /* 增加字体大小 */
     font-weight: bold;
@@ -387,7 +405,7 @@ li {
     margin-bottom: 10px;
     /* 在标题下方增加一些间隔 */
     font-weight: bold;
- 
+
 }
 
 /* 分类容器样式 */
@@ -399,8 +417,7 @@ li {
     flex-wrap: wrap;
     max-width: 1200px;
     /* 设置最大宽度，可根据需求调整 */
-    margin: 0 auto;
-    /* 水平居中 */
+    border: 0 solid transparent;
 }
 
 /* 单个分类样式 */
@@ -413,8 +430,9 @@ li {
     padding-bottom: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     /* 添加轻微阴影 */
+    margin: 10px;
 
-  
+
 }
 
 .category ul {
@@ -450,7 +468,7 @@ li {
     /* 悬停时改变背景色 */
 }
 
-.more{
+.more {
     font-size: 15px;
     color: #6c757d;
     text-align: center;
@@ -471,8 +489,11 @@ li {
         margin: 0%;
     }
 
+    .categories {
+        display: block;
+    }
+
     .category {
-        padding: 0%;
         padding-top: 10px;
         flex-basis: 100%;
     }
@@ -482,7 +503,8 @@ li {
     }
 
     .rankings h2,
-    .matter h2,.category h3 {
+    .matter h2,
+    .category h3 {
         font-size: 1.5em;
         /* 小屏幕时减小标题字体大小 */
     }
