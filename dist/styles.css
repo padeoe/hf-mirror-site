@@ -1,5 +1,5 @@
 body {
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
@@ -17,10 +17,17 @@ body {
     bottom: 0;
     width: 100%;
     height: 100px;
-    font-size: 14px;
+    font-size: 16px;
     border-bottom: 1px solid #ebebeb;
     margin-bottom: 10px;
     padding-bottom: 5px;
+}
+
+.header h1,
+.rankings h2,
+.tutorial h2 {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
 }
 
 .top {
@@ -28,9 +35,7 @@ body {
     background-color: transparent;
     display: flex;
     align-items: center;
-    /* 确保子元素垂直居中对齐 */
-    justify-content: center;
-    /* 子元素从头部开始排列 */
+    /* justify-content: center; */
     width: 1200px;
     margin-top: 5px;
 }
@@ -49,29 +54,25 @@ body {
 .header-link {
     color: #f5f8fb;
     font-size: 30px;
-    /* 设置链接颜色 */
     text-decoration: none;
-    /* 去除下划线 */
     transition: color 0.3s ease, text-shadow 0.3s ease;
-    /* 平滑过渡效果 */
 }
 
 .header-link:hover,
 .header-link:focus {
     text-shadow: 0 0 8px rgba(188, 202, 242, 0.5);
-    /* 悬停时添加文字阴影 */
     text-decoration: none;
-    /* 确保悬停时不会出现下划线 */
 }
+
 
 
 .search-box {
     flex-grow: 2;
-    max-width: 80%;
+    max-width: 50%;
     display: flex;
-    margin-left: 20px;
     align-items: center;
     position: relative;
+    margin-left: auto;
     /* 确保可以相对于此定位 SVG */
 }
 
@@ -82,7 +83,7 @@ body {
     /* 为图标留出空间 */
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 16px;
     transition: border-color 0.3s, background-color 0.3s;
     position: relative;
     /* 输入框也设为相对定位，以防需要 */
@@ -104,6 +105,25 @@ body {
     background-color: #fff;
 }
 
+@media (max-width: 768px) {
+    .header {
+        height: 150px;
+    }
+    .top {
+        flex-direction: column; 
+    }
+    .top h1 {
+        margin-right: 0;
+    }
+    .search-box {
+        width: 100%;
+        margin-left: 0;
+        max-width: 85%;;
+    }
+    .search-svg {
+        left: 20px;
+    }
+}
 
 .container {
     border-radius: 0;
@@ -160,7 +180,7 @@ body {
     color: #e6e6e6;
     page-break-inside: avoid;
     font-family: 'Courier New', monospace;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 1.6em;
     max-width: 100%;
@@ -186,7 +206,7 @@ body {
 }
 
 .code-sample button {
-    background-color: #007bff;
+    background-color: #004d99;
     /* Change the background color */
     color: white;
     padding: 5px 15px;
@@ -205,11 +225,11 @@ body {
 }
 
 .code-sample button:hover {
-    background-color: #007bff;
+    background-color: #004d99;
 }
 
 .contact {
-    background-color: #efefef;
+    background-color: #f8f9fa;
     color: #6c757d;
     padding: 3px;
     text-align: center;
@@ -219,7 +239,7 @@ body {
     width: 100%;
     font-size: 14px;
     border-top: 1px solid #e0e0e0;
-    height: 50px;
+    height: 40px;
 }
 
 @media screen and (max-width: 600px) {
@@ -249,7 +269,7 @@ a:hover {
 
 code {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-    background-color: #eef;
+    background-color: rgba(175, 184, 193, 0.2);
     padding: 2px 4px;
     border-radius: 4px;
 }
@@ -337,10 +357,16 @@ li {
     border: 1px solid #ccc;
     border-top: none;
     z-index: 10;
+    text-align: left;
 }
 
+.search-result-type {
+    padding-left: 20px;
+    padding-top: 10px;
+}
 .search-result-item {
     padding: 10px;
+    padding-left: 40px;
     cursor: pointer;
 }
 
@@ -354,7 +380,7 @@ li {
 
 
 .rankings,
-.matter {
+.tutorial {
     max-width: 1200px;
     margin: 0 auto;
     /* 水平居中 */
@@ -363,7 +389,7 @@ li {
 
 }
 
-.matter-header {
+.tutorial-header {
 
     background-image: linear-gradient(rgba(235, 236, 237, 0.6), rgb(255, 255, 255), rgb(255, 255, 255));
 
@@ -376,7 +402,7 @@ li {
     color: rgb(0, 0, 0);
 }
 
-.matter h2,
+.tutorial h2,
 .rankings h2 {
     text-align: center;
     font-size: 1.5em;
@@ -394,7 +420,7 @@ li {
 }
 
 .contain-header{
-    display: flex;
+    /* display: flex; */
     justify-content: center;
 }
 
@@ -529,7 +555,7 @@ li {
 
     .header h1 {
         font-size: 1em;
-        margin: 0%;
+        margin-top: 8%;
     }
 
     .categories {
@@ -545,17 +571,12 @@ li {
         margin: 0%;
     }
 
-    .rankings h2,
-    .matter h2,
-    .category h3 {
-        font-size: 1.5em;
-        /* 小屏幕时减小标题字体大小 */
-    }
-
-
     .search-input {
         margin-left: 5px;
         width: 90%;
+    }
+    .instructions {
+        padding: 20px;
     }
 }
 
@@ -589,19 +610,10 @@ li {
     margin-left: 10px;
 }
 
-.header h1,
-.rankings h2,
-.matter h2 {
-    font-family: 'Roboto', Arial, sans-serif;
-    font-weight: 700;
-    /* 加粗字体用于标题 */
-    /* 其他样式保持不变 */
-}
-
 /* 对正文和小标题使用标准字体粗细 */
 .instructions,
 .contact {
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-weight: 400;
     /* 其他样式保持不变 */
 }

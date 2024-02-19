@@ -52,7 +52,7 @@ searchInput.addEventListener('input', function () {
                 let resultsHtml = '';
                 ['models', 'datasets'].forEach(type => {
                     if (data[type]) {
-                        resultsHtml += `<div><strong>${type}</strong></div>`;
+                        resultsHtml += `<div class="search-result-type"><strong>${type}</strong></div>`;
                         data[type].forEach(item => {
                             resultsHtml += `<div class="search-result-item" onclick="openLink('/${type === 'models' ? '' : type + '/'}${item.id}')">${item.id}</div>`;
                         });
@@ -186,7 +186,7 @@ window.addEventListener('pageshow', function () {
 // 定义一个配置对象
 const config = {
     models: {
-        url: "https://hf-mirror.com/models-json?p=1&sort=trending",
+        url: "https://hf-mirror.com/models-json?sort=trending",
         containerSelector: '.models ul',
         itemTemplate: (item) => `
             <span class="model-id">${item.id}</span>
@@ -197,20 +197,7 @@ const config = {
         `
     },
     datasets: {
-        // url: "https://hf-mirror.com/datasets-json?p=1&sort=trending",
-        // containerSelector: '.dataset ul',
-        // itemTemplate: (item) => `
-        //     <span class="dataset-id">${item.id}</span>
-        //     <div class="dataset-info">
-        //         <img src="path_to_downloads_icon.png" alt="下载量"> 
-        //         <span class="model-downloads">${item.downloads}</span>
-        //         <img src="path_to_likes_icon.png" alt="收藏量"> 
-        //         <span class="model-likes">${item.likes}</span>
-        //     </div>
-        // `
-
-        //临时
-        url: "https://hf-mirror.com/models-json?p=1&sort=trending",
+        url: "https://hf-mirror.com/models-json?sort=trending",
         containerSelector: '.dataset ul',
         itemTemplate: (item) => `
             <span class="model-id">${item.id}</span>
@@ -247,7 +234,7 @@ function fetchAndRenderList({ url, containerSelector, itemTemplate }, limit = 10
         });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    fetchAndRenderList(config.models, 10); // 为models调用函数
-    fetchAndRenderList(config.datasets, 10); // 为datasets调用函数
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     fetchAndRenderList(config.models, 10); // 为models调用函数
+//     fetchAndRenderList(config.datasets, 10); // 为datasets调用函数
+// });
