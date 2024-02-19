@@ -26,33 +26,23 @@
     </div>
 
     <div class="container">
-        <!-- <section class="rankings">
-            <div class="contain-header">
+        <section class="rankings">
+            <div class="rankings-header">
                 <h2>
                     热门排行🔥
                 </h2>
             </div>
 
-            <div class="categories">
-                <div class="category">
-                    <h3>Models</h3>
-                    <div class="models">
-                        <ul>
-                        </ul>
-                    </div>
-                    <a class="more" href='https://hf-mirror.com/models'>查看更多>></a>
-                </div>
-
-                <div class="category">
-                    <h3>DataSets</h3>
-                    <div class="dataset">
-                        <ul>
-                        </ul>
-                    </div>
-                    <a class="more" href='https://hf-mirror.com/models'>查看更多>></a>
-                </div>
+            <div class="tabs">
+                <div class="tab" onclick="fetchTrending('all')">全部</div>
+                <div class="tab" onclick="fetchTrending('model')">模型</div>
+                <div class="tab" onclick="fetchTrending('dataset')">数据集</div>
             </div>
-        </section> -->
+            <div id="trendingItems" class="trending-items"></div>
+            
+
+
+        </section>
 
 
         <section class="tutorial">
