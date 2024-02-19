@@ -1,67 +1,102 @@
 body {
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: #333; /* 默认字体颜色 */
-}
-.header {
     color: #333;
-    padding: 20px;
+    /* 默认字体颜色 */
+}
+
+.header {
+    background-color: #004d99;
+
+    text-align: center;
+    display: flex;
+    /* 确保子元素垂直居中对齐 */
+    justify-content: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    font-size: 16px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.header h1,
+.rankings h2,
+.tutorial h2 {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+}
+
+.top {
+    color: #333;
     background-color: transparent;
     display: flex;
-    align-items: center; /* 确保子元素垂直居中对齐 */
-    justify-content: flex-start; /* 子元素从头部开始排列 */
+    align-items: center;
+    /* justify-content: center; */
+    width: 1200px;
+    margin-top: 5px;
 }
 
-.header h1 {
-    margin-right: 20px; /* 在标题和搜索框之间添加一些间隔 */
-    white-space: nowrap; /* 防止标题换行 */
-    font-size: 1.5em; /* 增大字体大小 */
-    color: #0056b3; /* 调整颜色 */
+.top h1 {
+    margin-right: 20px;
+    /* 在标题和搜索框之间添加一些间隔 */
+    white-space: nowrap;
+    /* 防止标题换行 */
+    font-size: 1.5em;
+    /* 增大字体大小 */
+    color: #f2f4f5;
+    /* 调整颜色 */
 }
+
+.header-link {
+    color: #f5f8fb;
+    font-size: 30px;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.header-link:hover,
+.header-link:focus {
+    text-shadow: 0 0 8px rgba(188, 202, 242, 0.5);
+    text-decoration: none;
+}
+
+
 
 .search-box {
-    flex-grow: 2; /* 搜索框延伸，占据更多空间 */
-    max-width: 66%; /* 最大宽度限制为页面的三分之二 */
-    display: flex; /* 使搜索框内部元素也使用 Flexbox 布局 */
-    margin: 20px auto; /* 水平和垂直居中 */
-    
-}
-
-.search-input {
-    flex-grow: 1; /* 搜索输入框占据所有可用空间 */
-    margin-right: 10px; /* 在输入框和搜索按钮之间添加间隔 */
-}
-
-
-
-
-
-.container {
-    /* max-width: 800px; */
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 0;
-    box-shadow: 0;
-    padding: 40px 20px; /* 增加内边距 */
-    margin-top: 20px;
-    margin-bottom: 40px;
-    background-color: #fff;
-}
-
-.search-box {
+    flex-grow: 2;
+    max-width: 50%;
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    position: relative;
+    margin-left: auto;
+    /* 确保可以相对于此定位 SVG */
 }
 
 .search-input {
     flex: 1;
     padding: 10px;
+    padding-left: 40px;
+    /* 为图标留出空间 */
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s, background-color 0.3s;
+    position: relative;
+    /* 输入框也设为相对定位，以防需要 */
+}
+
+.search-svg {
+    position: absolute;
+    left: 10px;
+    /* 根据需要调整 */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    /* 确保图标在输入框上方 */
 }
 
 .search-input:hover,
@@ -70,44 +105,73 @@ body {
     background-color: #fff;
 }
 
-.search-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-left: 10px;
-    cursor: pointer;
+@media (max-width: 768px) {
+    .header {
+        height: 150px;
+    }
+    .top {
+        flex-direction: column; 
+    }
+    .top h1 {
+        margin-right: 0;
+    }
+    .search-box {
+        width: 100%;
+        margin-left: 0;
+        max-width: 85%;;
+    }
+    .search-svg {
+        left: 20px;
+    }
 }
+
+.container {
+    border-radius: 0;
+    box-shadow: 0;
+    margin-bottom: 40px;
+    background-color: #fff;
+}
+
 
 .instructions {
     margin-top: 30px;
     margin-bottom: 30px;
     padding: 30px;
     background-color: #f9f9f9;
-    border-radius: 10px; /* 圆角边框 */
+    border-radius: 10px;
+    /* 圆角边框 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    line-height: 1.6; /* 调整行高 */
-    color: #333; /* 调整字体颜色 */
-    font-size: 16px; /* 调整字体大小 */
+    line-height: 1.6;
+    /* 调整行高 */
+    color: #333;
+    /* 调整字体颜色 */
+    font-size: 16px;
+    /* 调整字体大小 */
+    margin-bottom: 50px;
 }
 
 .instructions a {
-    color: #007bff; /* 链接颜色 */
-    text-decoration: underline; /* 下划线突出显示 */
+    color: #007bff;
+    /* 链接颜色 */
+    text-decoration: underline;
+    /* 下划线突出显示 */
 }
 
 .instructions a:hover {
-    color: #0056b3; /* 悬停时链接颜色变化 */
+    color: #0056b3;
+    /* 悬停时链接颜色变化 */
 }
 
 .instructions ol {
-    padding-left: 20px; /* 有序列表内边距 */
-    list-style-position: inside; /* 列表标记位置调整 */
+    padding-left: 20px;
+    /* 有序列表内边距 */
+    list-style-position: inside;
+    /* 列表标记位置调整 */
 }
 
 .instructions ol li {
-    margin-bottom: 10px; /* 列表项间距 */
+    margin-bottom: 10px;
+    /* 列表项间距 */
 }
 
 .code-sample {
@@ -116,7 +180,7 @@ body {
     color: #e6e6e6;
     page-break-inside: avoid;
     font-family: 'Courier New', monospace;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 1.6em;
     max-width: 100%;
@@ -142,7 +206,7 @@ body {
 }
 
 .code-sample button {
-    background-color: #007bff;
+    background-color: #004d99;
     /* Change the background color */
     color: white;
     padding: 5px 15px;
@@ -161,7 +225,7 @@ body {
 }
 
 .code-sample button:hover {
-    background-color: #007bff;
+    background-color: #004d99;
 }
 
 .contact {
@@ -175,6 +239,7 @@ body {
     width: 100%;
     font-size: 14px;
     border-top: 1px solid #e0e0e0;
+    height: 46px;
 }
 
 @media screen and (max-width: 600px) {
@@ -204,7 +269,7 @@ a:hover {
 
 code {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-    background-color: #eef;
+    background-color: rgba(175, 184, 193, 0.2);
     padding: 2px 4px;
     border-radius: 4px;
 }
@@ -223,12 +288,6 @@ li {
     align-items: center;
 }
 
-.contact-left,
-.contact-center,
-.contact-right {
-    margin: 0 10px;
-    /* 根据需要调整间距 */
-}
 
 .separator {
     margin: 0 10px;
@@ -250,29 +309,41 @@ li {
     margin-right: 5px;
 }
 
-.contact-left, .contact-center, .contact-right {
-    position: relative; /* 添加这个属性 */
+.contact-left,
+.contact-center,
+.contact-right {
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* 添加这个属性 */
 }
 
-.qrcode, .groups_qrcode {
+
+.qrcode,
+.groups_qrcode {
     display: none;
     position: absolute;
     bottom: 100%;
-    left: 50%; /* 可能需要调整这个值来使二维码框居中 */
-    transform: translateX(-50%); /* 这会使得二维码框居中 */
+    left: 50%;
+    /* 可能需要调整这个值来使二维码框居中 */
+    transform: translateX(-50%);
+    /* 这会使得二维码框居中 */
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.qrcode img, .groups_qrcode img {
+.qrcode img,
+.groups_qrcode img {
     max-width: 300px;
     max-height: 300px;
 }
 
-.donate:hover .qrcode, .groups:hover .groups_qrcode {
-    display: block; /* 当鼠标悬停时显示二维码 */
+.donate:hover .qrcode,
+.groups:hover .groups_qrcode {
+    display: block;
+    /* 当鼠标悬停时显示二维码 */
 }
 
 .search-results {
@@ -286,10 +357,16 @@ li {
     border: 1px solid #ccc;
     border-top: none;
     z-index: 10;
+    text-align: left;
 }
 
+.search-result-type {
+    padding-left: 20px;
+    padding-top: 10px;
+}
 .search-result-item {
     padding: 10px;
+    padding-left: 40px;
     cursor: pointer;
 }
 
@@ -300,140 +377,243 @@ li {
 .search-result-item.selected {
     background-color: #e5e5e5;
 }
-.matter h2, .rankings h2 {
-    text-align: center;
-    font-size: 2.2em; /* 增加字体大小 */
-    font-weight: bold; /* 字体加粗 */
-    color: #004d99; /* 调整颜色为深蓝色 */
-    margin-top: 30px;
-    margin-bottom: 30px; /* 增加底部间距 */
-    position: relative; /* 添加相对定位 */
-}
 
-.matter h2::after, .rankings h2::after {
-    content: "";
-    display: block;
-    height: 2px;
-    background-color: rgba(0, 86, 179, 0); /* 使用 rgba() 设置透明色 */
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
 
-.matter h2::before, .rankings h2::before {
-    left: -40px; /* 在标题左侧的位置，可根据需要调整 */
-}
-
-.matter h2::after, .rankings h2::after {
-    right: -40px; /* 在标题右侧的位置，可根据需要调整 */
-}
-.rankings, .matter {
-    max-width: 1000px;
-    margin: 0 auto; /* 水平居中 */
+.rankings,
+.tutorial {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* 水平居中 */
     padding: 20px;
+
+
 }
+
+.tutorial-header {
+
+    background-image: linear-gradient(rgba(235, 236, 237, 0.6), rgb(255, 255, 255), rgb(255, 255, 255));
+
+    padding-top: 50px;
+    border-top-left-radius: 90%;
+    border-top-right-radius: 90%;
+    border-top-style: solid;
+    border-top-width: 0px;
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+}
+
+.tutorial h2,
+.rankings h2 {
+    text-align: center;
+    font-size: 1.5em;
+    /* 增加字体大小 */
+    font-weight: bold;
+    /* 字体加粗 */
+    color: #004d99;
+    /* 调整颜色为深蓝色 */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    /* 增加底部间距 */
+    position: relative;
+
+
+}
+
+.contain-header{
+    /* display: flex; */
+    justify-content: center;
+}
+
+/* 热门排行标题装饰更新 */
+.contain-header h2 {
+  position: relative;
+  text-align: center;
+  display: inline-block; /* 让容器适应内容宽度 */
+}
+
+.contain-header h2:before,
+.contain-header h2:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 180px; /* 更新装饰线的宽度为更长 */
+  height: 2px; /* 装饰线的高度 */
+  transform: translateY(-50%);
+}
+
+.contain-header h2:before {
+    left: 210px; /* 根据线条长度相应调整间距 */
+    background: linear-gradient(to right, rgb(231, 228, 228) 0%, rgba(0, 0, 0, 0) 100%); /* 渐变方向向右，开始实心 */
+  }
+  
+  .contain-header h2:after {
+    right: 210px; /* 根据线条长度相应调整间距 */
+    background: linear-gradient(to left, rgb(231, 228, 228)  0%, rgba(0, 0, 0, 0) 100%); /* 渐变方向向左，开始实心 */
+  }
 
 /* 分类标题样式 */
-.rankings h3 {
-    font-size: 1.8em; /* 增加标题字体大小 */
-    color: #0056b3; /* 选择更鲜明的颜色 */
-    text-align: center; /* 标题居中对齐 */
-    margin-top: 20px; /* 在标题上方增加一些间隔 */
-    margin-bottom: 10px; /* 在标题下方增加一些间隔 */
-    font-weight: bold; /* 字体加粗 */
+.category h3 {
+    font-size: 1.2em;
+    /* 增加标题字体大小 */
+    color:#004d99;
+    /* 增加字体大小 */
+    font-weight: bold;
+    /* 选择更鲜明的颜色 */
+    text-align: center;
+    /* 标题居中对齐 */
+    margin-top: 20px;
+    /* 在标题上方增加一些间隔 */
+    margin-bottom: 10px;
+    /* 在标题下方增加一些间隔 */
+
+
 }
 
 /* 分类容器样式 */
 .categories {
-    display: block;
-    justify-content: space-around; /* 更均匀的间距 */
+
+    display: flex;
+    justify-content: space-between;
+    /* 更均匀的间距 */
     flex-wrap: wrap;
-    max-width: 1000px; /* 设置最大宽度，可根据需求调整 */
-    margin: 0 auto; /* 水平居中 */
+    max-width: 1200px;
+    /* 设置最大宽度，可根据需求调整 */
+    border: 0 solid transparent;
 }
 
 /* 单个分类样式 */
 .category {
-    flex-basis: 30%;
-    background-color: #fcfcfc; /* 轻微背景色 */
-    border-radius: 10px; /* 圆角边框 */
-    padding: 15px; /* 内边距 */
+    flex-basis: 45%;
+    background-color: #fcfcfc;
+    /* 轻微背景色 */
+    border-radius: 10px;
+    /* 圆角边框 */
+    padding-bottom: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- /* 添加轻微阴影 */
-    width: 100%; /* 使每个分类充满容器 */
-    margin-bottom: 20px; /* 在分类之间添加一些间隔 */
+    /* 添加轻微阴影 */
+    margin: 10px;
+
+
 }
 
 .category ul {
-    list-style: none; /* 移除默认列表样式 */
+    list-style: none;
+    /* 移除默认列表样式 */
     padding: 0;
 }
 
 .category ul li {
-    background-color: #f9f9f9; /* 轻微的背景色 */
-    border-bottom: 1px solid #e0e0e0; /* 添加分隔线 */
-    padding: 10px 15px; /* 调整内边距 */
-    transition: background-color 0.3s; /* 平滑背景色过渡效果 */
-    font-size: 1.1em; /* 增加字体大小 */
-    color: #333; /* 字体颜色 */
-    
-    display: flex; /* 应用 Flexbox 布局 */
-    justify-content: flex-start; /* 元素之间平均分配空间 */
-    align-items: center; /* 垂直居中对齐 */
+    background-color: #f9f9f9;
+    /* 轻微的背景色 */
+    border-bottom: 1px solid #e0e0e0;
+    /* 添加分隔线 */
+    padding: 10px 15px;
+    /* 调整内边距 */
+    transition: background-color 0.3s;
+    /* 平滑背景色过渡效果 */
+    font-size: 1.1em;
+    /* 增加字体大小 */
+    color: #333;
+    /* 字体颜色 */
+
+    display: flex;
+    /* 应用 Flexbox 布局 */
+    justify-content: flex-start;
+    /* 元素之间平均分配空间 */
+    align-items: center;
+    /* 垂直居中对齐 */
 }
 
 .category ul li:hover {
-    background-color: #e6f2ff; /* 悬停时改变背景色 */
+    background-color: #e6f2ff;
+    /* 悬停时改变背景色 */
+}
+
+.more {
+    font-size: 15px;
+    color: #6c757dc6;
+    text-align: center;
+    margin-left: 20px;
+
+}
+
+.more:hover,
+.more:focus {
+    color: #6c757d;
+    /* 悬停时添加文字阴影 */
+    text-decoration: none;
+    /* 确保悬停时不会出现下划线 */
 }
 
 /* 响应式设计：小屏幕设备 */
 @media (max-width: 768px) {
-    .container, .header h1, .search-box {
+    .container {
         padding-left: 10px;
         padding-right: 10px;
+        margin: 0%;
     }
+
     .header h1 {
-        font-size: 1.2em;
+        font-size: 1em;
+        margin-top: 8%;
     }
+
+    .categories {
+        display: block;
+    }
+
     .category {
+        padding-top: 10px;
         flex-basis: 100%;
     }
-    .rankings h2 {
-        font-size: 2em; /* 小屏幕时减小标题字体大小 */
+
+    .rankings {
+        margin: 0%;
+    }
+
+    .search-input {
+        margin-left: 5px;
+        width: 90%;
+    }
+    .instructions {
+        padding: 20px;
     }
 }
 
 .model-id {
-    font-size: 16px; /* 调整为你想要的大小 */
-    font-weight: bold; /* 加粗字体 */
+    font-size: 16px;
+    /* 调整为你想要的大小 */
+    font-weight: bold;
+    /* 加粗字体 */
 }
 
 .model-info {
-    font-size: 12px; /* 较小的字体大小 */
-    display: flex; /* 使用 Flexbox 布局 */
-    margin-left: auto; /* 自动外边距将推动它到右边 */
-    justify-content: flex-start; /* 子元素向左对齐 */
-    align-items: center; /* 垂直居中，如有需要 */
+    font-size: 12px;
+    /* 较小的字体大小 */
+    display: flex;
+    /* 使用 Flexbox 布局 */
+    margin-left: auto;
+    /* 自动外边距将推动它到右边 */
+    justify-content: flex-start;
+    /* 子元素向左对齐 */
+    align-items: center;
+    /* 垂直居中，如有需要 */
 }
 
 .model-info img {
-    width: 20px; /* 图片大小，根据需要调整 */
-    height: 20px; /* 图片大小，根据需要调整 */
-    margin-right: 5px; /* 添加一些右边距 */
-    margin-left: 10px; 
-}
-.header h1, .rankings h2, .matter h2 {
-    font-family: 'Roboto', Arial, sans-serif;
-    font-weight: 700; /* 加粗字体用于标题 */
-    /* 其他样式保持不变 */
+    width: 20px;
+    /* 图片大小，根据需要调整 */
+    height: 20px;
+    /* 图片大小，根据需要调整 */
+    margin-right: 5px;
+    /* 添加一些右边距 */
+    margin-left: 10px;
 }
 
 /* 对正文和小标题使用标准字体粗细 */
-.instructions, .category h3, .contact {
-    font-family: 'Roboto', Arial, sans-serif;
+.instructions,
+.contact {
+    font-family: Arial, sans-serif;
     font-weight: 400;
     /* 其他样式保持不变 */
 }
-
-
