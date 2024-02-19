@@ -239,7 +239,7 @@ function timeAgo(date) {
     const updatedDate = new Date(date);
     const diffTime = Math.abs(now - updatedDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    if (diffDays < 7) {
+    if (diffDays < 60) {
         return `${diffDays} days ago`;
     } else {
         return `Updated ${updatedDate.toLocaleDateString()}`;
@@ -269,7 +269,7 @@ async function fetchTrending(type) {
             <div class="item-rank">#${index + 1}</div>
             <img src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">
             <div class="item-info">
-                <div><strong>${modelName}</strong></div>
+                <div class="model-name">${modelName}</div>
                 <div class="item-stats">
                     <span>${timeAgo(item.repoData.lastModified)}</span>
                     <span class="right-aligned-stats">

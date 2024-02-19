@@ -654,13 +654,18 @@ li {
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 25px;
+    break-inside: avoid;
+    height: 70px;
 }
 
 .item-rank {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 400;
     margin-right: 10px;
-    color: #888; /* Light gray for visual emphasis */
+    color: #888888b0; /* Light gray for visual emphasis */
+    font-family: 'Montserrat', sans-serif;
+    /* font-style: italic; */
+    /* color: #4a90e2; */
 }
 
 .trending-item img {
@@ -671,8 +676,16 @@ li {
 }
 
 .item-info {
-    flex-grow: 1;
-    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 85%; /* Ensure it fills the parent's height */
+}
+
+.model-name {
+    font-family: IBM Plex Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    font-weight: bold;
+    color: #000000de;
 }
 
 .item-stats {
@@ -686,14 +699,22 @@ li {
     align-items: center;
 }
 
-.item-info > div, .item-stats span, .right-aligned-stats span  {
-    color: #aaa; /* Light gray for text except the model name */
+.item-stats span, .right-aligned-stats span  {
+    color: #726f6fde;
 }
 
 .item-info > div:first-child {
-    color: #000; /* Keep model name in default color */
-    margin-bottom: 5px;
-    font-size: 16px; /* Ensure model name is prominently displayed */
+    font-size: 16px;
+    white-space: normal; /* Allow wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    /* margin-top: px; */
+}
+
+.item-info > div:last-child {
+    font-size: 14px;
+    display: flex;
+    /* justify-content: space-between; */
 }
 
 .svg-placeholder {
@@ -709,13 +730,25 @@ li {
     font-size: 10px;
     color: white;
 }
-
-@media (max-width: 768px) {
+@media screen and (min-width: 700px) and (max-width: 1200px) {
     .trending-items {
         grid-template-columns: 1fr;
+        column-count: 2;
+    }
+}
+@media (max-width: 700px) {
+    .trending-items {
+        grid-template-columns: 1fr;
+        column-count: 1;
     }
 
     .trending-item {
+        margin-bottom: 14px;
+    }
+    .item-info {
+        height: 92%;
+    }
+    /* .trending-item {
         flex-direction: column;
         align-items: start;
     }
@@ -723,5 +756,5 @@ li {
     .item-info > div {
         flex-direction: column;
         align-items: start;
-    }
+    } */
 }
