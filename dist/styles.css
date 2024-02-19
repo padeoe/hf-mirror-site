@@ -147,7 +147,7 @@ body {
     /* 调整字体颜色 */
     font-size: 16px;
     /* 调整字体大小 */
-    margin-bottom: 80px;
+    margin-bottom: 50px;
 }
 
 .instructions a {
@@ -239,7 +239,7 @@ body {
     width: 100%;
     font-size: 14px;
     border-top: 1px solid #e0e0e0;
-    height: 40px;
+    height: 46px;
 }
 
 @media screen and (max-width: 600px) {
