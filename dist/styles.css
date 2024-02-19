@@ -110,17 +110,22 @@ body {
     .header {
         height: 150px;
     }
+
     .top {
-        flex-direction: column; 
+        flex-direction: column;
     }
+
     .top h1 {
         margin-right: 0;
     }
+
     .search-box {
         width: 100%;
         margin-left: 0;
-        max-width: 85%;;
+        max-width: 85%;
+        ;
     }
+
     .search-svg {
         left: 20px;
     }
@@ -367,6 +372,7 @@ li {
     padding-left: 20px;
     padding-top: 10px;
 }
+
 .search-result-item {
     padding: 10px;
     padding-left: 40px;
@@ -422,43 +428,50 @@ li {
 
 }
 
-.contain-header{
+.contain-header {
     /* display: flex; */
     justify-content: center;
 }
 
 /* 热门排行标题装饰更新 */
 .contain-header h2 {
-  position: relative;
-  text-align: center;
-  display: inline-block; /* 让容器适应内容宽度 */
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    /* 让容器适应内容宽度 */
 }
 
 .contain-header h2:before,
 .contain-header h2:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 180px; /* 更新装饰线的宽度为更长 */
-  height: 2px; /* 装饰线的高度 */
-  transform: translateY(-50%);
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 180px;
+    /* 更新装饰线的宽度为更长 */
+    height: 2px;
+    /* 装饰线的高度 */
+    transform: translateY(-50%);
 }
 
 .contain-header h2:before {
-    left: 210px; /* 根据线条长度相应调整间距 */
-    background: linear-gradient(to right, rgb(231, 228, 228) 0%, rgba(0, 0, 0, 0) 100%); /* 渐变方向向右，开始实心 */
-  }
-  
-  .contain-header h2:after {
-    right: 210px; /* 根据线条长度相应调整间距 */
-    background: linear-gradient(to left, rgb(231, 228, 228)  0%, rgba(0, 0, 0, 0) 100%); /* 渐变方向向左，开始实心 */
-  }
+    left: 210px;
+    /* 根据线条长度相应调整间距 */
+    background: linear-gradient(to right, rgb(231, 228, 228) 0%, rgba(0, 0, 0, 0) 100%);
+    /* 渐变方向向右，开始实心 */
+}
+
+.contain-header h2:after {
+    right: 210px;
+    /* 根据线条长度相应调整间距 */
+    background: linear-gradient(to left, rgb(231, 228, 228) 0%, rgba(0, 0, 0, 0) 100%);
+    /* 渐变方向向左，开始实心 */
+}
 
 /* 分类标题样式 */
 .category h3 {
     font-size: 1.2em;
     /* 增加标题字体大小 */
-    color:#004d99;
+    color: #004d99;
     /* 增加字体大小 */
     font-weight: bold;
     /* 选择更鲜明的颜色 */
@@ -576,6 +589,7 @@ li {
         margin-left: 5px;
         width: 90%;
     }
+
     .instructions {
         padding: 20px;
     }
