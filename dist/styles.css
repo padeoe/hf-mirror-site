@@ -19,7 +19,6 @@ body {
     height: 100px;
     font-size: 16px;
     border-bottom: 1px solid #ebebeb;
-    margin-bottom: 10px;
     padding-bottom: 5px;
 }
 
@@ -122,8 +121,7 @@ body {
     .search-box {
         width: 100%;
         margin-left: 0;
-        max-width: 85%;
-        ;
+        max-width: 100%;
     }
 
     .search-svg {
@@ -546,11 +544,12 @@ li {
 @media (max-width: 768px) {
     .container {
         margin: 0%;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
     .header h1 {
         font-size: 1em;
-        margin-top: 5%;
     }
 
     .categories {
@@ -567,8 +566,7 @@ li {
     }
 
     .search-input {
-        margin-left: 5px;
-        width: 90%;
+        width: 100%;
     }
 
     .instructions {
@@ -679,9 +677,16 @@ li {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 85%; /* Ensure it fills the parent's height */
+    height: 88%; /* Ensure it fills the parent's height */
+    width: 100%;
 }
 
+.item-info > div:first-child {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold; /* Make the font bold */
+}
 .model-name {
     font-family: IBM Plex Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
     font-weight: bold;
@@ -690,53 +695,60 @@ li {
 
 .item-stats {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Keeps the update time on the left and likes/downloads on the right */
+    align-items: center; /* Aligns items vertically in the center */
     font-size: 14px;
+    width: 100%; /* Ensures the stats span the full width of the item */
 }
 
-.right-aligned-stats {
+.stats-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically in the center */
+    font-size: 14px;
+    width: 100%; /* Use the full width to space out the children */
+    color: #989898;
+}
+
+.stats-icons {
     display: flex;
     align-items: center;
-}
-
-.item-stats span, .right-aligned-stats span  {
-    color: #726f6fde;
-}
-
-.item-info > div:first-child {
-    font-size: 16px;
-    white-space: normal; /* Allow wrapping */
-    overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis; /* Add ellipsis for overflow */
-    /* margin-top: px; */
-}
-
-.item-info > div:last-child {
+    justify-content: flex-end;
     font-size: 14px;
+    flex: 1;
+    text-align: right;
+}
+
+.downloads, .likes {
     display: flex;
-    /* justify-content: space-between; */
+    align-items: center;
+    margin-left: 10px; /* Adjust as needed */
+    justify-content: flex-end;
 }
 
 .svg-placeholder {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
-    vertical-align: middle;
-    /* background-color: #ccc; */
-    /* border-radius: 50%; */
-    text-align: center;
-    line-height: 16px;
-    font-size: 10px;
-    color: white;
+    margin-right: 5px; /* Space between icon and number */
 }
+
+.stats-detail {
+    flex: 1;
+    text-align: left;
+}
+
 @media screen and (min-width: 700px) and (max-width: 1200px) {
     .trending-items {
         grid-template-columns: 1fr;
         column-count: 2;
     }
+    .trending-item {
+        margin-bottom: 14px;
+        padding: 6px;
+    }
+    .item-info {
+        height: 90%;
+    }
 }
-@media (max-width: 700px) {
+@media screen and (min-width: 350px) and (max-width: 700px) {
     .trending-items {
         grid-template-columns: 1fr;
         column-count: 1;
@@ -744,17 +756,25 @@ li {
 
     .trending-item {
         margin-bottom: 14px;
+        padding: 6px;
     }
     .item-info {
-        height: 92%;
+        height: 90%;
     }
-    /* .trending-item {
-        flex-direction: column;
-        align-items: start;
+}
+
+@media (max-width: 350px) {
+    .trending-items {
+        grid-template-columns: 1fr;
+        column-count: 1;
     }
 
-    .item-info > div {
-        flex-direction: column;
-        align-items: start;
-    } */
+    .trending-item {
+        margin-bottom: 14px;
+        height: 90px;
+        padding: 6px;
+    }
+    .item-info {
+        height: 90%;
+    }
 }
