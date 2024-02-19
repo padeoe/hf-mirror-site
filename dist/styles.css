@@ -38,6 +38,7 @@ body {
     /* justify-content: center; */
     width: 1200px;
     margin-top: 5px;
+    padding: 20px;
 }
 
 .top h1 {
@@ -109,17 +110,22 @@ body {
     .header {
         height: 150px;
     }
+
     .top {
-        flex-direction: column; 
+        flex-direction: column;
     }
+
     .top h1 {
         margin-right: 0;
     }
+
     .search-box {
         width: 100%;
         margin-left: 0;
-        max-width: 85%;;
+        max-width: 85%;
+        ;
     }
+
     .search-svg {
         left: 20px;
     }
@@ -130,6 +136,8 @@ body {
     box-shadow: 0;
     margin-bottom: 40px;
     background-color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -364,6 +372,7 @@ li {
     padding-left: 20px;
     padding-top: 10px;
 }
+
 .search-result-item {
     padding: 10px;
     padding-left: 40px;
@@ -419,43 +428,31 @@ li {
 
 }
 
-.contain-header{
-    /* display: flex; */
+.rankings-header {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-/* 热门排行标题装饰更新 */
-.contain-header h2 {
-  position: relative;
-  text-align: center;
-  display: inline-block; /* 让容器适应内容宽度 */
+.rankings-header::before,
+.rankings-header::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, rgb(231, 228, 228) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
-.contain-header h2:before,
-.contain-header h2:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 180px; /* 更新装饰线的宽度为更长 */
-  height: 2px; /* 装饰线的高度 */
-  transform: translateY(-50%);
+.rankings-header h2 {
+    margin: 0 20px; /* 根据需要调整间距 */
+    display: inline-block;
 }
-
-.contain-header h2:before {
-    left: 210px; /* 根据线条长度相应调整间距 */
-    background: linear-gradient(to right, rgb(231, 228, 228) 0%, rgba(0, 0, 0, 0) 100%); /* 渐变方向向右，开始实心 */
-  }
-  
-  .contain-header h2:after {
-    right: 210px; /* 根据线条长度相应调整间距 */
-    background: linear-gradient(to left, rgb(231, 228, 228)  0%, rgba(0, 0, 0, 0) 100%); /* 渐变方向向左，开始实心 */
-  }
 
 /* 分类标题样式 */
 .category h3 {
     font-size: 1.2em;
     /* 增加标题字体大小 */
-    color:#004d99;
+    color: #004d99;
     /* 增加字体大小 */
     font-weight: bold;
     /* 选择更鲜明的颜色 */
@@ -548,14 +545,12 @@ li {
 /* 响应式设计：小屏幕设备 */
 @media (max-width: 768px) {
     .container {
-        padding-left: 10px;
-        padding-right: 10px;
         margin: 0%;
     }
 
     .header h1 {
         font-size: 1em;
-        margin-top: 8%;
+        margin-top: 5%;
     }
 
     .categories {
@@ -575,6 +570,7 @@ li {
         margin-left: 5px;
         width: 90%;
     }
+
     .instructions {
         padding: 20px;
     }
@@ -616,4 +612,149 @@ li {
     font-family: Arial, sans-serif;
     font-weight: 400;
     /* 其他样式保持不变 */
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #555;
+    background-color: #f0f0f0;
+    margin: 0 5px;
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tab:hover {
+    background-color: #d0d0d0;
+    color: #000;
+}
+
+.trending-items {
+    column-count: 3;
+    column-gap: 20px;
+    margin: auto;
+    max-width: 1200px;
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+    gap: 30px;
+    /* justify-content: space-between; */
+}
+
+.trending-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    break-inside: avoid;
+    height: 70px;
+}
+
+.item-rank {
+    font-size: 24px;
+    font-weight: 400;
+    margin-right: 10px;
+    color: #888888b0; /* Light gray for visual emphasis */
+    font-family: 'Montserrat', sans-serif;
+    /* font-style: italic; */
+    /* color: #4a90e2; */
+}
+
+.trending-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 85%; /* Ensure it fills the parent's height */
+}
+
+.model-name {
+    font-family: IBM Plex Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    font-weight: bold;
+    color: #000000de;
+}
+
+.item-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.right-aligned-stats {
+    display: flex;
+    align-items: center;
+}
+
+.item-stats span, .right-aligned-stats span  {
+    color: #726f6fde;
+}
+
+.item-info > div:first-child {
+    font-size: 16px;
+    white-space: normal; /* Allow wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    /* margin-top: px; */
+}
+
+.item-info > div:last-child {
+    font-size: 14px;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.svg-placeholder {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+    /* background-color: #ccc; */
+    /* border-radius: 50%; */
+    text-align: center;
+    line-height: 16px;
+    font-size: 10px;
+    color: white;
+}
+@media screen and (min-width: 700px) and (max-width: 1200px) {
+    .trending-items {
+        grid-template-columns: 1fr;
+        column-count: 2;
+    }
+}
+@media (max-width: 700px) {
+    .trending-items {
+        grid-template-columns: 1fr;
+        column-count: 1;
+    }
+
+    .trending-item {
+        margin-bottom: 14px;
+    }
+    .item-info {
+        height: 92%;
+    }
+    /* .trending-item {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .item-info > div {
+        flex-direction: column;
+        align-items: start;
+    } */
 }
