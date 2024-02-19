@@ -242,7 +242,7 @@ function timeAgo(date) {
     if (diffDays < 60) {
         return `${diffDays} days ago`;
     } else {
-        return `Updated ${updatedDate.toLocaleDateString()}`;
+        return `${updatedDate.toLocaleDateString()}`;
     }
 }
 
@@ -270,12 +270,20 @@ async function fetchTrending(type) {
             <img src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">
             <div class="item-info">
                 <div class="model-name">${modelName}</div>
-                <div class="item-stats">
-                    <span>${timeAgo(item.repoData.lastModified)}</span>
-                    <span class="right-aligned-stats">
-                        <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M26 24v4H6v-4H4v4a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2v-4zm0-10l-1.41-1.41L17 20.17V2h-2v18.17l-7.59-7.58L6 14l10 10l10-10z"></path></svg></span>${abbreviateNumber(item.repoData.downloads)}
-                        <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" fill="currentColor"><path d="M22.45,6a5.47,5.47,0,0,1,3.91,1.64,5.7,5.7,0,0,1,0,8L16,26.13,5.64,15.64a5.7,5.7,0,0,1,0-8,5.48,5.48,0,0,1,7.82,0L16,10.24l2.53-2.58A5.44,5.44,0,0,1,22.45,6m0-2a7.47,7.47,0,0,0-5.34,2.24L16,7.36,14.89,6.24a7.49,7.49,0,0,0-10.68,0,7.72,7.72,0,0,0,0,10.82L16,29,27.79,17.06a7.72,7.72,0,0,0,0-10.82A7.49,7.49,0,0,0,22.45,4Z"></path></svg></span>${abbreviateNumber(item.likes)}
-                    </span>
+                <div class="stats-line">
+                    <div class="stats-detail">
+                        <span>${timeAgo(item.repoData.lastModified)}</span>
+                    </div>
+                    <div class="stats-icons">
+                        <span class="downloads">
+                            <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M26 24v4H6v-4H4v4a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2v-4zm0-10l-1.41-1.41L17 20.17V2h-2v18.17l-7.59-7.58L6 14l10 10l10-10z"></path></svg></span>
+                            <span class="count">${abbreviateNumber(item.repoData.downloads)}</span>
+                        </span>
+                        <span class="likes">
+                            <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" fill="currentColor"><path d="M22.45,6a5.47,5.47,0,0,1,3.91,1.64,5.7,5.7,0,0,1,0,8L16,26.13,5.64,15.64a5.7,5.7,0,0,1,0-8,5.48,5.48,0,0,1,7.82,0L16,10.24l2.53-2.58A5.44,5.44,0,0,1,22.45,6m0-2a7.47,7.47,0,0,0-5.34,2.24L16,7.36,14.89,6.24a7.49,7.49,0,0,0-10.68,0,7.72,7.72,0,0,0,0,10.82L16,29,27.79,17.06a7.72,7.72,0,0,0,0-10.82A7.49,7.49,0,0,0,22.45,4Z"></path></svg></span>
+                            <span class="count">${abbreviateNumber(item.likes)}</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         `;
