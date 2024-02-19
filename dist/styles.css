@@ -38,6 +38,7 @@ body {
     /* justify-content: center; */
     width: 1200px;
     margin-top: 5px;
+    padding: 20px;
 }
 
 .top h1 {
@@ -130,6 +131,8 @@ body {
     box-shadow: 0;
     margin-bottom: 40px;
     background-color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -548,14 +551,12 @@ li {
 /* 响应式设计：小屏幕设备 */
 @media (max-width: 768px) {
     .container {
-        padding-left: 10px;
-        padding-right: 10px;
         margin: 0%;
     }
 
     .header h1 {
         font-size: 1em;
-        margin-top: 8%;
+        margin-top: 5%;
     }
 
     .categories {
