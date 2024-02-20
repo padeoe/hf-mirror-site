@@ -1,3 +1,7 @@
+html {
+    -webkit-text-size-adjust: 100%; /* 防止iOS Safari横屏时改变文字大小 */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -657,18 +661,24 @@ li {
     box-shadow: 0 4px 6px #f1f1f1, 0 4px 6px #f1f1f1;
 }
 
-.trending-item img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
+.repo-link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
+.repo-link:hover {
+    text-decoration: none;
+}
+.repo-link:hover .model-name {
+    color: #057cf3; /* 或者您希望的任何颜色 */
+}
 .toggle-button {
     display: none;
     margin: 20px auto;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #2f88e6;
     color: white;
     border: none;
     border-radius: 5px;
@@ -690,8 +700,14 @@ li {
     color: #888888b0;
     /* Light gray for visual emphasis */
     font-family: 'Montserrat', sans-serif;
-    /* font-style: italic; */
-    /* color: #4a90e2; */
+    min-width: 26px;
+}
+
+.model-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 
 .item-info {
@@ -715,6 +731,7 @@ li {
     font-family: 'Courier New', Consolas, monospace;
     font-weight: bold;
     color: #000000de;
+    word-break: break-all;
 }
 
 .pipeline-tag {

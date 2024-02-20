@@ -85,7 +85,7 @@ searchInput.addEventListener('focus', function () {
 searchInput.addEventListener('blur', function () {
     setTimeout(function () {
         searchResults.style.display = 'none';
-    }, 300);
+    }, 3000);
 });
 
 function openLink(url) {
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
     async function fetchTrending(type) {
         const response = await fetch(`https://hf-mirror.com/api/trending?limit=10&type=${type}`);
         const data = await response.json();
-        updateTrendingItems(data.recentlyTrending);
+        updateTrendingItems(data.recentlyTrending.slice(0, 10));
     }
 
     function updateTrendingItems(items) {
@@ -301,28 +301,53 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getTrendingItemHTML(item, index) {
-        const modelName = item.repoData.id;
+        const repoId = item.repoData.id;
+        const repoLink = item.repoType === 'model' ? repoId : `/${item.repoType}s/${repoId}`;
         const pipeline_tag = item.repoData.pipeline_tag;
         const pipelineTagHTML = pipeline_tag ? `<div class="pipeline-tag">${pipeline_tag}</div>` : '';
         const downloadCountHTML = item.repoData.downloads ? `<span class="count">${abbreviateNumber(item.repoData.downloads)}</span>` : `<span class="count">-</span>`;
+        let logoHTML;
+        switch (item.repoType) {
+            case 'model':
+                logoHTML = `<img class="model-logo" src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">`;
+                break;
+            case 'dataset':
+                logoHTML = `<svg class="model-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 25"><ellipse cx="12.5" cy="5" fill="currentColor" fill-opacity="0.25" rx="7.5" ry="2"></ellipse><path d="M12.5 15C16.6421 15 20 14.1046 20 13V20C20 21.1046 16.6421 22 12.5 22C8.35786 22 5 21.1046 5 20V13C5 14.1046 8.35786 15 12.5 15Z" fill="currentColor" opacity="0.5"></path><path d="M12.5 7C16.6421 7 20 6.10457 20 5V11.5C20 12.6046 16.6421 13.5 12.5 13.5C8.35786 13.5 5 12.6046 5 11.5V5C5 6.10457 8.35786 7 12.5 7Z" fill="currentColor" opacity="0.5"></path><path d="M5.23628 12C5.08204 12.1598 5 12.8273 5 13C5 14.1046 8.35786 15 12.5 15C16.6421 15 20 14.1046 20 13C20 12.8273 19.918 12.1598 19.7637 12C18.9311 12.8626 15.9947 13.5 12.5 13.5C9.0053 13.5 6.06886 12.8626 5.23628 12Z" fill="currentColor"></path></svg>`;
+                break;
+            case 'space':
+                logoHTML = `<img class="model-logo" src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">`;
+                // logoHTML = `<svg class="model-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M7.80914 18.7462V24.1907H13.2536V18.7462H7.80914Z" fill="#FF3270"></path><path d="M18.7458 18.7462V24.1907H24.1903V18.7462H18.7458Z" fill="#861FFF"></path><path d="M7.80914 7.80982V13.2543H13.2536V7.80982H7.80914Z" fill="#097EFF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M4 6.41775C4 5.08246 5.08246 4 6.41775 4H14.6457C15.7626 4 16.7026 4.75724 16.9802 5.78629C18.1505 4.67902 19.7302 4 21.4685 4C25.0758 4 28.0003 6.92436 28.0003 10.5317C28.0003 12.27 27.3212 13.8497 26.2139 15.02C27.243 15.2977 28.0003 16.2376 28.0003 17.3545V25.5824C28.0003 26.9177 26.9177 28.0003 25.5824 28.0003H17.0635H14.9367H6.41775C5.08246 28.0003 4 26.9177 4 25.5824V15.1587V14.9367V6.41775ZM7.80952 7.80952V13.254H13.254V7.80952H7.80952ZM7.80952 24.1907V18.7462H13.254V24.1907H7.80952ZM18.7462 24.1907V18.7462H24.1907V24.1907H18.7462ZM18.7462 10.5317C18.7462 9.0283 19.9651 7.80952 21.4685 7.80952C22.9719 7.80952 24.1907 9.0283 24.1907 10.5317C24.1907 12.0352 22.9719 13.254 21.4685 13.254C19.9651 13.254 18.7462 12.0352 18.7462 10.5317Z" fill="black"></path><path d="M21.4681 7.80982C19.9647 7.80982 18.7458 9.02861 18.7458 10.5321C18.7458 12.0355 19.9647 13.2543 21.4681 13.2543C22.9715 13.2543 24.1903 12.0355 24.1903 10.5321C24.1903 9.02861 22.9715 7.80982 21.4681 7.80982Z" fill="#FFD702"></path></svg>`
+                // logoHTML = `<svg src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">`;
+                break;
+            default:
+                console.log('BUG');
+        }
         return `
-            <div class="item-rank">#${index + 1}</div>
-            <img src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">
-            <div class="item-info">
-                <div class="model-name">${modelName}</div>
-                <div class="stats-line">
-                    ${pipelineTagHTML}
-                    <div class="other-stats">
-                        <div class="stats-detail">
-                            <span>${timeAgo(item.repoData.lastModified)}</span>
-                        </div>
-                        <div class="stats-icons">
-                            <span class="downloads">${downloadCountHTML}</span>
-                            <span class="likes"><span class="count">${abbreviateNumber(item.likes)}</span></span>
+            <a class= "repo-link" href="${repoLink}">
+                <div class="item-rank">#${index + 1}</div>
+                ${logoHTML}
+                <div class="item-info">
+                    <div class="model-name">${repoId}</div>
+                    <div class="stats-line">
+                        ${pipelineTagHTML}
+                        <div class="other-stats">
+                            <div class="stats-detail">
+                                <span>${timeAgo(item.repoData.lastModified)}</span>
+                            </div>
+                            <div class="stats-icons">
+                                <span class="downloads">
+                                    <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" fill="currentColor"><path d="M22.45,6a5.47,5.47,0,0,1,3.91,1.64,5.7,5.7,0,0,1,0,8L16,26.13,5.64,15.64a5.7,5.7,0,0,1,0-8,5.48,5.48,0,0,1,7.82,0L16,10.24l2.53-2.58A5.44,5.44,0,0,1,22.45,6m0-2a7.47,7.47,0,0,0-5.34,2.24L16,7.36,14.89,6.24a7.49,7.49,0,0,0-10.68,0,7.72,7.72,0,0,0,0,10.82L16,29,27.79,17.06a7.72,7.72,0,0,0,0-10.82A7.49,7.49,0,0,0,22.45,4Z"></path></svg></span>
+                                    <span class="count">${downloadCountHTML}</span>
+                                </span>
+                                <span class="likes">
+                                    <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" fill="currentColor"><path d="M22.45,6a5.47,5.47,0,0,1,3.91,1.64,5.7,5.7,0,0,1,0,8L16,26.13,5.64,15.64a5.7,5.7,0,0,1,0-8,5.48,5.48,0,0,1,7.82,0L16,10.24l2.53-2.58A5.44,5.44,0,0,1,22.45,6m0-2a7.47,7.47,0,0,0-5.34,2.24L16,7.36,14.89,6.24a7.49,7.49,0,0,0-10.68,0,7.72,7.72,0,0,0,0,10.82L16,29,27.79,17.06a7.72,7.72,0,0,0,0-10.82A7.49,7.49,0,0,0,22.45,4Z"></path></svg></span>
+                                    <span class="count">${abbreviateNumber(item.likes)}</span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         `;
     }
 
