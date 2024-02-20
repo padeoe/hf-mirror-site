@@ -52,7 +52,7 @@ searchInput.addEventListener('input', function () {
                 let resultsHtml = '';
                 ['models', 'datasets'].forEach(type => {
                     if (data[type]) {
-                        resultsHtml += `<div class="search-result-type"><strong>${type}</strong></div>`;
+                        resultsHtml += `<div class=zsearch-result-type"><strong>${type}</strong></div>`;
                         data[type].forEach(item => {
                             resultsHtml += `<div class="search-result-item" onclick="openLink('/${type === 'models' ? '' : type + '/'}${item.id}')">${item.id}</div>`;
                         });
@@ -371,12 +371,13 @@ let isExpanded = false; // 跟踪展开状态
 function adjustDisplayBasedOnWidth() {
     const screenWidth = window.innerWidth;
     let maxItemsToShow;
+    console.log(`screenWidth: ${screenWidth}, isExpanded: ${isExpanded}`);
 
     if (screenWidth < 768) {
         maxItemsToShow = 3; // 小屏显示3项
         isExpanded = false;
     } else {
-        maxItemsToShow = 10; // 大屏显示12项
+        maxItemsToShow = 10; // 大屏显示10项
         isExpanded = true; // 大屏幕时自动展开
     }
 
@@ -401,9 +402,3 @@ function adjustDisplayBasedOnWidth() {
 // 初始化和调整窗口大小时调用
 document.addEventListener('DOMContentLoaded', adjustDisplayBasedOnWidth);
 window.addEventListener('resize', adjustDisplayBasedOnWidth);
-
-// 展开/折叠按钮事件监听器
-document.getElementById('toggleButton').addEventListener('click', function() {
-    isExpanded = !isExpanded;
-    adjustDisplayBasedOnWidth(); // 重新调整界面
-});
