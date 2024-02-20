@@ -27,6 +27,7 @@ body {
 .tutorial h2 {
     font-family: Arial, sans-serif;
     font-weight: 700;
+    /* padding: 0 20px; */
 }
 
 .top {
@@ -105,29 +106,7 @@ body {
     background-color: #fff;
 }
 
-@media (max-width: 768px) {
-    .header {
-        height: 150px;
-    }
 
-    .top {
-        flex-direction: column;
-    }
-
-    .top h1 {
-        margin-right: 0;
-    }
-
-    .search-box {
-        width: 100%;
-        margin-left: 0;
-        max-width: 100%;
-    }
-
-    .search-svg {
-        left: 20px;
-    }
-}
 
 .container {
     border-radius: 0;
@@ -136,6 +115,7 @@ body {
     background-color: #fff;
     padding-left: 10px;
     padding-right: 10px;
+    background-image: linear-gradient(to right, #ffffff, #eceff5ad, #ffffff);
 }
 
 
@@ -143,7 +123,7 @@ body {
     margin-top: 30px;
     margin-bottom: 30px;
     padding: 30px;
-    background-color: #f9f9f9;
+    background-color: #ffffffc9;
     border-radius: 10px;
     /* 圆角边框 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -246,13 +226,6 @@ body {
     font-size: 14px;
     border-top: 1px solid #e0e0e0;
     height: 46px;
-}
-
-@media screen and (max-width: 600px) {
-    .contact {
-        padding: 3px;
-        font-size: 12px;
-    }
 }
 
 .contact a {
@@ -385,6 +358,16 @@ li {
     background-color: #e5e5e5;
 }
 
+.rankings {
+    background-color: transparent;
+    /* background-image: radial-gradient(circle, #eceff5ad, #ffffff); */
+}
+
+.tutorial {
+    background-color: transparent;
+    /* background-image: linear-gradient(to right, #ffffff, #eceff5ad, #ffffff); */
+
+}
 
 .rankings,
 .tutorial {
@@ -392,15 +375,16 @@ li {
     margin: 0 auto;
     /* 水平居中 */
     padding: 20px;
-
-
+    /* background-image: linear-gradient(to right, #ffffff, #eceff5ad, #ffffff); */
+    /* background-image: radial-gradient(circle, #eceff5ad, #ffffff); */
 }
 
 .tutorial-header {
-
-    background-image: linear-gradient(rgba(235, 236, 237, 0.6), rgb(255, 255, 255), rgb(255, 255, 255));
-
-    padding-top: 50px;
+    /* background-image: linear-gradient(rgba(235, 236, 237, 0.6), rgb(255, 255, 255), rgb(255, 255, 255)); */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    /* padding-top: 50px; */
     border-top-left-radius: 90%;
     border-top-right-radius: 90%;
     border-top-style: solid;
@@ -412,14 +396,14 @@ li {
 .tutorial h2,
 .rankings h2 {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 22px;
     /* 增加字体大小 */
     font-weight: bold;
     /* 字体加粗 */
     color: #004d99;
     /* 调整颜色为深蓝色 */
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     /* 增加底部间距 */
     position: relative;
 
@@ -431,6 +415,12 @@ li {
     justify-content: center;
     align-items: center;
     text-align: center;
+    /* background-image: linear-gradient(rgba(235, 236, 237, 0.6), rgb(255, 255, 255), rgb(255, 255, 255)); */
+    padding-top: 35px;
+    border-top-left-radius: 90%;
+    border-top-right-radius: 90%;
+    border-top-style: solid;
+    border-top-width: 0px;
 }
 
 .rankings-header::before,
@@ -438,11 +428,41 @@ li {
     content: "";
     flex: 1;
     height: 2px;
-    background: linear-gradient(to right, rgb(231, 228, 228) 0%, rgba(0, 0, 0, 0) 100%);
+    width: 80%;
 }
 
-.rankings-header h2 {
-    margin: 0 20px; /* 根据需要调整间距 */
+
+.rankings-header::before {
+    margin-right: 0px;
+    background: linear-gradient(to right, rgba(255,255,255,0), rgb(231, 228, 228));
+}
+
+.rankings-header::after {
+    margin-left:0px;
+    background: linear-gradient(to left, rgba(255,255,255,0), rgb(231, 228, 228));
+}
+
+.tutorial-header::before,
+.tutorial-header::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    width: 80%;
+}
+
+.tutorial-header::before {
+    margin-right: 0px;
+    background: linear-gradient(to right, rgba(255,255,255,0), rgb(231, 228, 228));
+}
+
+.tutorial-header::after {
+    margin-left:0px;
+    background: linear-gradient(to left, rgba(255,255,255,0), rgb(231, 228, 228));
+}
+
+.rankings-header h2, .tutorial-header h2 {
+    margin: 0 20px;
+    /* 根据需要调整间距 */
     display: inline-block;
 }
 
@@ -540,40 +560,6 @@ li {
     /* 确保悬停时不会出现下划线 */
 }
 
-/* 响应式设计：小屏幕设备 */
-@media (max-width: 768px) {
-    .container {
-        margin: 0%;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
-    .header h1 {
-        font-size: 1em;
-    }
-
-    .categories {
-        display: block;
-    }
-
-    .category {
-        padding-top: 10px;
-        flex-basis: 100%;
-    }
-
-    .rankings {
-        margin: 0%;
-    }
-
-    .search-input {
-        width: 100%;
-    }
-
-    .instructions {
-        padding: 20px;
-    }
-}
-
 .model-id {
     font-size: 16px;
     /* 调整为你想要的大小 */
@@ -615,55 +601,60 @@ li {
 .tabs {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 16px 0;
+    font-size: 12px;
 }
 
 .tab {
-    padding: 10px 20px;
+    padding: 4px 10px;
     cursor: pointer;
     color: #555;
-    background-color: #f0f0f0;
+    background-color: transparent;
+    /* 修改为透明背景 */
     margin: 0 5px;
     border-radius: 20px;
     transition: background-color 0.3s, color 0.3s;
 }
 
+.tab.active {
+    color: #fff;
+    /* 点击状态的文字颜色为白色 */
+    background-color: #004d99;
+    /* 点击状态的背景颜色为深蓝色 */
+}
+
 .tab:hover {
-    background-color: #d0d0d0;
-    color: #000;
+    background-color: #004d99;
+    color: #fff;
 }
 
 .trending-items {
-    column-count: 3;
+    column-count: 2;
     column-gap: 20px;
     margin: auto;
     max-width: 1200px;
-    /* display: grid; */
-    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
     gap: 30px;
-    /* justify-content: space-between; */
 }
 
 .trending-item {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #f9f9f9;
-    padding: 10px;
+    background-color: #ffffff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 16px;
     break-inside: avoid;
     height: 70px;
-}
-
-.item-rank {
-    font-size: 24px;
-    font-weight: 400;
-    margin-right: 10px;
-    color: #888888b0; /* Light gray for visual emphasis */
-    font-family: 'Montserrat', sans-serif;
-    /* font-style: italic; */
-    /* color: #4a90e2; */
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out;
+    border: 1px solid #f1f1f1;
+    /* 浅灰色边框 */
+    /* border-color: rgb(243, 244, 246); */
+    /* 添加阴影效果 */
+    box-shadow: 0 4px 6px #f1f1f1, 0 4px 6px #f1f1f1;
 }
 
 .trending-item img {
@@ -673,41 +664,98 @@ li {
     margin-right: 10px;
 }
 
+.toggle-button {
+    display: none;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hidden-item {
+    display: none;
+    opacity: 0;
+    height: 0;
+    margin: 0 0 0 0;
+    overflow: hidden;
+}
+
+.item-rank {
+    font-size: 24px;
+    font-weight: 400;
+    margin-right: 10px;
+    color: #888888b0;
+    /* Light gray for visual emphasis */
+    font-family: 'Montserrat', sans-serif;
+    /* font-style: italic; */
+    /* color: #4a90e2; */
+}
+
 .item-info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 88%; /* Ensure it fills the parent's height */
+    height: 88%;
+    /* Ensure it fills the parent's height */
     width: 100%;
 }
 
-.item-info > div:first-child {
+.item-info>div:first-child {
     font-size: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-weight: bold; /* Make the font bold */
+    font-weight: bold;
+    /* Make the font bold */
 }
+
 .model-name {
-    font-family: IBM Plex Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    font-family: 'Courier New', Consolas, monospace;
     font-weight: bold;
     color: #000000de;
 }
 
-.item-stats {
-    display: flex;
-    justify-content: space-between; /* Keeps the update time on the left and likes/downloads on the right */
-    align-items: center; /* Aligns items vertically in the center */
+.pipeline-tag {
     font-size: 14px;
-    width: 100%; /* Ensures the stats span the full width of the item */
+    /* 调整为适合的大小 */
+    color: #989898;
+    /* 或选择其他颜色 */
+    padding: 6px 0;
+    padding-top: 8px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+    text-align: left;
 }
+
 
 .stats-line {
     display: flex;
-    justify-content: space-between;
-    align-items: center; /* Align items vertically in the center */
-    font-size: 14px;
-    width: 100%; /* Use the full width to space out the children */
+    flex-direction: column;
+    /* 子元素垂直排列 */
+    align-items: flex-start;
+    /* 子元素从左侧开始对齐 */
+    width: 100%;
     color: #989898;
+    font-size: 14px;
+}
+
+.pipeline-tag,
+.other-stats {
+    width: 100%;
+    /* 确保每个元素都可以独占一行 */
+}
+
+.other-stats {
+    display: flex;
+    /* 使内部的统计信息水平排列 */
+    justify-content: space-between;
+    /* 统计详情和图标在两侧 */
+    align-items: center;
+    /* 在这一行内垂直居中对齐 */
+    width: 100%;
+    /* 使用全宽 */
 }
 
 .stats-icons {
@@ -717,17 +765,21 @@ li {
     font-size: 14px;
     flex: 1;
     text-align: right;
+    padding-right: 8px;
 }
 
-.downloads, .likes {
+.downloads,
+.likes {
     display: flex;
     align-items: center;
-    margin-left: 10px; /* Adjust as needed */
+    margin-left: 10px;
+    /* Adjust as needed */
     justify-content: flex-end;
 }
 
 .svg-placeholder {
-    margin-right: 5px; /* Space between icon and number */
+    margin-right: 5px;
+    /* Space between icon and number */
 }
 
 .stats-detail {
@@ -735,46 +787,115 @@ li {
     text-align: left;
 }
 
-@media screen and (min-width: 700px) and (max-width: 1200px) {
-    .trending-items {
-        grid-template-columns: 1fr;
-        column-count: 2;
-    }
-    .trending-item {
-        margin-bottom: 14px;
-        padding: 6px;
-    }
-    .item-info {
-        height: 90%;
-    }
-}
-@media screen and (min-width: 350px) and (max-width: 700px) {
-    .trending-items {
-        grid-template-columns: 1fr;
-        column-count: 1;
-    }
+@media screen and (min-width: 768px) and (max-width: 1000px) {
 
     .trending-item {
         margin-bottom: 14px;
-        padding: 6px;
-    }
-    .item-info {
-        height: 90%;
-    }
-}
-
-@media (max-width: 350px) {
-    .trending-items {
-        grid-template-columns: 1fr;
-        column-count: 1;
-    }
-
-    .trending-item {
-        margin-bottom: 14px;
+        padding: 10px;
         height: 90px;
-        padding: 6px;
     }
+
     .item-info {
         height: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .trending-items {
+        grid-template-columns: 1fr;
+        column-count: 1;
+    }
+
+    .trending-item {
+        margin-bottom: 14px;
+        padding: 6px;
+        height: 90px;
+    }
+
+    .item-info {
+        height: 90%;
+    }
+
+    .toggle-button {
+        display: block;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .contact {
+        padding: 3px;
+        font-size: 12px;
+    }
+}
+
+/* 响应式设计：小屏幕设备 */
+@media (max-width: 768px) {
+    .header {
+        height: 150px;
+    }
+
+    .top {
+        flex-direction: column;
+    }
+
+    .top h1 {
+        margin-right: 0;
+    }
+
+    .search-box {
+        width: 100%;
+        margin-left: 0;
+        max-width: 100%;
+    }
+
+    .search-svg {
+        left: 20px;
+    }
+
+    .container {
+        margin: 0%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .header h1 {
+        font-size: 1em;
+    }
+
+    .categories {
+        display: block;
+    }
+
+    .category {
+        padding-top: 10px;
+        flex-basis: 100%;
+    }
+
+    .rankings {
+        margin: 0%;
+
+    }
+
+    .rankings,
+    .tutorial {
+        padding: 5px 20px;
+    }
+
+    .rankings-header {
+        padding-top: 15px;
+    }
+
+    .pipeline-tag {
+        padding-top: 6px;
+        padding-bottom: 4px;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .instructions {
+        padding: 20px;
     }
 }

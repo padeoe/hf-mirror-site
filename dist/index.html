@@ -35,11 +35,12 @@
             </div>
 
             <div class="tabs">
-                <div class="tab" onclick="fetchTrending('all')">全部</div>
-                <div class="tab" onclick="fetchTrending('model')">模型</div>
-                <div class="tab" onclick="fetchTrending('dataset')">数据集</div>
+                <div class="tab" data-type="all">全部</div>
+                <div class="tab" data-type="model">模型</div>
+                <div class="tab" data-type="dataset">数据集</div>
             </div>
             <div id="trendingItems" class="trending-items"></div>
+            <button id="toggleButton" class="toggle-button">展开全部</button>
 
         </section>
 
