@@ -270,8 +270,14 @@ let maxItemsToShow = 3;
 
 document.addEventListener('DOMContentLoaded', function () {
     const screenWidth = window.innerWidth;
-    maxItemsToShow = screenWidth < 768 ? 3 : 10;
-    isExpanded = screenWidth >= 768;
+    if (sessionStorage.getItem('isExpanded')){
+        isExpanded = sessionStorage.getItem('isExpanded') === 'true';
+    }
+    else {
+        isExpanded = screenWidth >= 650;
+        sessionStorage.setItem('isExpanded', isExpanded);
+    }
+
 
     async function fetchTrending(type) {
         let data = localStorage.getItem(`rankingList_${type}`);
@@ -308,7 +314,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function createTrendingItemElement(item, index) {
         const element = document.createElement('div');
         element.className = 'trending-item';
-        if (index >= maxItemsToShow && !isExpanded) element.classList.add('hidden-item');
+        if (!isExpanded) {
+        }
+        if (index >= maxItemsToShow && !isExpanded) {
+            element.classList.add('hidden-item');
+        }
         element.innerHTML = getTrendingItemHTML(item, index);
         return element;
     }
@@ -322,21 +332,19 @@ document.addEventListener('DOMContentLoaded', function () {
         let logoHTML;
         switch (item.repoType) {
             case 'model':
-                logoHTML = `<img class="model-logo" src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">`;
+                logoHTML = `<img class="model-logo" src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}" title="${item.repoData.authorData.fullname}">`;
                 break;
             case 'dataset':
                 logoHTML = `<svg class="model-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 25 25"><ellipse cx="12.5" cy="5" fill="currentColor" fill-opacity="0.25" rx="7.5" ry="2"></ellipse><path d="M12.5 15C16.6421 15 20 14.1046 20 13V20C20 21.1046 16.6421 22 12.5 22C8.35786 22 5 21.1046 5 20V13C5 14.1046 8.35786 15 12.5 15Z" fill="currentColor" opacity="0.5"></path><path d="M12.5 7C16.6421 7 20 6.10457 20 5V11.5C20 12.6046 16.6421 13.5 12.5 13.5C8.35786 13.5 5 12.6046 5 11.5V5C5 6.10457 8.35786 7 12.5 7Z" fill="currentColor" opacity="0.5"></path><path d="M5.23628 12C5.08204 12.1598 5 12.8273 5 13C5 14.1046 8.35786 15 12.5 15C16.6421 15 20 14.1046 20 13C20 12.8273 19.918 12.1598 19.7637 12C18.9311 12.8626 15.9947 13.5 12.5 13.5C9.0053 13.5 6.06886 12.8626 5.23628 12Z" fill="currentColor"></path></svg>`;
                 break;
             case 'space':
                 logoHTML = `<img class="model-logo" src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">`;
-                // logoHTML = `<svg class="model-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path d="M7.80914 18.7462V24.1907H13.2536V18.7462H7.80914Z" fill="#FF3270"></path><path d="M18.7458 18.7462V24.1907H24.1903V18.7462H18.7458Z" fill="#861FFF"></path><path d="M7.80914 7.80982V13.2543H13.2536V7.80982H7.80914Z" fill="#097EFF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M4 6.41775C4 5.08246 5.08246 4 6.41775 4H14.6457C15.7626 4 16.7026 4.75724 16.9802 5.78629C18.1505 4.67902 19.7302 4 21.4685 4C25.0758 4 28.0003 6.92436 28.0003 10.5317C28.0003 12.27 27.3212 13.8497 26.2139 15.02C27.243 15.2977 28.0003 16.2376 28.0003 17.3545V25.5824C28.0003 26.9177 26.9177 28.0003 25.5824 28.0003H17.0635H14.9367H6.41775C5.08246 28.0003 4 26.9177 4 25.5824V15.1587V14.9367V6.41775ZM7.80952 7.80952V13.254H13.254V7.80952H7.80952ZM7.80952 24.1907V18.7462H13.254V24.1907H7.80952ZM18.7462 24.1907V18.7462H24.1907V24.1907H18.7462ZM18.7462 10.5317C18.7462 9.0283 19.9651 7.80952 21.4685 7.80952C22.9719 7.80952 24.1907 9.0283 24.1907 10.5317C24.1907 12.0352 22.9719 13.254 21.4685 13.254C19.9651 13.254 18.7462 12.0352 18.7462 10.5317Z" fill="black"></path><path d="M21.4681 7.80982C19.9647 7.80982 18.7458 9.02861 18.7458 10.5321C18.7458 12.0355 19.9647 13.2543 21.4681 13.2543C22.9715 13.2543 24.1903 12.0355 24.1903 10.5321C24.1903 9.02861 22.9715 7.80982 21.4681 7.80982Z" fill="#FFD702"></path></svg>`
-                // logoHTML = `<svg src="${item.repoData.authorData.avatarUrl}" alt="${item.repoData.author}">`;
                 break;
             default:
                 console.log('BUG');
         }
         return `
-            <a class= "repo-link" href="${repoLink}">
+            <a class= "repo-link" href="${repoLink}" target="_blank">
                 <div class="item-rank">#${index + 1}</div>
                 ${logoHTML}
                 <div class="item-info">
@@ -349,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                             <div class="stats-icons">
                                 <span class="downloads">
-                                    <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" fill="currentColor"><path d="M22.45,6a5.47,5.47,0,0,1,3.91,1.64,5.7,5.7,0,0,1,0,8L16,26.13,5.64,15.64a5.7,5.7,0,0,1,0-8,5.48,5.48,0,0,1,7.82,0L16,10.24l2.53-2.58A5.44,5.44,0,0,1,22.45,6m0-2a7.47,7.47,0,0,0-5.34,2.24L16,7.36,14.89,6.24a7.49,7.49,0,0,0-10.68,0,7.72,7.72,0,0,0,0,10.82L16,29,27.79,17.06a7.72,7.72,0,0,0,0-10.82A7.49,7.49,0,0,0,22.45,4Z"></path></svg></span>
+                                    <span class="svg-placeholder"><svg class="flex-none w-3 text-gray-400 mr-0.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M26 24v4H6v-4H4v4a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2v-4zm0-10l-1.41-1.41L17 20.17V2h-2v18.17l-7.59-7.58L6 14l10 10l10-10z"></path></svg></span>
                                     <span class="count">${downloadCountHTML}</span>
                                 </span>
                                 <span class="likes">
@@ -368,10 +376,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateToggleButton() {
         const toggleButton = document.getElementById('toggleButton');
         if (!isExpanded) {
-            window.scrollTo({ top: lastScrollPosition, behavior: 'auto' });
+            console.log("开始滚动");
+            window.scrollTo({ top: lastScrollPosition, behavior: 'smooth' });
         }
         toggleButton.classList.toggle('hidden', isExpanded);
-        toggleButton.innerText = isExpanded ? '收起': '展开全部';
+        toggleButton.innerText = isExpanded ? '收起' : '展开';
         if (isExpanded) {
             lastScrollPosition = window.scrollY;
         }
@@ -381,11 +390,22 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', handleTabClick));
 
 
-    fetchTrending('all');
-    setActiveTab();
+    const tabs = document.querySelectorAll('.tab');
+    const savedTabType = sessionStorage.getItem('activeTabType');
+    if (savedTabType) {
+        tabs.forEach(tab => {
+            if (tab.getAttribute('data-type') === savedTabType) {
+                tab.click();
+            }
+        });
+    }
+    else if (tabs.length > 0) {
+        tabs[0].click();
+    }
 
     function toggleVisibility() {
         isExpanded = !isExpanded;
+        sessionStorage.setItem('isExpanded', isExpanded);
         document.querySelectorAll('.trending-item').forEach((item, index) => {
             if (index >= maxItemsToShow) item.classList.toggle('hidden-item', !isExpanded);
         });
@@ -399,22 +419,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const type = this.getAttribute('data-type');
         // 使用sessionStorage保存当前激活的tab的data-type
         sessionStorage.setItem('activeTabType', type);
+        displayMoreButton(type);
         fetchTrending(type);
     }
 
-    function setActiveTab() {
-        // 从sessionStorage中获取保存的tab的data-type
-        const savedTabType = sessionStorage.getItem('activeTabType');
-        const tabs = document.querySelectorAll('.tab');
-        if (savedTabType) {
-            tabs.forEach(tab => {
-                if (tab.getAttribute('data-type') === savedTabType) {
-                    tab.classList.add('active');
-                }
-            });
-        } else if (tabs.length > 0) {
-            // 如果没有保存的tab，激活第一个tab
-            tabs[0].classList.add('active');
+    function displayMoreButton(type) {
+        let moreItemsLink = document.getElementById('moreItems');
+        if (type === 'all') {
+            // moreItemsLink.style.display = 'none';
+        } else {
+            moreItemsLink.style.display = 'block';
+            let href = '/' + type + 's';
+            moreItemsLink.setAttribute('href', href);
         }
     }
 
@@ -424,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function adjustDisplayBasedOnWidth() {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth > 768) {
+    if (screenWidth > 650) {
         maxItemsToShow = 10;
     }
     else {
@@ -439,7 +455,7 @@ function adjustDisplayBasedOnWidth() {
             item.classList.add('hidden-item');
         }
     });
-    toggleButton.innerText = isExpanded ? '收起' : '展开全部';
+    toggleButton.innerText = isExpanded ? '收起' : '展开';
 }
 
 window.addEventListener('beforeunload', function () {

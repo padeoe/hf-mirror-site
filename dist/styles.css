@@ -39,10 +39,8 @@ body {
     background-color: transparent;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     width: 1200px;
-    margin-top: 5px;
-    padding: 20px;
+    padding: 15px;
 }
 
 .top h1 {
@@ -605,7 +603,8 @@ li {
 .tabs {
     display: flex;
     justify-content: center;
-    margin: 16px 0;
+    margin: 10px 0;
+    padding-top: 0px;
     font-size: 12px;
 }
 
@@ -644,45 +643,63 @@ li {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     background-color: #ffffff;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
     border-radius: 10px;
     margin-bottom: 16px;
     break-inside: avoid;
-    height: 70px;
+    height: 100px;
     transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out;
     border: 1px solid #f1f1f1;
-    /* 浅灰色边框 */
-    /* border-color: rgb(243, 244, 246); */
-    /* 添加阴影效果 */
     box-shadow: 0 4px 6px #f1f1f1, 0 4px 6px #f1f1f1;
 }
 
 .repo-link {
     display: flex;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 70%;
+    justify-content: center;
 }
 
 .repo-link:hover {
     text-decoration: none;
 }
 .repo-link:hover .model-name {
-    color: #057cf3; /* 或者您希望的任何颜色 */
+    color: #057cf3;
 }
+
+.button-link-container {
+    display: flex;
+    justify-content: center; /* 开始时将内容居中 */
+    position: relative; /* 相对定位，以便于更多链接的绝对定位 */
+    width: 100%; /* 或者根据需要指定宽度 */
+    align-items: center;
+    height: 30px;
+}
+
 .toggle-button {
     display: none;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #2f88e6;
-    color: white;
+    padding: 6px 16px;
+    background-color: #ffffffa1;
+    color: #8a8888;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
+    border: 1px solid #eceff5ad;
+    box-shadow: 0 4px 6px #eceff5ad, 0 4px 6px #eceff5ad;
+}
+
+.more-items {
+    position: absolute;
+    right: 15px;
+    color: #989898;
+    text-decoration: underline;
+}
+
+.more-items:hover {
+    color: #057cf3;
 }
 
 .hidden-item {
@@ -696,6 +713,7 @@ li {
 .item-rank {
     font-size: 24px;
     font-weight: 400;
+    margin-left: 5px;
     margin-right: 10px;
     color: #888888b0;
     /* Light gray for visual emphasis */
@@ -704,8 +722,10 @@ li {
 }
 
 .model-logo {
-    width: 50px;
-    height: 50px;
+    width: 50vh;
+    height: 50vh;
+    max-width: 50px;
+    max-height: 50px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -714,7 +734,7 @@ li {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 88%;
+    height: 100%;
     /* Ensure it fills the parent's height */
     width: 100%;
 }
@@ -782,7 +802,6 @@ li {
     font-size: 14px;
     flex: 1;
     text-align: right;
-    padding-right: 8px;
 }
 
 .downloads,
@@ -790,8 +809,10 @@ li {
     display: flex;
     align-items: center;
     margin-left: 10px;
-    /* Adjust as needed */
     justify-content: flex-end;
+}
+.downloads {
+    margin-left: 0px;
 }
 
 .svg-placeholder {
@@ -800,24 +821,39 @@ li {
 }
 
 .stats-detail {
-    flex: 1;
+    /* flex: 1; */
     text-align: left;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1000px) {
+@media (min-width: 900px) and (max-width: 1200px) {
 
     .trending-item {
         margin-bottom: 14px;
-        padding: 10px;
-        height: 90px;
+        height: 105px;
     }
 
-    .item-info {
-        height: 90%;
+    .repo-link {
+        width: 90%;
+        height: 75%;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media (min-width: 650px) and (max-width: 900px) {
+    .trending-items {
+        gap: 16px;
+    }
+    .trending-item {
+        margin-bottom: 14px;
+        height: 120px;
+    }
+
+    .repo-link {
+        width: 90%;
+        height: 80%; 
+    }
+}
+
+@media (max-width: 650px) {
     .trending-items {
         grid-template-columns: 1fr;
         column-count: 1;
@@ -825,12 +861,13 @@ li {
 
     .trending-item {
         margin-bottom: 14px;
-        padding: 6px;
-        height: 90px;
+        /* padding: 6px; */
+        height: 110px;
     }
 
-    .item-info {
-        height: 90%;
+    .repo-link {
+        width: 92%;
+        height: 85%;
     }
 
     .toggle-button {
@@ -839,7 +876,7 @@ li {
 }
 
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .contact {
         padding: 3px;
         font-size: 12px;
@@ -849,7 +886,7 @@ li {
 /* 响应式设计：小屏幕设备 */
 @media (max-width: 768px) {
     .header {
-        height: 150px;
+        height: 135px;
     }
 
     .top {
