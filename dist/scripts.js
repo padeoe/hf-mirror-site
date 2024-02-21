@@ -274,9 +274,23 @@ document.addEventListener('DOMContentLoaded', function () {
     isExpanded = screenWidth >= 768;
 
     async function fetchTrending(type) {
-        const response = await fetch(`https://hf-mirror.com/api/trending?limit=10&type=${type}`);
-        const data = await response.json();
-        updateTrendingItems(data.recentlyTrending.slice(0, 10));
+        let data = localStorage.getItem(`rankingList_${type}`);
+        let expiry = localStorage.getItem(`expiry_ranking`);
+        const now = new Date().getTime();
+
+        if (!data || !expiry || now >= expiry) {
+            const response = await fetch(`https://hf-mirror.com/api/trending?limit=10&type=${type}`);
+            data = await response.json();
+            expiry = new Date().getTime() + 3600 * 1000;
+            localStorage.setItem(`rankingList_${type}`, JSON.stringify(data));
+            localStorage.setItem(`expiry_ranking`, expiry);
+        }
+        else {
+            data = JSON.parse(data);
+        }
+        const filteredData = data.recentlyTrending.filter(item => item.repoType !== 'space');
+        lastScrollPosition = 0;
+        updateTrendingItems(filteredData.slice(0, 10));
     }
 
     function updateTrendingItems(items) {
@@ -294,7 +308,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function createTrendingItemElement(item, index) {
         const element = document.createElement('div');
         element.className = 'trending-item';
-        console.log(`index:${index}, maxItemsToShow: ${maxItemsToShow}, isExpanded:${isExpanded}`);
         if (index >= maxItemsToShow && !isExpanded) element.classList.add('hidden-item');
         element.innerHTML = getTrendingItemHTML(item, index);
         return element;
@@ -351,22 +364,28 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
     }
 
+    let lastScrollPosition = 0;
     function updateToggleButton() {
         const toggleButton = document.getElementById('toggleButton');
+        if (!isExpanded) {
+            window.scrollTo({ top: lastScrollPosition, behavior: 'auto' });
+        }
         toggleButton.classList.toggle('hidden', isExpanded);
-        toggleButton.innerText = isExpanded ? '折叠' : '展开全部';
+        toggleButton.innerText = isExpanded ? '收起': '展开全部';
+        if (isExpanded) {
+            lastScrollPosition = window.scrollY;
+        }
     }
 
     document.getElementById('toggleButton').addEventListener('click', toggleVisibility);
     document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', handleTabClick));
 
+
     fetchTrending('all');
     setActiveTab();
 
     function toggleVisibility() {
-        console.log(`点击时isExpanded原本的值是${isExpanded}`);
         isExpanded = !isExpanded;
-        console.log(`点击后isExpanded的值是${isExpanded}`);
         document.querySelectorAll('.trending-item').forEach((item, index) => {
             if (index >= maxItemsToShow) item.classList.toggle('hidden-item', !isExpanded);
         });
@@ -378,15 +397,24 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
         const type = this.getAttribute('data-type');
+        // 使用sessionStorage保存当前激活的tab的data-type
+        sessionStorage.setItem('activeTabType', type);
         fetchTrending(type);
     }
 
     function setActiveTab() {
-        const firstTab = document.querySelector('.tab');
-        if (firstTab) {
-            firstTab.classList.add('active');
-            const type = firstTab.getAttribute('data-type');
-            fetchTrending(type);
+        // 从sessionStorage中获取保存的tab的data-type
+        const savedTabType = sessionStorage.getItem('activeTabType');
+        const tabs = document.querySelectorAll('.tab');
+        if (savedTabType) {
+            tabs.forEach(tab => {
+                if (tab.getAttribute('data-type') === savedTabType) {
+                    tab.classList.add('active');
+                }
+            });
+        } else if (tabs.length > 0) {
+            // 如果没有保存的tab，激活第一个tab
+            tabs[0].classList.add('active');
         }
     }
 
@@ -394,7 +422,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function adjustDisplayBasedOnWidth() {
-    console.log("开始调整");
     const screenWidth = window.innerWidth;
 
     if (screenWidth > 768) {
@@ -403,8 +430,6 @@ function adjustDisplayBasedOnWidth() {
     else {
         maxItemsToShow = 3;
     }
-    console.log(`调整 isExpanded：${isExpanded}, maxItemsToShow: ${maxItemsToShow}`);
-
 
     const items = document.querySelectorAll('.trending-item');
     items.forEach((item, index) => {
@@ -414,5 +439,9 @@ function adjustDisplayBasedOnWidth() {
             item.classList.add('hidden-item');
         }
     });
-    toggleButton.innerText = isExpanded ? '折叠' : '展开全部';
+    toggleButton.innerText = isExpanded ? '收起' : '展开全部';
 }
+
+// window.addEventListener('beforeunload', function () {
+//     localStorage.setItem('expiry_ranking', new Date().getTime());
+// });
