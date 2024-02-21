@@ -442,6 +442,6 @@ function adjustDisplayBasedOnWidth() {
     toggleButton.innerText = isExpanded ? '收起' : '展开全部';
 }
 
-// window.addEventListener('beforeunload', function () {
-//     localStorage.setItem('expiry_ranking', new Date().getTime());
-// });
+window.addEventListener('beforeunload', function () {
+    localStorage.setItem('expiry_ranking', new Date().getTime());
+});
