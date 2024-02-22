@@ -280,16 +280,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     async function fetchTrending(type) {
-        let data = localStorage.getItem(`rankingList_${type}`);
-        let expiry = localStorage.getItem(`expiry_ranking`);
+        let data = sessionStorage.getItem(`rankingList_${type}`);
+        let expiry = sessionStorage.getItem(`expiry_ranking`);
         const now = new Date().getTime();
 
         if (!data || !expiry || now >= expiry) {
             const response = await fetch(`https://hf-mirror.com/api/trending?limit=10&type=${type}`);
             data = await response.json();
-            expiry = new Date().getTime() + 3600 * 1000;
-            localStorage.setItem(`rankingList_${type}`, JSON.stringify(data));
-            localStorage.setItem(`expiry_ranking`, expiry);
+            expiry = new Date().getTime() + 1 * 60 * 1000;
+            sessionStorage.setItem(`rankingList_${type}`, JSON.stringify(data));
+            sessionStorage.setItem(`expiry_ranking`, expiry);
         }
         else {
             data = JSON.parse(data);
@@ -303,6 +303,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const container = document.getElementById('trendingItems');
         container.innerHTML = '';
 
+        console.log("重新计算最大数量");
+        maxItemsToShow = screenWidth > 650 ? 10: 3;
         items.forEach((item, index) => {
             const element = createTrendingItemElement(item, index);
             container.appendChild(element);
@@ -314,8 +316,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function createTrendingItemElement(item, index) {
         const element = document.createElement('div');
         element.className = 'trending-item';
-        if (!isExpanded) {
-        }
         if (index >= maxItemsToShow && !isExpanded) {
             element.classList.add('hidden-item');
         }
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const repoId = item.repoData.id;
         const repoLink = item.repoType === 'model' ? repoId : `/${item.repoType}s/${repoId}`;
         const pipeline_tag = item.repoData.pipeline_tag;
-        const pipelineTagHTML = pipeline_tag ? `<div class="pipeline-tag">${pipeline_tag}</div>` : '';
+        const pipelineTagHTML = pipeline_tag ? `<a class="pipeline-tag" href="/models?pipeline_tag=${pipeline_tag}">${pipeline_tag}</a>` : '';
         const downloadCountHTML = item.repoData.downloads ? `<span class="count">${abbreviateNumber(item.repoData.downloads)}</span>` : `<span class="count">-</span>`;
         let logoHTML;
         switch (item.repoType) {
@@ -344,11 +344,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('BUG');
         }
         return `
-            <a class= "repo-link" href="${repoLink}" target="_blank">
+            <div class="repo-content">
                 <div class="item-rank">#${index + 1}</div>
                 ${logoHTML}
                 <div class="item-info">
-                    <div class="model-name">${repoId}</div>
+                    <a class= "repo-link" href="${repoLink}">
+                        <div class="model-name">${repoId}</div>
+                    </a>
                     <div class="stats-line">
                         ${pipelineTagHTML}
                         <div class="other-stats">
@@ -368,15 +370,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     </div>
                 </div>
-            </a>
+            <div>
         `;
     }
 
     let lastScrollPosition = 0;
     function updateToggleButton() {
         const toggleButton = document.getElementById('toggleButton');
-        if (!isExpanded) {
-            console.log("开始滚动");
+        if (!isExpanded && lastScrollPosition) {
             window.scrollTo({ top: lastScrollPosition, behavior: 'smooth' });
         }
         toggleButton.classList.toggle('hidden', isExpanded);
@@ -440,13 +441,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function adjustDisplayBasedOnWidth() {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth > 650) {
-        maxItemsToShow = 10;
-    }
-    else {
-        maxItemsToShow = 3;
-    }
-
+    maxItemsToShow = screenWidth > 650 ? 10: 3;
     const items = document.querySelectorAll('.trending-item');
     items.forEach((item, index) => {
         if (index < maxItemsToShow || isExpanded) {
@@ -459,5 +454,5 @@ function adjustDisplayBasedOnWidth() {
 }
 
 window.addEventListener('beforeunload', function () {
-    localStorage.setItem('expiry_ranking', new Date().getTime());
+    sessionStorage.setItem('expiry_ranking', new Date().getTime());
 });

@@ -1,5 +1,5 @@
 html {
-    -webkit-text-size-adjust: 100%; /* 防止iOS Safari横屏时改变文字大小 */
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -83,23 +83,19 @@ body {
     flex: 1;
     padding: 10px;
     padding-left: 40px;
-    /* 为图标留出空间 */
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s, background-color 0.3s;
     position: relative;
-    /* 输入框也设为相对定位，以防需要 */
 }
 
 .search-svg {
     position: absolute;
     left: 10px;
-    /* 根据需要调整 */
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    /* 确保图标在输入框上方 */
 }
 
 .search-input:hover,
@@ -306,7 +302,6 @@ li {
     position: absolute;
     bottom: 100%;
     left: 50%;
-    /* 可能需要调整这个值来使二维码框居中 */
     transform: translateX(-50%);
     /* 这会使得二维码框居中 */
     border: 1px solid #ccc;
@@ -436,12 +431,12 @@ li {
 
 .rankings-header::before {
     margin-right: 0px;
-    background: linear-gradient(to right, rgba(255,255,255,0), rgb(231, 228, 228));
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(231, 228, 228));
 }
 
 .rankings-header::after {
-    margin-left:0px;
-    background: linear-gradient(to left, rgba(255,255,255,0), rgb(231, 228, 228));
+    margin-left: 0px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(231, 228, 228));
 }
 
 .tutorial-header::before,
@@ -454,36 +449,28 @@ li {
 
 .tutorial-header::before {
     margin-right: 0px;
-    background: linear-gradient(to right, rgba(255,255,255,0), rgb(231, 228, 228));
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(231, 228, 228));
 }
 
 .tutorial-header::after {
-    margin-left:0px;
-    background: linear-gradient(to left, rgba(255,255,255,0), rgb(231, 228, 228));
+    margin-left: 0px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(231, 228, 228));
 }
 
-.rankings-header h2, .tutorial-header h2 {
+.rankings-header h2,
+.tutorial-header h2 {
     margin: 0 20px;
-    /* 根据需要调整间距 */
     display: inline-block;
 }
 
 /* 分类标题样式 */
 .category h3 {
     font-size: 1.2em;
-    /* 增加标题字体大小 */
     color: #004d99;
-    /* 增加字体大小 */
     font-weight: bold;
-    /* 选择更鲜明的颜色 */
     text-align: center;
-    /* 标题居中对齐 */
     margin-top: 20px;
-    /* 在标题上方增加一些间隔 */
     margin-bottom: 10px;
-    /* 在标题下方增加一些间隔 */
-
-
 }
 
 /* 分类容器样式 */
@@ -491,10 +478,9 @@ li {
 
     display: flex;
     justify-content: space-between;
-    /* 更均匀的间距 */
     flex-wrap: wrap;
     max-width: 1200px;
-    /* 设置最大宽度，可根据需求调整 */
+    /* 设置最大宽度 */
     border: 0 solid transparent;
 }
 
@@ -502,15 +488,10 @@ li {
 .category {
     flex-basis: 45%;
     background-color: #fcfcfc;
-    /* 轻微背景色 */
     border-radius: 10px;
-    /* 圆角边框 */
     padding-bottom: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* 添加轻微阴影 */
     margin: 10px;
-
-
 }
 
 .category ul {
@@ -521,29 +502,19 @@ li {
 
 .category ul li {
     background-color: #f9f9f9;
-    /* 轻微的背景色 */
     border-bottom: 1px solid #e0e0e0;
-    /* 添加分隔线 */
     padding: 10px 15px;
-    /* 调整内边距 */
     transition: background-color 0.3s;
-    /* 平滑背景色过渡效果 */
     font-size: 1.1em;
-    /* 增加字体大小 */
     color: #333;
-    /* 字体颜色 */
 
     display: flex;
-    /* 应用 Flexbox 布局 */
     justify-content: flex-start;
-    /* 元素之间平均分配空间 */
     align-items: center;
-    /* 垂直居中对齐 */
 }
 
 .category ul li:hover {
     background-color: #e6f2ff;
-    /* 悬停时改变背景色 */
 }
 
 .more {
@@ -557,42 +528,29 @@ li {
 .more:hover,
 .more:focus {
     color: #6c757d;
-    /* 悬停时添加文字阴影 */
     text-decoration: none;
-    /* 确保悬停时不会出现下划线 */
 }
 
 .model-id {
     font-size: 16px;
-    /* 调整为你想要的大小 */
     font-weight: bold;
-    /* 加粗字体 */
 }
 
 .model-info {
     font-size: 12px;
-    /* 较小的字体大小 */
     display: flex;
-    /* 使用 Flexbox 布局 */
     margin-left: auto;
-    /* 自动外边距将推动它到右边 */
     justify-content: flex-start;
-    /* 子元素向左对齐 */
     align-items: center;
-    /* 垂直居中，如有需要 */
 }
 
 .model-info img {
     width: 20px;
-    /* 图片大小，根据需要调整 */
     height: 20px;
-    /* 图片大小，根据需要调整 */
     margin-right: 5px;
-    /* 添加一些右边距 */
     margin-left: 10px;
 }
 
-/* 对正文和小标题使用标准字体粗细 */
 .instructions,
 .contact {
     font-family: Arial, sans-serif;
@@ -621,9 +579,7 @@ li {
 
 .tab.active {
     color: #fff;
-    /* 点击状态的文字颜色为白色 */
     background-color: #004d99;
-    /* 点击状态的背景颜色为深蓝色 */
 }
 
 .tab:hover {
@@ -654,7 +610,7 @@ li {
     box-shadow: 0 4px 6px #f1f1f1, 0 4px 6px #f1f1f1;
 }
 
-.repo-link {
+.repo-content {
     display: flex;
     align-items: center;
     width: 80%;
@@ -662,18 +618,23 @@ li {
     justify-content: center;
 }
 
-.repo-link:hover {
+.repo-content:hover {
     text-decoration: none;
 }
+
 .repo-link:hover .model-name {
     color: #057cf3;
 }
 
+.repo-link {
+    height: 100%;
+}
+
 .button-link-container {
     display: flex;
-    justify-content: center; /* 开始时将内容居中 */
-    position: relative; /* 相对定位，以便于更多链接的绝对定位 */
-    width: 100%; /* 或者根据需要指定宽度 */
+    justify-content: center;
+    position: relative;
+    width: 100%;
     align-items: center;
     height: 30px;
 }
@@ -694,12 +655,9 @@ li {
 .more-items {
     position: absolute;
     right: 15px;
-    color: #989898;
-    text-decoration: underline;
-}
-
-.more-items:hover {
     color: #057cf3;
+    text-decoration: underline;
+    font-size: 14px;
 }
 
 .hidden-item {
@@ -714,7 +672,7 @@ li {
     font-size: 24px;
     font-weight: 400;
     margin-left: 5px;
-    margin-right: 10px;
+    margin-right: 20px;
     color: #888888b0;
     /* Light gray for visual emphasis */
     font-family: 'Montserrat', sans-serif;
@@ -728,6 +686,7 @@ li {
     max-height: 50px;
     border-radius: 50%;
     margin-right: 10px;
+    color: #007BFF;
 }
 
 .item-info {
@@ -735,7 +694,6 @@ li {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    /* Ensure it fills the parent's height */
     width: 100%;
 }
 
@@ -744,7 +702,6 @@ li {
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: bold;
-    /* Make the font bold */
 }
 
 .model-name {
@@ -756,43 +713,42 @@ li {
 
 .pipeline-tag {
     font-size: 14px;
-    /* 调整为适合的大小 */
     color: #989898;
-    /* 或选择其他颜色 */
-    padding: 6px 0;
-    padding-top: 8px;
-    padding-bottom: 5px;
-    padding-left: 0px;
+    padding: 2px 5px;
+    line-height: 20px;
+    margin-top: 5px;
+    margin-bottom: 3px;
     text-align: left;
+    text-decoration: none;
+    border: 1px solid #e5e7eb;
+    background-image: none;
+    border-radius: 8px;
+
 }
 
+.pipeline-tag:hover {
+    text-decoration: none;
+    color: #057cf3;
+}
 
 .stats-line {
     display: flex;
     flex-direction: column;
-    /* 子元素垂直排列 */
     align-items: flex-start;
-    /* 子元素从左侧开始对齐 */
     width: 100%;
     color: #989898;
     font-size: 14px;
 }
 
-.pipeline-tag,
 .other-stats {
     width: 100%;
-    /* 确保每个元素都可以独占一行 */
 }
 
 .other-stats {
     display: flex;
-    /* 使内部的统计信息水平排列 */
     justify-content: space-between;
-    /* 统计详情和图标在两侧 */
     align-items: center;
-    /* 在这一行内垂直居中对齐 */
     width: 100%;
-    /* 使用全宽 */
 }
 
 .stats-icons {
@@ -811,18 +767,19 @@ li {
     margin-left: 10px;
     justify-content: flex-end;
 }
+
 .downloads {
     margin-left: 0px;
 }
 
 .svg-placeholder {
     margin-right: 5px;
-    /* Space between icon and number */
 }
 
 .stats-detail {
     /* flex: 1; */
     text-align: left;
+    margin-left: 5px;
 }
 
 @media (min-width: 900px) and (max-width: 1200px) {
@@ -832,7 +789,7 @@ li {
         height: 105px;
     }
 
-    .repo-link {
+    .repo-content {
         width: 90%;
         height: 75%;
     }
@@ -842,14 +799,19 @@ li {
     .trending-items {
         gap: 16px;
     }
+
     .trending-item {
         margin-bottom: 14px;
         height: 120px;
     }
 
-    .repo-link {
+    .repo-content {
         width: 90%;
-        height: 80%; 
+        height: 80%;
+    }
+
+    .item-rank {
+        margin-right: 15px;
     }
 }
 
@@ -865,9 +827,13 @@ li {
         height: 110px;
     }
 
-    .repo-link {
+    .repo-content {
         width: 92%;
         height: 85%;
+    }
+
+    .item-rank {
+        margin-right: 15px;
     }
 
     .toggle-button {
@@ -941,8 +907,8 @@ li {
     }
 
     .pipeline-tag {
-        padding-top: 6px;
-        padding-bottom: 4px;
+        margin-top: 3px;
+        padding: 2px 5px;
     }
 
     .search-input {
