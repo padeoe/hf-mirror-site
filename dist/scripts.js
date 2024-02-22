@@ -90,7 +90,7 @@ searchInput.addEventListener('focus', function () {
 searchInput.addEventListener('blur', function () {
     setTimeout(function () {
         searchResults.style.display = 'none';
-    }, 200000);
+    }, 2000);
 });
 
 function openLink(url) {
