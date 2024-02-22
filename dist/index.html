@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hf-mirror.com - Huggingface 镜像站</title>
+    <title>HF-Mirror - Huggingface 镜像站</title>
+    <meta name="description" content="加速访问Hugging Face的门户。作为一个公益项目，我们致力于提供稳定、快速的镜像服务，帮助国内用户无障碍访问Hugging Face的资源。" />
+    <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+        rel="stylesheet">
 
 </head>
 
 <body>
-    <div class="header">
+    <header>
         <div class="top">
             <h1><a href="/" class="header-link">🤗 Huggingface 镜像站</a></h1>
             <div class="search-box" style="position:relative;">
@@ -24,9 +27,9 @@
                 <div class="search-results" id="searchResults" style="display:none;"></div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="container">
+    <main class="container">
         <section class="rankings">
             <div class="rankings-header">
                 <h2>
@@ -39,7 +42,7 @@
                 <div class="tab" data-type="model">模型</div>
                 <div class="tab" data-type="dataset">数据集</div>
                 <!-- <div class="tab" data-type="space">空间</div> -->
-                
+
             </div>
             <div id="trendingItems" class="trending-items"></div>
             <div class="button-link-container">
@@ -59,12 +62,12 @@
                 <p>本站域名
                     <a href="https://hf-mirror.com" target="_blank"><strong>hf-mirror.com</strong></a>，用于镜像
                     <a href="https://huggingface.co" target="_blank">huggingface.co</a> 域名。<br><br>更多详细用法请看<b><a
-                        href="https://zhuanlan.zhihu.com/p/663712983">这篇教程</a></b>。简介：
+                            href="https://zhuanlan.zhihu.com/p/663712983">这篇教程</a></b>。简介：
                 </p>
 
                 <p><b>方法一</b>：使用huggingface 官方提供的 <a
-                            href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><code>huggingface-cli</code>
-                            </a>命令行工具。<br><br>
+                        href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><code>huggingface-cli</code>
+                    </a>命令行工具。<br><br>
                     (1) 安装依赖
                 <pre
                     class="code-sample"><code>pip install -U huggingface_hub</code><button onclick="copyCode(this)">Copy</button></pre>
@@ -87,15 +90,15 @@
                 <p><b>方法三</b>：(非侵入式，能解决大部分情况)huggingface 提供的包会获取系统变量，所以可以使用通过设置变量来解决。
                 <pre
                     class="code-sample"><code>HF_ENDPOINT=https://hf-mirror.com python your_script.py</code><button onclick="copyCode(this)">Copy</button></pre>
-                <br/>
+                <br />
                 不过有些数据集有内置的下载脚本，那就需要手动改一下脚本内的地址来实现了
                 </p>
 
             </div>
         </section>
 
-    </div>
-    <div class="contact">
+    </main>
+    <footer class="contact">
         <div class="contact-left">
             <div class="donate">
                 <span class="donate-icon">❤️</span>
@@ -111,7 +114,7 @@
                 <span class="groups-icon">💬</span>
                 <a href="javascript:void(0);">微信交流群</a>
                 <div class="groups_qrcode">
-                    <img src="https://padeoe.com/wp-content/uploads/2023/11/图片_20231107095902.jpg" alt="捐赠二维码">
+                    <img src="https://padeoe.com/wp-content/uploads/2023/11/图片_20231107095902.jpg" alt="微信群二维码">
                 </div>
             </div>
         </div>
@@ -127,7 +130,7 @@
             </a>
 
         </div>
-    </div>
+    </footer>
 
     <script src="scripts.js"></script>
 
