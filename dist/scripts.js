@@ -32,7 +32,7 @@ const searchInput = document.getElementById('searchKeyword');
 const searchResults = document.getElementById('searchResults');
 let abortController; // variable to hold the abort controller
 
-searchInput.addEventListener('input', function () {
+function search(){
     selectedIndex = -1;
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async function () {
@@ -52,7 +52,7 @@ searchInput.addEventListener('input', function () {
                 let resultsHtml = '';
                 ['models', 'datasets'].forEach(type => {
                     if (data[type]) {
-                        resultsHtml += `<div class=zsearch-result-type"><strong>${type}</strong></div>`;
+                        resultsHtml += `<div class="search-result-type"><strong>${type}</strong></div>`;
                         data[type].forEach(item => {
                             resultsHtml += `<div class="search-result-item" onclick="openLink('/${type === 'models' ? '' : type + '/'}${item.id}')">${item.id}</div>`;
                         });
@@ -74,18 +74,23 @@ searchInput.addEventListener('input', function () {
             searchResults.style.display = 'none';
         }
     }, 300);
+}
+searchInput.addEventListener('input', function () {
+    search();
 });
+
 
 searchInput.addEventListener('focus', function () {
     if (searchInput.value.trim()) {
-        searchResults.style.display = 'block';
+        search();
+        // searchResults.style.display = 'block';
     }
 });
 
 searchInput.addEventListener('blur', function () {
     setTimeout(function () {
         searchResults.style.display = 'none';
-    }, 3000);
+    }, 200000);
 });
 
 function openLink(url) {
