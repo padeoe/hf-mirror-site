@@ -10,19 +10,23 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            /* background-color: #f4f4f4; */
+            background-image: linear-gradient(to right, #ffffff, #eceff5ad, #ffffff);
+
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
+
         }
 
         .content {
-            background-color: #fff;
+            background-color: #ffffffc9;
             border: 1px solid #e1e1e1;
-            border-radius: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-top: 20px;
             text-align: center;
@@ -37,11 +41,11 @@
             text-decoration: underline;
         }
 
-        .back-button {
+        .back-button, .apply-button {
             display: inline-block;
             font-size: 16px;
             color: #fff;
-            background-color: #007bff;
+            background-color: #004d99;
             border: none;
             border-radius: 5px;
             padding: 10px 20px;
@@ -49,16 +53,21 @@
             cursor: pointer;
             text-align: center;
         }
+
+        .apply-button {
+            background-color: #28a745; /* Green */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="content">
-            <p>如需登录下载Gated Model，请在 huggingface 官方模型页面申请通过后并在 <a
-                    href="https://huggingface.co/settings/tokens">huggingface官方页面这里</a>获取 <i>access token</i>
-                后，在本站用命令行下载。使用方法见本站首页说明。</p>
+            <p>如需登录下载 Gated Model，请先点击下方按钮前往 huggingface 官方申请入口。<br> <br> 申请通过后在 <a
+                    href="https://huggingface.co/settings/tokens">官方页面这里</a> 获取 <i>access token</i>
+                ，再使用命令行下载。<br> <br> <br> access token 使用方法见本站首页说明。</p>
             <button class="back-button" onclick="goBack()">返回上一页</button>
+            <button class="apply-button" id="applyButton" onclick="redirectToOfficialApplicationPage()">前往官方入口</button>
         </div>
         <script async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4098528738253489"
@@ -75,6 +84,29 @@
         function goBack() {
             window.history.back();
         }
+
+        function redirectToOfficialApplicationPage() {
+            const params = new URLSearchParams(window.location.search);
+            const nextPage = params.get('next');
+            if (nextPage) {
+                const officialPageUrl = `https://huggingface.co${nextPage}`;
+                window.location.href = officialPageUrl;
+            } else {
+                const officialPageUrl = `https://huggingface.co/login`;
+                window.location.href = officialPageUrl;
+            }
+        }
+
+        // Dynamically update the button text based on the 'next' URL parameter
+        window.onload = () => {
+            const params = new URLSearchParams(window.location.search);
+            const nextPage = params.get('next');
+            if (nextPage) {
+                const projectPathSegments = nextPage.split('/');
+                const projectName = projectPathSegments.length > 2 ? projectPathSegments[1] + '/' + projectPathSegments[2] : '项目';
+                document.getElementById('applyButton').textContent = `前往官方 ${projectName} 申请入口`;
+            }
+        };
     </script>
 </body>
 
