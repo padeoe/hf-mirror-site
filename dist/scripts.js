@@ -303,7 +303,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const container = document.getElementById('trendingItems');
         container.innerHTML = '';
 
-        console.log("重新计算最大数量");
         maxItemsToShow = screenWidth > 650 ? 10: 3;
         items.forEach((item, index) => {
             const element = createTrendingItemElement(item, index);
@@ -377,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let lastScrollPosition = 0;
     function updateToggleButton() {
         const toggleButton = document.getElementById('toggleButton');
-        if (!isExpanded && lastScrollPosition) {
+        if (!isExpanded) {
             window.scrollTo({ top: lastScrollPosition, behavior: 'smooth' });
         }
         toggleButton.classList.toggle('hidden', isExpanded);
