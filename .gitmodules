@@ -1,0 +1,3 @@
+[submodule "dist/hfd"]
+	path = dist/hfd
+	url = git@gist.github.com:697678ab8e528b85a2a7bddafea1fa4f.git
