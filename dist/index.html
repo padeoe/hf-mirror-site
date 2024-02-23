@@ -72,32 +72,43 @@
                 <h3>方法二：huggingface-cli</h3>
                 <p><a href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><code>huggingface-cli</code>
                     </a>是 Hugging Face 官方提供的命令行工具，自带完善的下载功能。</p>
-                <b> 安装依赖</b><br>
+                <b>1. 安装依赖</b><br>
                 <pre
                     class="code-sample"><code>pip install -U huggingface_hub</code><button onclick="copyCode(this)">Copy</button></pre>
-                <b>设置环境变量:</b>
+                <b>2. 设置环境变量</b>
+                <br><i>Linux</i>
                 <pre
                     class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
+                <i>Windows Powershell</i>
+                <pre
+                class="code-sample"><code>$env:HF_ENDPOINT = "https://hf-mirror.com"</code><button onclick="copyCode(this)">Copy</button></pre>
                 建议将上面这一行写入 <code>~/.bashrc</code>。
-                <br><b>下载模型</b>
+                <br><b>3.1 下载模型</b>
                 <pre
                     class="code-sample"><code>huggingface-cli download --resume-download gpt2 --local-dir gpt2</code><button onclick="copyCode(this)">Copy</button></pre>
-                <b>下载数据集</b>
+                <b>3.2 下载数据集</b>
                 <pre
                     class="code-sample"><code>huggingface-cli download --repo-type dataset --resume-download wikitext --local-dir wikitext</code><button onclick="copyCode(this)">Copy</button></pre>
                 可以添加 <code>--local-dir-use-symlinks False</code> 参数禁用文件软链接，这样下载路径下所见即所得，详细解释请见上面提到的教程。
                 <h3>方法三：使用 hfd </h3>
                 <p><b><a href="https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f">hfd</a></b> 是本站开发的
                     huggingface 专用下载工具，基于成熟工具 <code>git+aria2</code>，可以做到稳定下载不断线。</p>
-                <b>下载hfd</b>
+                <b>1. 下载hfd</b>
                 <pre
                     class="code-sample"><code>wget https://hf-mirror.com/hfd/hfd.sh<br>chmod a+x hfd.sh</code><button onclick="copyCode(this)">Copy</button></pre>
-                <b>下载模型</b>
+                <b>2. 设置环境变量</b>
+                <br><i>Linux</i>
+                <pre
+                    class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
+                <i>Windows Powershell</i>
+                <pre
+                class="code-sample"><code>$env:HF_ENDPOINT = "https://hf-mirror.com"</code><button onclick="copyCode(this)">Copy</button></pre>
+                <b>3.1 下载模型</b>
                 <pre
                     class="code-sample"><code>./hfd.sh gpt2 --tool aria2c -x 4</code><button onclick="copyCode(this)">Copy</button></pre>
-                <b>下载数据集</b>
+                <b>3.2 下载数据集</b>
                 <pre
-                    class="code-sample"><code>./hfd.sh gpt2 --repo-type dataset --tool aria2c -x 4</code><button onclick="copyCode(this)">Copy</button></pre>
+                    class="code-sample"><code>./hfd.sh wikitext --repo-type dataset --tool aria2c -x 4</code><button onclick="copyCode(this)">Copy</button></pre>
                 <h3>方法四：使用环境变量（非侵入式）</h3>
                 <p>非侵入式，能解决大部分情况。huggingface 工具链会获取<code>HF_ENDPOINT</code>环境变量来确定下载文件所用的网址，所以可以使用通过设置变量来解决。
                 <pre class="code-sample"><code>HF_ENDPOINT=https://hf-mirror.com python your_script.py</code><button onclick="copyCode(this)">Copy</button>
