@@ -198,15 +198,18 @@ header {
     background-color: #004d99;
     /* Change the background color */
     color: white;
-    padding: 5px 15px;
+    width:55px;
+    height: 32px;
+    padding: 5px 0px;
+    text-align: center;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     flex-shrink: 0;
     position: absolute;
-    right: 0.5em;
-    bottom: 0.5em;
-    top: 0.5em;
+    right: 0.3em;
+    /* bottom: 0.5em; */
+    top: 6px;
 }
 
 .instructions ol li pre {
@@ -808,6 +811,14 @@ blockquote {
 .tutorial h3 {
     text-align: center;
     /* color: #004d99; */
+}
+
+.QA h2 {
+    color: #004d99;
+}
+
+.QA h3 {
+    text-align: left;
 }
 
 @media (min-width: 900px) and (max-width: 1200px) {
