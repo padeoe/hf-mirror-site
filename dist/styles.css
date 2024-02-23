@@ -170,9 +170,10 @@ header {
     font-family: 'Courier New', monospace;
     font-size: 16px;
     line-height: 1.6;
-    margin-bottom: 1.6em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
     max-width: 100%;
-    padding: 0.5em;
+    padding: 0.35em;
     display: flex;
     justify-content: space-between;
     word-wrap: break-word;
@@ -793,6 +794,20 @@ li {
     /* flex: 1; */
     text-align: left;
     margin-left: 5px;
+}
+
+blockquote {
+    color: #535861;
+    border-left: 3px solid #c4c7ce;
+    font-weight: 400;
+    letter-spacing: .01rem;
+    margin: 20px 0;
+    padding-left: 20px
+}
+
+.tutorial h3 {
+    text-align: center;
+    /* color: #004d99; */
 }
 
 @media (min-width: 900px) and (max-width: 1200px) {
