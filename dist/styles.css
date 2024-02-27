@@ -621,7 +621,7 @@ li {
     border-radius: 10px;
     margin-bottom: 16px;
     break-inside: avoid;
-    height: 100px;
+    height: 110px;
     transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out;
     border: 1px solid #f1f1f1;
     box-shadow: 0 4px 6px #f1f1f1, 0 4px 6px #f1f1f1;
@@ -863,11 +863,11 @@ blockquote {
     .trending-item {
         margin-bottom: 14px;
         /* padding: 6px; */
-        height: 110px;
+        height: 120px;
     }
 
     .repo-content {
-        width: 92%;
+        width: 90%;
         height: 85%;
     }
 
@@ -933,7 +933,7 @@ blockquote {
 
     .rankings,
     .tutorial {
-        padding: 5px 20px;
+        padding: 10px 20px;
     }
 
     .rankings-header {
