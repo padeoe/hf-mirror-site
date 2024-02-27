@@ -26,12 +26,10 @@ header {
     padding-bottom: 5px;
 }
 
-.header h1,
 .rankings h2,
 .tutorial h2 {
     font-family: Arial, sans-serif;
     font-weight: 700;
-    /* padding: 0 20px; */
 }
 
 .top {
@@ -48,7 +46,7 @@ header {
     /* 在标题和搜索框之间添加一些间隔 */
     white-space: nowrap;
     /* 防止标题换行 */
-    font-size: 1.5em;
+    font-size: 1em;
     /* 增大字体大小 */
     color: #f2f4f5;
     /* 调整颜色 */
@@ -100,8 +98,14 @@ header {
 
 .search-input:hover,
 .search-input:focus {
-    border-color: #007bff;
+    border-color: #e7a006;
     background-color: #fff;
+    outline: none;
+    text-decoration: none;
+    outline: 2px solid #e7a006;
+}
+.search-input:focus {
+    box-shadow: 0 2px 4px rgba(243, 239, 214, 0.741);
 }
 
 
@@ -166,9 +170,10 @@ header {
     font-family: 'Courier New', monospace;
     font-size: 16px;
     line-height: 1.6;
-    margin-bottom: 1.6em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
     max-width: 100%;
-    padding: 0.5em;
+    padding: 0.35em;
     display: flex;
     justify-content: space-between;
     word-wrap: break-word;
@@ -193,15 +198,18 @@ header {
     background-color: #004d99;
     /* Change the background color */
     color: white;
-    padding: 5px 15px;
+    width:55px;
+    height: 32px;
+    padding: 5px 0px;
+    text-align: center;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     flex-shrink: 0;
     position: absolute;
-    right: 0.5em;
-    bottom: 0.5em;
-    top: 0.5em;
+    right: 0.3em;
+    /* bottom: 0.5em; */
+    top: 6px;
 }
 
 .instructions ol li pre {
@@ -323,6 +331,7 @@ li {
 }
 
 .search-results {
+    width: 100%;
     position: absolute;
     top: 100%;
     left: 0;
@@ -334,25 +343,33 @@ li {
     border-top: none;
     z-index: 10;
     text-align: left;
+    border-radius: 10px;
+    padding-bottom: 30px;
 }
 
 .search-result-type {
+    width: 100%;
     padding-left: 20px;
     padding-top: 10px;
+    box-sizing: border-box;
 }
 
 .search-result-item {
+    width: 100%;
     padding: 10px;
     padding-left: 40px;
     cursor: pointer;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .search-result-item:hover {
-    background-color: #f5f5f5;
+    background-color: #eceff5ad;
 }
 
 .search-result-item.selected {
-    background-color: #e5e5e5;
+    background-color: #eceff5ad;
 }
 
 .rankings {
@@ -604,7 +621,7 @@ li {
     border-radius: 10px;
     margin-bottom: 16px;
     break-inside: avoid;
-    height: 100px;
+    height: 110px;
     transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out;
     border: 1px solid #f1f1f1;
     box-shadow: 0 4px 6px #f1f1f1, 0 4px 6px #f1f1f1;
@@ -782,6 +799,28 @@ li {
     margin-left: 5px;
 }
 
+blockquote {
+    color: #535861;
+    border-left: 3px solid #c4c7ce;
+    font-weight: 400;
+    letter-spacing: .01rem;
+    margin: 20px 0;
+    padding-left: 20px
+}
+
+.tutorial h3 {
+    text-align: center;
+    /* color: #004d99; */
+}
+
+.QA h2 {
+    color: #004d99;
+}
+
+.QA h3 {
+    text-align: left;
+}
+
 @media (min-width: 900px) and (max-width: 1200px) {
 
     .trending-item {
@@ -824,11 +863,11 @@ li {
     .trending-item {
         margin-bottom: 14px;
         /* padding: 6px; */
-        height: 110px;
+        height: 120px;
     }
 
     .repo-content {
-        width: 92%;
+        width: 90%;
         height: 85%;
     }
 
@@ -851,7 +890,7 @@ li {
 
 /* 响应式设计：小屏幕设备 */
 @media (max-width: 768px) {
-    .header {
+    header {
         height: 135px;
     }
 
@@ -874,13 +913,8 @@ li {
     }
 
     .container {
-        margin: 0%;
         padding-left: 0px;
         padding-right: 0px;
-    }
-
-    .header h1 {
-        font-size: 1em;
     }
 
     .categories {
@@ -899,7 +933,7 @@ li {
 
     .rankings,
     .tutorial {
-        padding: 5px 20px;
+        padding: 10px 20px;
     }
 
     .rankings-header {
