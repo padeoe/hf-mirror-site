@@ -108,7 +108,7 @@
                     class="code-sample"><code>./hfd.sh gpt2 --tool aria2c -x 4</code><button onclick="copyCode(this)">Copy</button></pre>
                 <b>3.2 下载数据集</b>
                 <pre
-                    class="code-sample"><code>./hfd.sh wikitext --repo-type dataset --tool aria2c -x 4</code><button onclick="copyCode(this)">Copy</button></pre>
+                    class="code-sample"><code>./hfd.sh wikitext --dataset --tool aria2c -x 4</code><button onclick="copyCode(this)">Copy</button></pre>
                 <h3>方法四：使用环境变量（非侵入式）</h3>
                 <p>非侵入式，能解决大部分情况。huggingface 工具链会获取<code>HF_ENDPOINT</code>环境变量来确定下载文件所用的网址，所以可以使用通过设置变量来解决。
                 <pre class="code-sample"><code>HF_ENDPOINT=https://hf-mirror.com python your_script.py</code><button onclick="copyCode(this)">Copy</button>
