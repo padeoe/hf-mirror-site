@@ -84,7 +84,7 @@ hf-mirror.com {
 	@invalid_referer {
 		path_regexp .*/resolve/main/.*
 		not header !Referer
-		not header_regexp Referer ^https?://(\.*\.)?hf-mirror\.com(/|$)
+		not header_regexp Referer ^https?://(.*\.)?hf-mirror\.com(/|$)
 	}
 	rewrite @invalid_referer /invalid_referer.html
 
