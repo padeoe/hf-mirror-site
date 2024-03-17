@@ -5,11 +5,11 @@
 		dns cloudflare {$CF_TOKEN}
 	}
 }
-*.{$HF_ENDPOINT} {
+*.{$MIRROR_HOST} {
 	import tls_hf_com
-	redir https://{$HF_ENDPOINT}
+	redir https://{$MIRROR_HOST}
 }
-{$HF_ENDPOINT} {
+{$MIRROR_HOST} {
 	import tls_hf_com
 	log hf
 
@@ -44,7 +44,7 @@
 		path / /favicon.ico /logo.svg /invalid_referer.html /login_error.html /stats /stats/* /scripts.js /styles.css /robots.txt /ads.txt /hfd/*
 	}
 	handle @static {
-		root * /var/www/html/{$HF_ENDPOINT}/
+		root * /var/www/html/{$MIRROR_HOST}/
 		file_server
 	}
 	# 更换logo，用于区分原网站
@@ -107,15 +107,15 @@
 	}
 	handle @project_page {
 		replace stream {
-			https://huggingface.co https://{$HF_ENDPOINT}
+			https://huggingface.co https://{$MIRROR_HOST}
 			"Hugging Face" "HF Mirror"
 		}
 		reverse_proxy https://huggingface.co {
 			header_up Accept-Encoding identity
 			header_up Host {upstream_hostport}
-			header_down Location cdn-lfs\.huggingface\.co cdn-lfs.{$HF_ENDPOINT}
-			header_down Location cdn-lfs-us-1\.huggingface\.co cdn-lfs-us-1.{$HF_ENDPOINT}
-			header_down Location huggingface\.co {$HF_ENDPOINT}
+			header_down Location cdn-lfs\.huggingface\.co cdn-lfs.{$MIRROR_HOST}
+			header_down Location cdn-lfs-us-1\.huggingface\.co cdn-lfs-us-1.{$MIRROR_HOST}
+			header_down Location huggingface\.co {$MIRROR_HOST}
 		}
 	}
 
@@ -127,9 +127,9 @@
 		uri path_regexp /ws/datasets--(.+)--(.+)/(.+)$ /datasets/$1/resolve/$2/$3
 		reverse_proxy https://huggingface.co {
 			header_up Host {upstream_hostport}
-			header_down Location cdn-lfs\.huggingface\.co cdn-lfs.{$HF_ENDPOINT}
-			header_down Location cdn-lfs-us-1\.huggingface\.co cdn-lfs-us-1.{$HF_ENDPOINT}
-			header_down Location huggingface\.co {$HF_ENDPOINT}
+			header_down Location cdn-lfs\.huggingface\.co cdn-lfs.{$MIRROR_HOST}
+			header_down Location cdn-lfs-us-1\.huggingface\.co cdn-lfs-us-1.{$MIRROR_HOST}
+			header_down Location huggingface\.co {$MIRROR_HOST}
 		}
 	}
 
@@ -139,9 +139,9 @@
 			# header_up Accept-Encoding identity
 			header_up Host {upstream_hostport}
 			header_up X-Api-Key {$API_KEY}
-			header_down Location cdn-lfs\.huggingface.co cdn-lfs.{$HF_ENDPOINT}
-			header_down Location cdn-lfs-us-1\.huggingface.co cdn-lfs-us-1.{$HF_ENDPOINT}
-			header_down Location huggingface\.co {$HF_ENDPOINT}
+			header_down Location cdn-lfs\.huggingface.co cdn-lfs.{$MIRROR_HOST}
+			header_down Location cdn-lfs-us-1\.huggingface.co cdn-lfs-us-1.{$MIRROR_HOST}
+			header_down Location huggingface\.co {$MIRROR_HOST}
 		}
 	}
 }
