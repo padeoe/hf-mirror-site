@@ -1,34 +1,26 @@
 # TLS证书设置。单独使用本文件需取消注释并正确设置。
 # 以下是基于cloudflare的证书设置：
-# (tls_hf_com) {
-# 	tls {
-# 		dns cloudflare ***
-# 	}
-# }
-*.hf-mirror.com {
-	import tls_hf_com
-	redir https://hf-mirror.com
-}
-hf-mirror.com {
-	import tls_hf_com
-	log {
-		output file /var/log/caddy/hf-mirror.com/access.log {
-			roll_size 100M
-			roll_keep 5
-			roll_keep_for 720h
-		}
+(tls_hf_com) {
+	tls {
+		dns cloudflare {$CF_TOKEN}
 	}
+}
+*.{$HF_ENDPOINT} {
+	import tls_hf_com
+	redir https://{$HF_ENDPOINT}
+}
+{$HF_ENDPOINT} {
+	import tls_hf_com
+	log hf
 
-	# 封禁一些不讲武德（不尊重robots.txt）的爬虫
-        @badbots {
+	@badbots {
 		expression header({'User-Agent': '*SemrushBot*', 'User-Agent': '*MJ12bot*'})
 	}
 
-        handle @badbots {
-                respond 403
-        }
+	handle @badbots {
+		respond 403
+	}
 
-	# 前端路径进行压缩、文件代理、缓存
 	@asset-paths {
 		expression path('/api/event', '/front/*', '/avatars/*') || path_regexp('\\.(js|css|png|jpe?g|gif|ico|woff|otf|ttf|eot|svg|txt|pdf|docx?|xlsx?)$')
 	}
@@ -48,16 +40,13 @@ hf-mirror.com {
 		}
 	}
 	header /* Server hf-mirror
-
-	# 网站首页等静态文件
 	@static {
-		path / /favicon.ico /logo.svg /invalid_referer.html /login_error.html path /stats /stats/* /scripts.js /styles.css /robots.txt /ads.txt
+		path / /favicon.ico /logo.svg /invalid_referer.html /login_error.html /stats /stats/* /scripts.js /styles.css /robots.txt /ads.txt /hfd/*
 	}
 	handle @static {
-		root * /var/www/html/hf-mirror.com/
+		root * /var/www/html/{$HF_ENDPOINT}/
 		file_server
 	}
-
 	# 更换logo，用于区分原网站
 	rewrite /front/assets/huggingface_logo-noborder.svg /logo.svg
 	# 网站主页等页面不缓存
@@ -74,6 +63,7 @@ hf-mirror.com {
 		respond 204
 		skip_log
 	}
+
 	# 模型链接避免缓存
 	@model_path {
 		path_regexp .*/resolve/main/.*
@@ -84,7 +74,7 @@ hf-mirror.com {
 	@invalid_referer {
 		path_regexp .*/resolve/main/.*
 		not header !Referer
-		not header_regexp Referer ^https?://(.*\.)?hf-mirror\.com(/|$)
+		not header_regexp Referer ^https?://(\.*\.)?hf-mirror\.com(/|$)
 	}
 	rewrite @invalid_referer /invalid_referer.html
 
@@ -102,28 +92,56 @@ hf-mirror.com {
 	}
 	rewrite @auth /login_error.html
 
-	@project_page {
-		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$') || path_regexp('.*/tree/main/?$') || path_regexp('.*/discussions/?$')
-	}
-	handle @project_page {
+	# 替换静态资源中的网站名称
+	handle /front/build/kube-*/index.js {
 		replace stream {
-			https://huggingface.co https://hf-mirror.com
+			"Hugging Face" "HF Mirror"
 		}
 		reverse_proxy https://huggingface.co {
 			header_up Accept-Encoding identity
 			header_up Host {upstream_hostport}
-			header_up -Referer
-			header_down Location cdn-lfs.huggingface.co cdn-lfs.hf-mirror.com
-			header_down Location cdn-lfs-us-1.huggingface.co cdn-lfs-us-1.hf-mirror.com
 		}
 	}
-	handle /* {
-		skip_log
+	@project_page {
+		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$') || path_regexp('^/spaces/[^/]+/[^/]+/?$') || path_regexp('.*/tree/main/?$')
+	}
+	handle @project_page {
+		replace stream {
+			https://huggingface.co https://{$HF_ENDPOINT}
+			"Hugging Face" "HF Mirror"
+		}
+		reverse_proxy https://huggingface.co {
+			header_up Accept-Encoding identity
+			header_up Host {upstream_hostport}
+			header_down Location cdn-lfs\.huggingface\.co cdn-lfs.{$HF_ENDPOINT}
+			header_down Location cdn-lfs-us-1\.huggingface\.co cdn-lfs-us-1.{$HF_ENDPOINT}
+			header_down Location huggingface\.co {$HF_ENDPOINT}
+		}
+	}
+
+	# 给 https://github.com/Lyken17/hf-torrent 项目提供 webseed 支持
+	handle /ws/* {
+		uri path_regexp /ws/models--([^-]+)--(.+)--([^-]+)/(.+)$ /$1/$2/resolve/$3/$4
+		uri path_regexp /ws/models--(.+)--(.+)/(.+)$ /$1/resolve/$2/$3
+		uri path_regexp /ws/datasets--([^-]+)--(.+)--([^-]+)/(.+)$ /datasets/$1/$2/resolve/$3/$4
+		uri path_regexp /ws/datasets--(.+)--(.+)/(.+)$ /datasets/$1/resolve/$2/$3
 		reverse_proxy https://huggingface.co {
 			header_up Host {upstream_hostport}
-			header_up -Referer
-			header_down Location cdn-lfs.huggingface.co cdn-lfs.hf-mirror.com
-			header_down Location cdn-lfs-us-1.huggingface.co cdn-lfs-us-1.hf-mirror.com
+			header_down Location cdn-lfs\.huggingface\.co cdn-lfs.{$HF_ENDPOINT}
+			header_down Location cdn-lfs-us-1\.huggingface\.co cdn-lfs-us-1.{$HF_ENDPOINT}
+			header_down Location huggingface\.co {$HF_ENDPOINT}
+		}
+	}
+
+	handle /* {
+		# skip_log
+		reverse_proxy https://huggingface.co {
+			# header_up Accept-Encoding identity
+			header_up Host {upstream_hostport}
+			header_up X-Api-Key {$API_KEY}
+			header_down Location cdn-lfs\.huggingface.co cdn-lfs.{$HF_ENDPOINT}
+			header_down Location cdn-lfs-us-1\.huggingface.co cdn-lfs-us-1.{$HF_ENDPOINT}
+			header_down Location huggingface\.co {$HF_ENDPOINT}
 		}
 	}
 }

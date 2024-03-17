@@ -1,4 +1,29 @@
 {
-        order replace after encode
+	# debug
+	order replace after encode
+	# 设置日志格式，info使用common log格式，error使用json格式
+	log hf_access {
+		include http.log.access.hf
+		format transform `{request>headers>X-Forwarded-For>[0]:request>remote_ip} - {request>user_id} [{ts}] "{request>method} {request>uri} {request>proto}" {status} {size} "{request>headers>Referer>[0]}" "{request>headers>User-Agent>[0]}"` {
+			time_format wall
+		}
+		output file /var/log/caddy/hf-mirror.com/access.log {
+			roll_size 100M
+			roll_keep 5
+			roll_keep_for 720h
+		}
+	}
+	log hf_error {
+		include http.log.access.hf
+		output file /var/log/caddy/hf-mirror.com/error.log {
+			roll_size 200M
+			roll_keep 5
+			roll_keep_for 720h
+		}
+		level ERROR
+	}
 }
+
+# Refer to the Caddy docs for more information:
+# https://caddyserver.com/docs/caddyfile
 import *.Caddyfile
