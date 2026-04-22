@@ -96,6 +96,7 @@
 	handle /front/build/kube-*/index.js {
 		replace stream {
 			"Hugging Face" "HF Mirror"
+			https://huggingface.co https://{$MIRROR_HOST}
 		}
 		reverse_proxy https://huggingface.co {
 			header_up Accept-Encoding identity
@@ -103,7 +104,7 @@
 		}
 	}
 	@project_page {
-		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$') || path_regexp('^/spaces/[^/]+/[^/]+/?$') || path_regexp('.*/tree/main/?$')
+		expression path_regexp('^/[^/]+/[^/]+/?$') || path_regexp('^/datasets/[^/]+/[^/]+/?$') || path_regexp('^/spaces/[^/]+/[^/]+/?$') || path_regexp('.*/tree/main/?$') || path_regexp('.*/blob/.*')
 	}
 	handle @project_page {
 		replace stream {
