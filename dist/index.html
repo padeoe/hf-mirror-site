@@ -69,27 +69,28 @@
 
                 <h3>方法一：网页下载</h3>
                 <p>在本站搜索，并在模型主页的<code>Files and Version</code>中下载文件。</p>
-                <h3>方法二：huggingface-cli</h3>
-                <p><a href="https://hf-mirror.com/docs/huggingface_hub/guides/download#download-from-the-cli"><code>huggingface-cli</code>
-                    </a>是 Hugging Face 官方提供的命令行工具，自带完善的下载功能。</p>
-                <b>1. 安装依赖</b><br>
+                <h3>方法二：hf</h3>
+                <p><a href="https://huggingface.co/docs/huggingface_hub/guides/cli"><code>hf</code>
+                    </a>是 Hugging Face 官方提供的命令行工具，随 <code>huggingface_hub</code> Python 包一起安装，可用于下载模型和数据集。</p>
+                <b>1. 安装或更新 hf CLI</b><br>
                 <pre
-                    class="code-sample"><code>pip install -U huggingface_hub</code><button onclick="copyCode(this)">Copy</button></pre>
+                    class="code-sample"><code>python -m pip install -U huggingface_hub</code><button onclick="copyCode(this)">Copy</button></pre>
+                安装后运行 <code>hf --help</code>，确认命令可用。
                 <b>2. 设置环境变量</b>
-                <br><i>Linux</i>
+                <br><i>Linux / macOS</i>
                 <pre
                     class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
-                <i>Windows Powershell</i>
+                <i>Windows PowerShell</i>
                 <pre
                 class="code-sample"><code>$env:HF_ENDPOINT = "https://hf-mirror.com"</code><button onclick="copyCode(this)">Copy</button></pre>
-                建议将上面这一行写入 <code>~/.bashrc</code>。
+                如需长期生效，可将 <code>export HF_ENDPOINT=https://hf-mirror.com</code> 写入 Bash 的 <code>~/.bashrc</code> 或 Zsh 的 <code>~/.zshrc</code>。
                 <br><b>3.1 下载模型</b>
                 <pre
-                    class="code-sample"><code>huggingface-cli download --resume-download gpt2 --local-dir gpt2</code><button onclick="copyCode(this)">Copy</button></pre>
+                    class="code-sample"><code>hf download gpt2 --local-dir gpt2</code><button onclick="copyCode(this)">Copy</button></pre>
                 <b>3.2 下载数据集</b>
                 <pre
-                    class="code-sample"><code>huggingface-cli download --repo-type dataset --resume-download wikitext --local-dir wikitext</code><button onclick="copyCode(this)">Copy</button></pre>
-                可以添加 <code>--local-dir-use-symlinks False</code> 参数禁用文件软链接，这样下载路径下所见即所得，详细解释请见上面提到的教程。
+                    class="code-sample"><code>hf download --repo-type dataset wikitext --local-dir wikitext</code><button onclick="copyCode(this)">Copy</button></pre>
+                <code>--local-dir</code> 指定文件保存目录；其中的 <code>.cache/huggingface/</code> 保存下载元数据。再次执行相同命令时，会复用已下载且未变更的文件。
                 <h3>方法三：使用 hfd </h3>
                 <p><b><a href="https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f">hfd</a></b> 是本站开发的
                     huggingface 专用下载工具，基于成熟工具 <code>git+aria2</code>，可以做到稳定下载不断线。</p>
@@ -97,10 +98,10 @@
                 <pre
                     class="code-sample"><code>wget https://hf-mirror.com/hfd/hfd.sh<br>chmod a+x hfd.sh</code><button onclick="copyCode(this)">Copy</button></pre>
                 <b>2. 设置环境变量</b>
-                <br><i>Linux</i>
+                <br><i>Linux / macOS</i>
                 <pre
                     class="code-sample"><code>export HF_ENDPOINT=https://hf-mirror.com</code><button onclick="copyCode(this)">Copy</button></pre>
-                <i>Windows Powershell</i>
+                <i>Windows PowerShell</i>
                 <pre
                 class="code-sample"><code>$env:HF_ENDPOINT = "https://hf-mirror.com"</code><button onclick="copyCode(this)">Copy</button></pre>
                 <b>3.1 下载模型</b>
@@ -123,9 +124,9 @@
                             href="https://huggingface.co/settings/tokens">官网这里获取 Access Token</a> 后回镜像站用命令行下载。<br>部分工具下载
                         Gated Repo 的方法：
                     </p>
-                    <b>huggingface-cli： 添加<code>--token</code>参数</b>
+                    <b>hf： 添加<code>--token</code>参数</b>
                     <pre class="code-sample">
-                            <code>huggingface-cli download --token hf_*** --resume-download meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf</code><button onclick="copyCode(this)">Copy</button>
+                            <code>hf download --token hf_*** meta-llama/Llama-2-7b-hf --local-dir Llama-2-7b-hf</code><button onclick="copyCode(this)">Copy</button>
                         </pre>
                     <b>hfd： 添加<code>--hf_username</code><code>--hf_token</code>参数</b>
                     <pre class="code-sample">
