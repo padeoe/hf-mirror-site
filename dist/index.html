@@ -86,11 +86,12 @@
                 如需长期生效，可将 <code>export HF_ENDPOINT=https://hf-mirror.com</code> 写入 Bash 的 <code>~/.bashrc</code> 或 Zsh 的 <code>~/.zshrc</code>。
                 <br><b>3.1 下载模型</b>
                 <pre
-                    class="code-sample"><code>hf download gpt2 --local-dir gpt2</code><button onclick="copyCode(this)">Copy</button></pre>
+                    class="code-sample"><code>hf download openai-community/gpt2 --local-dir gpt2</code><button onclick="copyCode(this)">Copy</button></pre>
                 <b>3.2 下载数据集</b>
                 <pre
-                    class="code-sample"><code>hf download --repo-type dataset wikitext --local-dir wikitext</code><button onclick="copyCode(this)">Copy</button></pre>
+                    class="code-sample"><code>hf download --repo-type dataset Salesforce/wikitext --local-dir wikitext</code><button onclick="copyCode(this)">Copy</button></pre>
                 <code>--local-dir</code> 指定文件保存目录；其中的 <code>.cache/huggingface/</code> 保存下载元数据。再次执行相同命令时，会复用已下载且未变更的文件。
+                <p>建议使用包含组织名或用户名的完整仓库名。若下载时报 <code>xet-read-token</code> 404，可保留已有下载目录，在 Linux / macOS 的下载命令前加 <code>HF_HUB_DISABLE_XET=1</code>，改用普通 HTTP 下载；Windows PowerShell 请先执行 <code>$env:HF_HUB_DISABLE_XET = "1"</code>。</p>
                 <h3>方法三：使用 hfd </h3>
                 <p><b><a href="https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f">hfd</a></b> 是本站开发的
                     huggingface 专用下载工具，基于成熟工具 <code>git+aria2</code>，可以做到稳定下载不断线。</p>
